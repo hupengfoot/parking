@@ -1,0 +1,9 @@
+tbUserInfo 不分表
+tbAnnounceInfo 不分表
+tbCommunityInfo 不分表
+tbPendingInfo 按小区ID分表
+tbUserPendingInfo 按用户ID分表
+tbOrderInfo 按小区ID分表
+tbUserOrderInfo 按用户ID分表
+tbGoodsInfo 不分表
+tbUserExchangeInfo 不分表
