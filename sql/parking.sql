@@ -21,12 +21,14 @@ create table IF NOT EXISTS tbUserInfo(
 
 create table IF NOT EXISTS tbParkingSpaceInfo(
     iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
+    iUserID bigint unsigned not null comment '用户ID',
     szParkingNum varchar(1024) default '' comment '用户车位号',
     iParkingType int unsigned not null default 0 comment '车位类型 0地面，1车架',
     iParkingNature int unsigned not null default 0 comment '0自有，1自用',
     iHasApprove int unsigned not null default 0 comment '0未认证，1已认证',
     tTime datetime not null default '1970-01-01 08:00:00' comment '认证时间',
-    primary key (`iSpaceID`)
+    primary key (`iSpaceID`),
+    index(iUserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='车位认证表';
 
 create table IF NOT EXISTS tbAnnounceInfo(
@@ -88,6 +90,7 @@ create table IF NOT EXISTS tbOrderInfo(
     iPrice int unsigned not null default 0 comment '本单价格',
     iPay int unsigned not null default 0 comment '0 未付款，1 已付款',
     iStatus int unsigned not null default 0 comment '0 未停车，1 已停车，2 好评，3 中评，4 差评',
+    szLiensePlate varchar(1024) default '' comment '用户车牌号',
     primary key (`iOrderID`),
     index(iCommunityID),
     index(tStart)
@@ -104,6 +107,7 @@ create table IF NOT EXISTS tbUserOrderInfo(
     iPrice int unsigned not null default 0 comment '本单价格',
     iPay int unsigned not null default 0 comment '0 未付款，1 已付款',
     iStatus int unsigned not null default 0 comment '0 未停车，1 已停车，2 好评，3 中评，4 差评',
+    szLiensePlate varchar(1024) default '' comment '用户车牌号',
     primary key (`iOrderID`)
     index(iUserID),
     index(tStart)
