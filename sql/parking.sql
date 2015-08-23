@@ -143,6 +143,7 @@ create table IF NOT EXISTS tbMessageBox(
     iUserID bigint unsigned not null comment '用户ID',
     iType int unsigned not null default 0 comment '消息类型',
     dtPublishTime datetime not null default '1970-01-01 08:00:00' comment '消息发布时间',
-    primary key (`iMessageID`, `iUserID`)
+    primary key (`iMessageID`, `iUserID`),
+    index(iUserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户消息盒子表';
 
