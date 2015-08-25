@@ -2,8 +2,8 @@
 
 create table IF NOT EXISTS tbUserInfo(
     iUserID bigint unsigned not null auto_increment comment '用户ID',
-    szUserName varchar(1024) default '' comment '注册用户名',
     iPhoneNum bigint unsigned not null default 0 comment '用户手机号码',
+    szUserName varchar(1024) default '' comment '注册用户名',
     szRealName varchar(128) default '' comment '用户真实姓名',
     szMail varchar(512) default '' comment '用户邮箱',
     szLiensePlate varchar(1024) default '' comment '用户车牌号，可填写多个，最多5个，用|分隔',
@@ -14,10 +14,17 @@ create table IF NOT EXISTS tbUserInfo(
     iCredit bigint unsigned not null default 0 comment '信用积分',
     iRoleType int unsigned not null default 0 comment '0 普通用户，1 小区管理员，2 后台管理员',
     szBackCard varchar(128)  not null default '' comment '出租用户绑定银行卡信息',
+    iHasComplete int unsigned not null default '' comment '是否已完善资料',
     primary key (`iUserID`),
     unique key (`iPhoneNum`),
     index(iPhoneNum)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户信息表';
+
+create table IF NOT EXISTS tbUserPasswd(
+    iUserID bigint unsigned not null auto_increment comment '用户ID',
+    szPasswd char(128) default '' comment '用户密码',
+    primary key (`iUserID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户密码表';
 
 create table IF NOT EXISTS tbParkingSpaceInfo(
     iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
@@ -26,6 +33,7 @@ create table IF NOT EXISTS tbParkingSpaceInfo(
     iParkingType int unsigned not null default 0 comment '车位类型 0地面，1车架',
     iParkingNature int unsigned not null default 0 comment '0自有，1自用',
     iHasApprove int unsigned not null default 0 comment '0未认证，1已认证',
+    iDelete int unsigned not null default 0 comment '0 未删除，1 已删除',
     tTime datetime not null default '1970-01-01 08:00:00' comment '认证时间',
     primary key (`iSpaceID`),
     index(iUserID)
