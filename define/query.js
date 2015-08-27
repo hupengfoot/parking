@@ -17,9 +17,17 @@
  * comment  接口说明
  */
 
+/*
+ * 返回值格式定义
+ * {"errCode":0,"msg":"success","result":{}}
+ * errCode返回码
+ * msg 返回提示
+ * result 返回内容Json格式编码
+ */
+
 module.exports.global_query_define = [
 {
-    router : '/user/register',
+    router : '/user/user/register',
     query : ['iPhoneNum', 'szPasswd', 'szCode'],
     queryType : ['num', 'string', 'string'],
     access : 0,
@@ -27,7 +35,7 @@ module.exports.global_query_define = [
     comment : '用户注册接口'
 },
 {
-    router : '/user/updateinfo',
+    router : '/user/user/updateinfo',
     query : ['iPhoneNum', 'szUserName', 'szRealName', 'szMail', 'szLiensePlate', 'szAddress', 'szModels', 'szBackCard'],
     queryType :['num', 'string', 'string', 'string', 'string', 'string', 'string', 'string'], 
     access : 0,
@@ -51,7 +59,7 @@ module.exports.global_query_define = [
     comment : '通用登录接口'
 },
 {
-    router : '/user/addspace',
+    router : '/user/space/addspace',
     query : ['iUserID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
     queryType : ['num', 'string', 'num', 'num'],
     access : 1,
@@ -59,7 +67,7 @@ module.exports.global_query_define = [
     comment : '添加用户车位'
 },
 {
-    router : '/user/deletespace',
+    router : '/user/space/deletespace',
     query : ['iSpaceID'],
     queryType : ['num'],
     access : 1,
@@ -67,7 +75,7 @@ module.exports.global_query_define = [
     comment : '删除用户车位' 
 },
 {
-    router : '/user/updatespace',
+    router : '/user/space/updatespace',
     query : ['iSpaceID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
     queryType : ['num', 'string', 'num', 'num'],
     access : 1,
@@ -75,7 +83,7 @@ module.exports.global_query_define = [
     comment : '更新车位信息'
 },
 {
-    router : '/user/queryspace',
+    router : '/user/space/queryspace',
     query : ['iUserID'],
     queryType : ['num'],
     access : 1,
@@ -109,5 +117,61 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '查看站内信'
+},
+{
+    router : '/master/msg/publish',
+    query : ['iType', 'szContent', 'szTitle'],
+    queryType : ['num', 'string', 'string'],
+    access : 3,
+    limit : 500,
+    comment : '站内信发送接口'
+},
+{
+    router : '/announce/query',
+    query : ['iAnnounceID', 'iNum'],
+    queryType : ['num', 'num'],
+    access : 1,
+    limit : 500,
+    comment : '查询公告接口'
+},
+{
+    router : '/master/announce/publish',
+    query : ['szDetailUrl'],
+    queryType : ['string'],
+    access : 3,
+    limit : 500,
+    comment : '发布公告接口'
+},
+{
+    router : '/user/pending/querymine',
+    query : ['iUserID', 'iPendingID', 'iNum'],
+    queryType : ['num', 'num', 'num'],
+    access : 1,
+    limit : 500,
+    comment : '查询我的挂单接口'
+},
+{
+    router : '/user/pending/publish',
+    query : ['iCommunityID', 'iUserID', 'iSpaceID', 'tStart', 'tEnd', 'iMiniRental', 'iChargesType'],
+    queryType : ['num', 'num', 'num', 'date', 'date', 'num', 'num'],
+    access : 1,
+    limit : 500,
+    comment : '发布我的挂单接口'
+},
+{
+    router : '/user/order/book',
+    query : ['iPendingID', 'iUserID', 'tStart', 'tEnd', 'szLiensePlate'],
+    queryType : ['num', 'num', 'date', 'date', 'string'],
+    access : 1,
+    limit : 500,
+    comment : '抢单接口'
+},
+{
+    router : '/user/pending/search',
+    query : ['iCommunityID', 'tStart', 'tEnd'],
+    queryType : ['num', 'date', 'date'],
+    access : 1,
+    limit : 500,
+    comment : '查询挂单接口'
 }
 ]; 
