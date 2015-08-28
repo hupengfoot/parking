@@ -43,6 +43,22 @@ module.exports.global_query_define = [
     comment : '用户完善资料接口'
 },
 {
+    router : '/user/user/updateliense',
+    query : ['iUserID', 'szLiensePlate'],
+    queryType : ['num', 'string'],
+    access : 1,
+    limit : 500,
+    comment : '更新用户车牌号接口'
+},
+{
+    router : '/user/user/modifypsw',
+    query : ['iUserID', 'szPasswd'],
+    queryType : ['num', 'string'],
+    access : 1,
+    limit ： 500,
+    comment : '修改密码接口'
+},
+{
     router : '/common/sms/register',
     query : ['iPhoneNum'],
     queryType : ['num'],
@@ -167,11 +183,102 @@ module.exports.global_query_define = [
     comment : '抢单接口'
 },
 {
+    router : '/user/order/querymine',
+    query : ['iUserID', 'tStart', 'tEnd'],
+    queryType : ['num', 'date', 'date'],
+    access : 1,
+    limit : 500,
+    comment : '查询我的订单接口'
+},
+{
     router : '/user/pending/search',
     query : ['iCommunityID', 'tStart', 'tEnd'],
     queryType : ['num', 'date', 'date'],
     access : 1,
     limit : 500,
     comment : '查询挂单接口'
+},
+{
+    router : '/user/order/pay',
+    query : ['iOrderID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '支付订单接口'
+},
+{
+    router : '/community/get',
+    query : ['iCommunityID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '获取小区详情接口'
+},
+{
+    router : '/user/exchange/exchange',
+    query : ['iGoodsID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '兑换接口'
+},
+{
+    router : '/user/exchange/query',
+    query : ['iUserID', 'iExchangeID', 'iNum'],
+    queryType : ['num', 'num', 'num'],
+    access : 1,
+    limit: 500,
+    comment : '查询兑换记录接口'
+},
+{
+    router : '/user/goods/query',
+    query : ['iGoodsID', 'iNum'],
+    queryType : ['num', 'num'],
+    access : 1,
+    limit : 500,
+    comment : '查询商品列表'
+},
+{
+    router : '/user/goods/getdetail',
+    query : ['iGoodsID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '查询商品详情'
+},
+{
+    router : '/master/pending/list',
+    query : ['iCommunityID', 'iPendingID', 'iNum'],
+    queryType : ['num', 'num', 'num'],
+    access : 1,
+    limit : 500,
+    comment : '管理员查询挂单接口'
+},
+{
+    router : '/master/pending/opt',
+    query : ['iPendingID', 'iStatus'],
+    //iStatus 0 打开订单，3关闭订单
+    queryType : ['num', 'num'],
+    access : 1,
+    limit : 500,
+    comment : '管理员打开关闭订单接口'
+},
+{
+    router : '/upload/uploadpic',
+    query : [],
+    queryType : [],
+    post : true,
+    access : 1,
+    limit : 500,
+    comment : '上传图片接口'
+},
+{
+    router : '/master/goods/publish',
+    query : ['szDesc'],
+    queryType : ['string'],
+    post : true,
+    access : 1,
+    limit : 500,
+    comment : '发布商品接口'
 }
 ]; 

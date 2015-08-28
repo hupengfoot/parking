@@ -15,6 +15,8 @@ create table IF NOT EXISTS tbUserInfo(
     iRoleType int unsigned not null default 0 comment '0 普通用户，1 小区管理员，2 后台管理员',
     szBackCard varchar(128)  not null default '' comment '出租用户绑定银行卡信息',
     iHasComplete int unsigned not null default '' comment '是否已完善资料',
+    iRentTime int unsigned not null default 0 comment '出租时数',
+    iOrderTime int unsigned not null default 0 comment '租用时数',
     primary key (`iUserID`),
     unique key (`iPhoneNum`),
     index(iPhoneNum)
@@ -65,7 +67,7 @@ create table IF NOT EXISTS tbPendingInfo(
     iMiniRental int unsigned not null comment '最少租用时间',
     iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '挂单发布时间',
-    iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付',
+    iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付, 3 关闭订单',
     primary key (`iPendingID`),
     index(iCommunityID),
     index(tStart)
@@ -81,7 +83,7 @@ create table IF NOT EXISTS tbUserPendingInfo(
     iMiniRental int unsigned not null comment '最少租用时间',
     iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '挂单发布时间',
-    iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付',
+    iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付 3 关闭订单',
     primary key (`iPendingID`),
     index(iUserID),
     index(tStart)
