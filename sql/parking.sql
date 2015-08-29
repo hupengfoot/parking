@@ -13,7 +13,7 @@ create table IF NOT EXISTS tbUserInfo(
     iScore bigint unsigned not null default 0 comment '用户积分',
     iCredit bigint unsigned not null default 0 comment '信用积分',
     iRoleType int unsigned not null default 0 comment '0 普通用户，1 小区管理员，2 后台管理员',
-    szBackCard varchar(128)  not null default '' comment '出租用户绑定银行卡信息',
+    szBankCard varchar(128)  not null default '' comment '出租用户绑定银行卡信息',
     iHasComplete int unsigned not null default '' comment '是否已完善资料',
     iRentTime int unsigned not null default 0 comment '出租时数',
     iOrderTime int unsigned not null default 0 comment '租用时数',
