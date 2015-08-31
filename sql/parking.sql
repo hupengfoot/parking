@@ -28,6 +28,7 @@ create table IF NOT EXISTS tbUserPasswd(
 create table IF NOT EXISTS tbParkingSpaceInfo(
     iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
     iPhoneNum bigint unsigned not null comment '用户手机号码',
+    iCommunityID bigint unsigned not null comment '小区ID',
     szParkingNum varchar(1024) default '' comment '用户车位号',
     iParkingType int unsigned not null default 0 comment '车位类型 0地面，1车架',
     iParkingNature int unsigned not null default 0 comment '0自有，1自用',
@@ -48,6 +49,7 @@ create table IF NOT EXISTS tbAnnounceInfo(
 
 create table IF NOT EXISTS tbCommunityInfo(
     iCommunityID bigint unsigned not null auto_increment comment '小区ID',
+    iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
     iX bigint unsigned not null default 0 comment '小区纬度坐标',
     iY bigint unsigned not null default 0 comment '小区经度坐标',
     szComminityName varchar(1024) default '' comment '小区名',
@@ -63,7 +65,6 @@ create table IF NOT EXISTS tbPendingInfo(
     tStart datetime not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetime not null default '1970-01-01 08:00:00' comment '结束时间',
     iMiniRental int unsigned not null comment '最少租用时间',
-    iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '挂单发布时间',
     iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付, 3 关闭订单',
     primary key (`iPendingID`),

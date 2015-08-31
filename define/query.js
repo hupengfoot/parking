@@ -38,8 +38,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/updateinfo',
-    query : ['iPhoneNum', 'szUserName', 'szRealName', 'szMail', 'szLiensePlate', 'szAddress', 'szModels', 'szBankCard'],
-    queryType :['num', 'string', 'string', 'string', 'string', 'string', 'string', 'string'], 
+    query : ['szUserName', 'szRealName', 'szMail', 'szLiensePlate', 'szAddress', 'szModels', 'szBankCard'],
+    queryType :['string', 'string', 'string', 'string', 'string', 'string', 'string'], 
     access : 1,
     limit : 500,
     comment : '用户完善资料接口'
@@ -48,8 +48,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/query',
-    query : ['iPhoneNum'],
-    queryType : ['num'],
+    query : [],
+    queryType : [],
     access : 1,
     limit : 500,
     comment : '查询用户详细信息接口'
@@ -58,18 +58,18 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/querylienseplate',
-    query : ['iPhoneNum'],
-    queryType : ['num'],
+    query : [],
+    queryType : [],
     access : 1,
     limit : 500,
     comment : '查询用户车牌号接口'
     //成功 {'errCode':0, 'msg':'success', 'result':[{szLiensePlate:'xxxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
-}
+},
 {
     router : '/user/user/updateliense',
-    query : ['iPhoneNum', 'szLiensePlate'],
-    queryType : ['num', 'string'],
+    query : ['szLiensePlate'],
+    queryType : ['string'],
     access : 1,
     limit : 500,
     comment : '更新用户车牌号接口'
@@ -78,8 +78,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/modifypsw',
-    query : ['iPhoneNum', 'szPasswd', 'szOldPasswd'],
-    queryType : ['num', 'string', 'string'],
+    query : ['szPasswd', 'szOldPasswd'],
+    queryType : ['string', 'string'],
     access : 1,
     limit ： 500,
     comment : '修改密码接口'
@@ -88,8 +88,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/updatepsw',
-    query : ['iPhoneNum', 'szPasswd', 'szCode'],
-    queryType : ['num', 'string', 'string'],
+    query : ['szPasswd', 'szCode'],
+    queryType : ['string', 'string'],
     access : 1,
     limit ： 500,
     comment : '直接修改密码接口'
@@ -118,8 +118,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/logout',
-    query : ['iPhoneNum'],
-    queryType : ['num'],
+    query : [],
+    queryType : [],
     access : 1,
     limit : 500,
     comment : '登出接口'
@@ -128,7 +128,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/addspace',
-    query : ['iPhoneNum', 'szParkingNum', 'iParkingType', 'iParkingNature'],
+    query : ['iCommunityID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
     queryType : ['num', 'string', 'num', 'num'],
     access : 1,
     limit : 500,
@@ -158,12 +158,12 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/queryspace',
-    query : ['iPhoneNum'],
-    queryType : ['num'],
+    query : [],
+    queryType : [],
     access : 1,
     limit : 500,
     comment : '查询用户车位信息'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iSpaceID:'xxx', iPhoneNum:'xxx', szParkingNum:'xxxxx', iParkingType:'xxx', iParkingNature:'xxx', iHasApprove:'xxx', iDelete:'xxx', tTime:'xxx'}]
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iSpaceID:'xxx', iPhoneNum:'xxx', iCommunityID:'xxxx', szParkingNum:'xxxxx', iParkingType:'xxx', iParkingNature:'xxx', iHasApprove:'xxx', iDelete:'xxx', tTime:'xxx'}]
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -243,10 +243,10 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/pending/querymine',
-    query : ['iPhoneNum', 'iPendingID', 'iNum', 'iStatus', 'tStart', 'tEnd'],
+    query : ['iPendingID', 'iNum', 'iStatus', 'tStart', 'tEnd'],
     //iStatus 0 未出租，1 已被抢单未支付，2 已支付 3 关闭订单 -1 全部订单
     //tStart, tEnd表示查询一段时间的挂单
-    queryType : ['num', 'num', 'num', 'num', 'date', 'date'],
+    queryType : ['num', 'num', 'num', 'date', 'date'],
     access : 1,
     limit : 500,
     comment : '查询我的挂单接口'
@@ -255,8 +255,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/pending/publish',
-    query : ['iCommunityID', 'iPhoneNum', 'iSpaceID', 'tStart', 'tEnd', 'iMiniRental', 'iChargesType'],
-    queryType : ['num', 'num', 'num', 'date', 'date', 'num', 'num'],
+    query : ['iSpaceID', 'tStart', 'tEnd', 'iMiniRental'],
+    queryType : ['num', 'date', 'date', 'num'],
     access : 1,
     limit : 500,
     comment : '发布我的挂单接口'
@@ -285,8 +285,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/order/book',
-    query : ['iPendingID', 'iPhoneNum', 'tStart', 'tEnd', 'szLiensePlate'],
-    queryType : ['num', 'num', 'date', 'date', 'string'],
+    query : ['iPendingID', 'tStart', 'tEnd', 'szLiensePlate'],
+    queryType : ['num', 'date', 'date', 'string'],
     access : 1,
     limit : 500,
     comment : '抢单接口'
@@ -296,9 +296,9 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/order/querymine',
-    query : ['iPhoneNum', 'iPendingID', 'iNum', 'tStart', 'tEnd', 'iPay'],
+    query : ['iPendingID', 'iNum', 'tStart', 'tEnd', 'iPay'],
     //iPay 0 未付款，1 已付款 -1 全部
-    queryType : ['num', 'num', 'num', 'date', 'date'],
+    queryType : ['num', 'num', 'date', 'date'],
     access : 1,
     limit : 500,
     comment : '查询我的订单接口'
@@ -332,8 +332,16 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '获取小区详情接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxx', iX:'xxx', iY:'xxx', szComminityName:'xxx', szPicUrl:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxx', iChargesType:'xxx', iX:'xxx', iY:'xxx', szComminityName:'xxx', szPicUrl:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/community/publish',
+    query : ['iChargesType', 'iX', 'iY', 'szComminityName', 'szPicUrl'],
+    queryType : ['num', 'num', 'num', 'string', 'string'],
+    access : 3,
+    limit : 500,
+    comment : '发布小区详情接口'
 },
 {
     router : '/user/community/search',
@@ -357,8 +365,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/exchange/query',
-    query : ['iPhoneNum', 'iExchangeID', 'iNum'],
-    queryType : ['num', 'num', 'num'],
+    query : ['iExchangeID', 'iNum'],
+    queryType : ['num', 'num'],
     access : 1,
     limit: 500,
     comment : '查询兑换记录接口'
