@@ -1,8 +1,7 @@
 #create database parking
 
 create table IF NOT EXISTS tbUserInfo(
-    iUserID bigint unsigned not null auto_increment comment '用户ID',
-    iPhoneNum bigint unsigned not null default 0 comment '用户手机号码',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     szUserName varchar(1024) default '' comment '注册用户名',
     szRealName varchar(128) default '' comment '用户真实姓名',
     szMail varchar(512) default '' comment '用户邮箱',
@@ -17,20 +16,18 @@ create table IF NOT EXISTS tbUserInfo(
     iHasComplete int unsigned not null default '' comment '是否已完善资料',
     iRentTime int unsigned not null default 0 comment '出租时数',
     iOrderTime int unsigned not null default 0 comment '租用时数',
-    primary key (`iUserID`),
-    unique key (`iPhoneNum`),
-    index(iPhoneNum)
+    primary key (`iPhoneNum`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户信息表';
 
 create table IF NOT EXISTS tbUserPasswd(
-    iUserID bigint unsigned not null auto_increment comment '用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     szPasswd char(128) default '' comment '用户密码',
-    primary key (`iUserID`)
+    primary key (`iPhoneNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户密码表';
 
 create table IF NOT EXISTS tbParkingSpaceInfo(
     iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
-    iUserID bigint unsigned not null comment '用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     szParkingNum varchar(1024) default '' comment '用户车位号',
     iParkingType int unsigned not null default 0 comment '车位类型 0地面，1车架',
     iParkingNature int unsigned not null default 0 comment '0自有，1自用',
@@ -38,12 +35,13 @@ create table IF NOT EXISTS tbParkingSpaceInfo(
     iDelete int unsigned not null default 0 comment '0 未删除，1 已删除',
     tTime datetime not null default '1970-01-01 08:00:00' comment '认证时间',
     primary key (`iSpaceID`),
-    index(iUserID)
+    index(iPhoneNum)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='车位认证表';
 
 create table IF NOT EXISTS tbAnnounceInfo(
     iAnnounceID bigint unsigned not null auto_increment comment '公告ID',
     szDetailUrl varchar(1024) default '' comment '公告详情地址',
+    szImgUrl varchar(1024) default '' comment '公告摘要图',
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '公告发布时间',
     primary key (`iAnnounceID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='公告表';
@@ -60,7 +58,7 @@ create table IF NOT EXISTS tbCommunityInfo(
 create table IF NOT EXISTS tbPendingInfo(
     iPendingID bigint unsigned not null comment '挂单号',
     iCommunityID bigint unsigned not null comment '小区ID',
-    iUserID bigint unsigned not null comment '发布人用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
     tStart datetime not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetime not null default '1970-01-01 08:00:00' comment '结束时间',
@@ -76,7 +74,7 @@ create table IF NOT EXISTS tbPendingInfo(
 create table IF NOT EXISTS tbUserPendingInfo(
     iPendingID bigint unsigned not null comment '挂单号',
     iCommunityID bigint unsigned not null comment '小区ID',
-    iUserID bigint unsigned not null comment '发布人用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
     tStart datetime not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetime not null default '1970-01-01 08:00:00' comment '结束时间',
@@ -85,7 +83,7 @@ create table IF NOT EXISTS tbUserPendingInfo(
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '挂单发布时间',
     iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付 3 关闭订单',
     primary key (`iPendingID`),
-    index(iUserID),
+    index(iPhoneNum),
     index(tStart)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户挂单表';
 
@@ -93,7 +91,7 @@ create table IF NOT EXISTS tbOrderInfo(
     iOrderID bigint unsigned not null comment '抢单号',
     iCommunityID bigint unsigned not null comment '小区ID',
     iPendingID bigint unsigned not null comment '挂单号',
-    iUserID bigint unsigned not null comment '抢单人用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     tGrobTime datetme not null default '1970-01-01 08:00:00' comment '抢单时间',
     tStart datetme not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetme not null default '1970-01-01 08:00:00' comment '结束时间',
@@ -110,7 +108,7 @@ create table IF NOT EXISTS tbUserOrderInfo(
     iOrderID bigint unsigned not null comment '抢单号',
     iCommunityID bigint unsigned not null comment '小区ID',
     iPendingID bigint unsigned not null comment '挂单号',
-    iUserID bigint unsigned not null comment '抢单人用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     tGrobTime datetme not null default '1970-01-01 08:00:00' comment '抢单时间',
     tStart datetme not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetme not null default '1970-01-01 08:00:00' comment '结束时间',
@@ -119,13 +117,14 @@ create table IF NOT EXISTS tbUserOrderInfo(
     iStatus int unsigned not null default 0 comment '0 未停车，1 已停车，2 好评，3 中评，4 差评',
     szLiensePlate varchar(1024) default '' comment '用户车牌号',
     primary key (`iOrderID`)
-    index(iUserID),
+    index(iPhoneNum),
     index(tStart)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户抢单表';
 
 create table IF NOT EXISTS tbGoodsInfo(
     iGoodsID bigint unsigned not null auto_increment comment '商品ID',
     szDesc varchar(1024) default '' comment '商品描述',
+    szPicUrl varchar(1024) default '' comment '商品图片可传多个用|分隔',
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '挂单发布时间',
     iPrice int unsigned not null default 0 comment '需要的积分',
     iNum int unsigned not null default 0 comment '数量',
@@ -135,11 +134,11 @@ create table IF NOT EXISTS tbGoodsInfo(
 
 create table IF NOT EXISTS tbUserExchangeInfo(
     iExchangeID bigint unsigned not null comment '兑换ID',
-    iUserID bigint unsigned not null comment '用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     iGoodsID bigint unsigned not null comment '商品ID',
     tTime datetime not null default '1970-01-01 08:00:00' comment '兑换时间',
     primary key (`iExchangeID`),
-    index(iUserID),
+    index(iPhoneNum),
     index(tTime)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户兑换商品表';
 
@@ -154,10 +153,10 @@ create table IF NOT EXISTS tbMessageInfo(
 
 create table IF NOT EXISTS tbMessageBox(
     iMessageID bigint unsigned not null comment '消息ID',
-    iUserID bigint unsigned not null comment '用户ID',
+    iPhoneNum bigint unsigned not null comment '用户手机号码',
     iType int unsigned not null default 0 comment '消息类型',
     dtPublishTime datetime not null default '1970-01-01 08:00:00' comment '消息发布时间',
-    primary key (`iMessageID`, `iUserID`),
-    index(iUserID)
+    primary key (`iMessageID`, `iPhoneNum`),
+    index(iPhoneNum)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户消息盒子表';
 

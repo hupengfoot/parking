@@ -5,7 +5,6 @@
  * 1 需要鉴权，登录后可以访问
  * 2 车库管理员可以访问 
  * 3 后台管理员可以访问
- * -1 这种权限比较特殊，是集合了0和1的类型，如果cookie里面没有skey，就是0,这个时候，query里面的iQQ必须是0
  */
 
 /*
@@ -41,15 +40,35 @@ module.exports.global_query_define = [
     router : '/user/user/updateinfo',
     query : ['iPhoneNum', 'szUserName', 'szRealName', 'szMail', 'szLiensePlate', 'szAddress', 'szModels', 'szBankCard'],
     queryType :['num', 'string', 'string', 'string', 'string', 'string', 'string', 'string'], 
-    access : 0,
+    access : 1,
     limit : 500,
     comment : '用户完善资料接口'
     //成功 {'errCode':0, 'msg':'success'}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/user/user/query',
+    query : ['iPhoneNum'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '查询用户详细信息接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iPhoneNum:'xxx', szUserName:'xxx', szRealName:'xxx', szMail:'xxx', szLiensePlate:'xxx', szAddress:'xxx', szModels:'xxx', tRegisterTime:'xxx', iScore:'xxx', iCredit:'xx', iRoleType:'xxx', szBankCard:'xxx', iHasComplete:'xxx', iRentTime:'xxx', iOrderTime:'xxx'}]}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/user/user/querylienseplate',
+    query : ['iPhoneNum'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '查询用户车牌号接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':[{szLiensePlate:'xxxx'}]}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+}
+{
     router : '/user/user/updateliense',
-    query : ['iUserID', 'szLiensePlate'],
+    query : ['iPhoneNum', 'szLiensePlate'],
     queryType : ['num', 'string'],
     access : 1,
     limit : 500,
@@ -59,11 +78,21 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/modifypsw',
-    query : ['iUserID', 'szPasswd'],
-    queryType : ['num', 'string'],
+    query : ['iPhoneNum', 'szPasswd', 'szOldPasswd'],
+    queryType : ['num', 'string', 'string'],
     access : 1,
     limit ： 500,
     comment : '修改密码接口'
+    //成功 {'errCode':0, 'msg':'success'}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/user/user/updatepsw',
+    query : ['iPhoneNum', 'szPasswd', 'szCode'],
+    queryType : ['num', 'string', 'string'],
+    access : 1,
+    limit ： 500,
+    comment : '直接修改密码接口'
     //成功 {'errCode':0, 'msg':'success'}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
@@ -79,8 +108,8 @@ module.exports.global_query_define = [
 },
 {
     router  : '/login',
-    query   : ['iUserID'],
-    queryType : ['num'],
+    query   : ['iPhoneNum', 'szPasswd'],
+    queryType : ['num', 'string'],
     access  : 0,
     limit   : 500,
     comment : '通用登录接口'
@@ -89,7 +118,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/logout',
-    query : ['iUserID'],
+    query : ['iPhoneNum'],
     queryType : ['num'],
     access : 1,
     limit : 500,
@@ -99,7 +128,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/addspace',
-    query : ['iUserID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
+    query : ['iPhoneNum', 'szParkingNum', 'iParkingType', 'iParkingNature'],
     queryType : ['num', 'string', 'num', 'num'],
     access : 1,
     limit : 500,
@@ -129,16 +158,16 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/queryspace',
-    query : ['iUserID'],
+    query : ['iPhoneNum'],
     queryType : ['num'],
     access : 1,
     limit : 500,
     comment : '查询用户车位信息'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{szParkingNum:'xxxxx', iParkingType:'xxx', iParkingNature:'xxx', iHasApprove:'xxx', iDelete:'xxx', tTime:'xxx'}]
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iSpaceID:'xxx', iPhoneNum:'xxx', szParkingNum:'xxxxx', iParkingType:'xxx', iParkingNature:'xxx', iHasApprove:'xxx', iDelete:'xxx', tTime:'xxx'}]
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
-    router : '/master/user/approve',
+    router : '/master/space/approve',
     query : ['iSpaceID'],
     queryType : ['num'],
     access : 3,
@@ -160,11 +189,12 @@ module.exports.global_query_define = [
 },
 {
     router : '/msg/querymsg',
-    query : ['iMessageID', 'iNum', 'iType'],
+    query : ['iMessageID', 'iNum', 'iType', 'tPublishTime'],
     //iMessageID  上一次拉去的最后一个iMessageID
     //iNum 拉取个数
     //iType 消息类型
-    queryType : ['num', 'num', 'num'],
+    //tPublishTime 指定发布时间
+    queryType : ['num', 'num', 'num', 'date'],
     access : 1,
     limit : 500,
     comment : '查看站内信'
@@ -183,18 +213,18 @@ module.exports.global_query_define = [
 },
 {
     router : '/announce/query',
-    query : ['iAnnounceID', 'iNum'],
-    queryType : ['num', 'num'],
+    query : ['iAnnounceID', 'iNum', 'tPublishTime'],
+    queryType : ['num', 'num', 'date'],
     access : 1,
     limit : 500,
     comment : '查询公告接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{szDetailUrl:'xxxx', tPublishTime:'xxx'}, {szDetailUrl:'xxx', tPublishTime:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iAnnounceID:'xxxx', szDetailUrl:'xxxx', szImgUrl:'xxxxx', tPublishTime:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
     router : '/master/announce/publish',
-    query : ['szDetailUrl'],
-    queryType : ['string'],
+    query : ['szDetailUrl', 'szImgUrl'],
+    queryType : ['string', 'string'],
     access : 3,
     limit : 500,
     comment : '发布公告接口'
@@ -202,18 +232,30 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/user/pending/calprice',
+    query : ['iChargesType', 'tStart', 'tEnd'],
+    queryType : ['num', 'date', 'date'],
+    access : 1,
+    limit : 500,
+    comment : '价格计算接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':{iPrice:'xxx'}}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
     router : '/user/pending/querymine',
-    query : ['iUserID', 'iPendingID', 'iNum'],
-    queryType : ['num', 'num', 'num'],
+    query : ['iPhoneNum', 'iPendingID', 'iNum', 'iStatus', 'tStart', 'tEnd'],
+    //iStatus 0 未出租，1 已被抢单未支付，2 已支付 3 关闭订单 -1 全部订单
+    //tStart, tEnd表示查询一段时间的挂单
+    queryType : ['num', 'num', 'num', 'num', 'date', 'date'],
     access : 1,
     limit : 500,
     comment : '查询我的挂单接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xx', iUserID:'xxx', iSpaceID:'xxx', tStart:'xxx', tEnd:'xxxx', iMiniRental:'xxx', iChargesType:'xxxx', tPublishTime:'xxx', iStatus:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xx', iPhoneNum:'xxx', iSpaceID:'xxx', tStart:'xxx', tEnd:'xxxx', iMiniRental:'xxx', iChargesType:'xxxx', tPublishTime:'xxx', iStatus:'xxx', szCharges:'xxxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
     router : '/user/pending/publish',
-    query : ['iCommunityID', 'iUserID', 'iSpaceID', 'tStart', 'tEnd', 'iMiniRental', 'iChargesType'],
+    query : ['iCommunityID', 'iPhoneNum', 'iSpaceID', 'tStart', 'tEnd', 'iMiniRental', 'iChargesType'],
     queryType : ['num', 'num', 'num', 'date', 'date', 'num', 'num'],
     access : 1,
     limit : 500,
@@ -222,34 +264,45 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/user/pending/query',
+    query : ['iCommunityID', 'iPendingID', 'iNum', 'tStart', 'tEnd'],
+    queryType : ['num', 'num', 'num', 'date', 'date'],
+    access : 1,
+    limit : 500,
+    comment : '查询挂单接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxxx', iPhoneNum:'xxx', iSpaceID:'xxxx', tStart:'xxxx', tEnd:'xxxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx', szCharges:'xxx'}]}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/user/pending/detail',
+    query : ['iPendingID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '查询挂单详情接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxxx', iPhoneNum:'xxx', iSpaceID:'xxxx', tStart:'xxxx', tEnd:'xxxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx', szCharges:'xxx'}]}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
     router : '/user/order/book',
-    query : ['iPendingID', 'iUserID', 'tStart', 'tEnd', 'szLiensePlate'],
+    query : ['iPendingID', 'iPhoneNum', 'tStart', 'tEnd', 'szLiensePlate'],
     queryType : ['num', 'num', 'date', 'date', 'string'],
     access : 1,
     limit : 500,
     comment : '抢单接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':{iOrderID:'xxxx'}}
+    //成功 {'errCode':0, 'msg':'success', 'result':{iOrderID:'xxxx', iPrice:'xxx'}}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
     //失败 {'errCode':-4, 'msg':'该挂单已被抢走'}
 },
 {
     router : '/user/order/querymine',
-    query : ['iUserID', 'tStart', 'tEnd'],
-    queryType : ['num', 'date', 'date'],
+    query : ['iPhoneNum', 'iPendingID', 'iNum', 'tStart', 'tEnd', 'iPay'],
+    //iPay 0 未付款，1 已付款 -1 全部
+    queryType : ['num', 'num', 'num', 'date', 'date'],
     access : 1,
     limit : 500,
     comment : '查询我的订单接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iOrderID:'xxx', iCommunityID:'xxx', iPendingID:'xxx', iUserID:'xxx', tGrobTime:'xxxx', tStart:'xxx', tEnd:'xxx', iPrice:'xxx', iPay:'xxx', iStatus:'xxxx', szLiensePlate:'xxxx'}]}
-    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
-},
-{
-    router : '/user/pending/search',
-    query : ['iCommunityID', 'tStart', 'tEnd'],
-    queryType : ['num', 'date', 'date'],
-    access : 1,
-    limit : 500,
-    comment : '查询挂单接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxxx', iUserID:'xxx', iSpaceID:'xxxx', tStart:'xxxx', tEnd:'xxxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iOrderID:'xxx', iCommunityID:'xxx', iPendingID:'xxx', iPhoneNum:'xxx', tGrobTime:'xxxx', tStart:'xxx', tEnd:'xxx', iPrice:'xxx', iPay:'xxx', iStatus:'xxxx', szLiensePlate:'xxxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -259,7 +312,17 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '支付订单接口'
-    //成功 {'errCode':0, 'msg':'success'}
+    //成功 {'errCode':0, 'msg':'success', 'result':{iPrice:'xxx'}}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/user/order/detail',
+    query : ['iOrderID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '查询订单详情接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':{iOrderID:'xxx', iCommunityID:'xxx', iPendingID:'xxx', iPhoneNum:'xxx', tGrobTime:'xxx', tStart:'xxx', tEnd:'xxx', iPrice:'xxx', iPay:'xxx', iStatus:'xxx', szLiensePlate:'xxx'}}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -273,23 +336,33 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/user/community/search',
+    query : ['szName'],
+    queryType : ['string'],
+    access : 1,
+    limit : 500,
+    comment : '搜索小区接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szComminityName:'xxxx'}]}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
     router : '/user/exchange/exchange',
     query : ['iGoodsID'],
     queryType : ['num'],
     access : 1,
     limit : 500,
     comment : '兑换接口'
-    //成功 {'errCode':0, 'msg':'success'}
+    //成功 {'errCode':0, 'msg':'success', 'result':{iScore:'xxxx'}}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
     router : '/user/exchange/query',
-    query : ['iUserID', 'iExchangeID', 'iNum'],
+    query : ['iPhoneNum', 'iExchangeID', 'iNum'],
     queryType : ['num', 'num', 'num'],
     access : 1,
     limit: 500,
     comment : '查询兑换记录接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iExchangeID:'xxx', iUserID:'xxx', iGoodsID:'xxx', tTime:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iExchangeID:'xxx', iPhoneNum:'xxx', iGoodsID:'xxx', tTime:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -299,7 +372,7 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '查询商品列表'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iGoodsID:'xxx', szDesc:'xxx', tPublishTime:'xxx', iPrice:'xxx', iNum:'xxx', iSendNum:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iGoodsID:'xxx', szDesc:'xxx', szPicUrl:'xxx', tPublishTime:'xxx', iPrice:'xxx', iNum:'xxx', iSendNum:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -309,17 +382,17 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '查询商品详情'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iGoodsID:'xxx', szDesc:'xxx', tPublishTime:'xxx', iPrice:'xxx', iNum:'xxx', iSendNum:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iGoodsID:'xxx', szDesc:'xxx', szPicUrl:'xxx', tPublishTime:'xxx', iPrice:'xxx', iNum:'xxx', iSendNum:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
     router : '/master/pending/list',
-    query : ['iCommunityID', 'iPendingID', 'iNum'],
-    queryType : ['num', 'num', 'num'],
+    query : ['iCommunityID', 'iPendingID', 'iNum', 'tStart', 'tEnd'],
+    queryType : ['num', 'num', 'num', 'date', 'date'],
     access : 1,
     limit : 500,
     comment : '管理员查询挂单接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxx', iUserID:'xxx', iSpaceID:'xxx', tStart:'xxx', tEnd:'xxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxx', iPhoneNum:'xxx', iSpaceID:'xxx', tStart:'xxx', tEnd:'xxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -346,8 +419,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/master/goods/publish',
-    query : ['szDesc'],
-    queryType : ['string'],
+    query : ['szDesc', 'szPicUrl'],
+    queryType : ['string', 'string'],
     post : true,
     access : 1,
     limit : 500,
