@@ -1,0 +1,11 @@
+{
+    "apps":[{
+        "name":"www0",
+        "args":["7776"],
+        "script"      : "bin/www",
+        "max_restarts": 3,
+        "max_memory_restart" : "300",
+        "out_file"    : "./logs/www.log",
+        "error_file"  : "./logs/www.error"
+    }]
+}
