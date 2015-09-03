@@ -7,8 +7,7 @@ var sqlPool = require(path.join(global.rootPath, 'dbaccess/dbparking'));
 var userBiz = {};
 
 userBiz.register = function(params, cb){
-    var szSql = 'select *from tbUserInfo_0';
-    sqlPool.excute(szSql, cb);
+    sqlPool.excute(1, [], cb);
 };
 
 userBiz.myInfo = function(params, cb){

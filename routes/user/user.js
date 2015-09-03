@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var util = require('util');
+var url = require('url');
 
 var userBiz = require(path.join(global.rootPath,'interfaceBiz/userBiz'));
 
