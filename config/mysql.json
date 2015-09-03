@@ -1,0 +1,7 @@
+{
+    "szDbIP":"127.0.0.1",
+    "szDbPort":"3306",
+    "szDbUser":"root",
+    "szDbPwd":"",
+    "szDbDefaultDb":"test"
+}

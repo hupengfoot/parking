@@ -1,0 +1,9 @@
+[{
+    "iRedisName":1,
+    "szRedisIP":"127.0.0.1",
+    "szRedisPort":6379,
+    "szPwd":"",
+    "szSlaveIP":"10.206.37.14",
+    "szSlavePort":6479,
+    "szSlavePwd":"HelloKitty@Tencent"
+}]
