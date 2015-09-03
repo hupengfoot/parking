@@ -9,6 +9,7 @@ create table IF NOT EXISTS tbUserInfo(
     szAddress varchar(1024) default '' comment '用户住址',
     szModels varchar(1024) default '' comment '用户车型',
     tRegisterTime datetime not null default '1970-01-01 08:00:00' comment '用户注册时间',
+    tLastLoginTime datetime not null default '1970-01-01 08:00:00' comment '用户最后登录时间',
     iScore bigint unsigned not null default 0 comment '用户积分',
     iCredit bigint unsigned not null default 0 comment '信用积分',
     iRoleType int unsigned not null default 0 comment '0 普通用户，1 小区管理员，2 后台管理员',

@@ -5,8 +5,9 @@ var util = require('util');
 
 var userBiz = require(path.join(global.rootPath,'interfaceBiz/userBiz'));
 
-router.get('/register', function(req, res){
-    var param = {};
+router.post('/register', function(req, res){
+    var param = url.parse(req.url, true).query;
+    console.error(param);
     userBiz.register(param, function(err, rows, fields){
 	console.error(rows);
 	res.jsonp('hello kitty!\n');

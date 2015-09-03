@@ -39,6 +39,7 @@ _.commonInit = function(app){
     app.set('jsonp callback name', "callback");
     aMids.push({f:null, r:null, a:accessLog});
     aMids.push({f:null, r:null, a:accessLogger});
+    aMids.push({f:'routes/common/post_data', r:null});
 };
 
 _.userInit = function(app){
@@ -50,6 +51,7 @@ var initRoutes = function(app){
     console.time('all');
     _.commonInit(app);
     _.userInit(app);
+    aMids.push({f:'routes/login', r:'/login'});
     console.time('async');
     var iMax = 0;
     var szMax = '';

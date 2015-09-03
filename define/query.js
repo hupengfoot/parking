@@ -113,11 +113,11 @@ module.exports.global_query_define = [
     access  : 0,
     limit   : 500,
     comment : '通用登录接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':{key:xxxxxxxxx}}
+    //成功 {'errCode':0, 'msg':'success', 'result':{key:xxxxxxxxx, iRoleType:'xxx'}}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
-    router : '/logout',
+    router : '/login/logout',
     query : [],
     queryType : [],
     access : 1,

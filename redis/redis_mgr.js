@@ -40,7 +40,6 @@ _.onError = function(err, redis_inst){
 };
 
 redis_mgr.init = function(){
-    console.error(config);
     redis_inst = _.connect(config[0].szRedisPort, config[0].szRedisIP, config[0].szPwd);
 };
 
