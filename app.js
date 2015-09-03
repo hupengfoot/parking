@@ -12,7 +12,7 @@ var app = express();
 var logger = require(path.join(global.rootPath,'util/logger')).logger;
 var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
 
-redis_mgr.init();
+redis_mgr.init(7776);
 
 //解析cookie
 app.use(cookieParser());

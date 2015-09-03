@@ -21,8 +21,8 @@ var login = function(cb){
 
 var register = function(cb){
     var obj = {};
-    obj.iPhoneNum = 1111;
-    obj.szCode = 'xxx';
+    obj.iPhoneNum = 1115;
+    obj.szPasswd = 'xxx';
     var robot = {};
     robot.key = 'xxx';
     var dist_url = robot_util.makeUrl('/user/user/register', 0);
