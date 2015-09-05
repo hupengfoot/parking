@@ -16,7 +16,9 @@ var _ = {};
 
 router.post('/logout', function(req, res){
     var param = url.parse(req.url, true).query;
-
+    redis_mgr.del2(redis_define.enum.LOGIN, param.iPhoneNum, function(err, info){
+	msg.wrapper(msg.code.ERR_SUCCESS, null, res);
+    });
 });
 
 router.post('/', function(req, res){

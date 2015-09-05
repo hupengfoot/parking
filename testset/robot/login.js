@@ -8,19 +8,33 @@ var login = function(cb){
     obj.iPhoneNum = '13917658422';
     obj.szPasswd = robot_util.encodePasswd('000000');
     var robot = {};
-    robot.key = 'xxx';
+    robot.iPhoneNum = '13917658422';
  
     var dist_url = robot_util.makeUrl('/login', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
-	    cb(null);
+	    robot.key = result.key;
+	    cb(null, robot);
         });
     });
-
 };
 
-var register = function(cb){
+var logout = function(robot, cb){
+    var obj = {};
+ 
+    var dist_url = robot_util.makeUrl('/login/logout', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+
+
+var register = function(robot, cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
     obj.szPasswd = robot_util.encodePasswd('000000');
@@ -30,7 +44,7 @@ var register = function(cb){
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
-	    cb(null);
+	    cb(null, robot);
         });
     });
 };
@@ -39,6 +53,7 @@ var test_cases =
 [
     //register,
     login,
+    logout,
 ];
 
 function test_main() {

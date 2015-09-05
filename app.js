@@ -11,8 +11,7 @@ var app = express();
 
 var logger = require(path.join(global.rootPath,'util/logger')).logger;
 var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
-
-redis_mgr.init(7776);
+var queryCenter = require(path.join(global.rootPath, 'routes/common/common'));
 
 //解析cookie
 app.use(cookieParser());
@@ -20,6 +19,10 @@ app.use(cookieParser());
 app.use(bodyParser({limit : '1mb'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+
+//各种模块初始化
+redis_mgr.init(7776);
+queryCenter.init();
 
 var initRoutes = require('./routes/init');
 initRoutes(app);

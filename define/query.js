@@ -81,7 +81,7 @@ module.exports.global_query_define = [
     query : ['szPasswd', 'szOldPasswd'],
     queryType : ['string', 'string'],
     access : 1,
-    limit ： 500,
+    limit : 500,
     comment : '修改密码接口'
     //成功 {'errCode':0, 'msg':'success'}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
@@ -91,7 +91,7 @@ module.exports.global_query_define = [
     query : ['szPasswd', 'szCode'],
     queryType : ['string', 'string'],
     access : 1,
-    limit ： 500,
+    limit : 500,
     comment : '直接修改密码接口'
     //成功 {'errCode':0, 'msg':'success'}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
