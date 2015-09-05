@@ -10,6 +10,7 @@ msg.code.ERR_BOOK_FAIL = -4;
 msg.code.ERR_HAS_REGISTER = -5;
 msg.code.ERR_NOT_EXIST_USER = -6;
 msg.code.ERR_PASSWD_INCORRECT = -7;
+msg.code.ERR_VALID_SMS_TIME = -8;
 
 msg.define[msg.code.ERR_SUCCESS] = 'success';
 msg.define[msg.code.ERR_DB_ERR] = '服务器内部错误，请联系客服';
@@ -19,6 +20,7 @@ msg.define[msg.code.ERR_BOOK_FAIL] = '该挂单已被抢走';
 msg.define[msg.code.ERR_HAS_REGISTER] = '该用户已注册';
 msg.define[msg.code.ERR_NOT_EXIST_USER] = '没有注册的用户';
 msg.define[msg.code.ERR_PASSWD_INCORRECT] = '密码不正确';
+msg.define[msg.code.ERR_VALID_SMS_TIME] = "短信验证码间隔时间不足一分钟";
 
 msg.wrapper = function(err,result,res){
     if(err){

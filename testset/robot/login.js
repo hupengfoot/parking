@@ -49,11 +49,26 @@ var register = function(robot, cb){
     });
 };
 
+var sms_register = function(robot, cb){
+    var obj = {};
+    obj.iPhoneNum = '13917658422';
+    var robot = {};
+    var dist_url = robot_util.makeUrl('/common/sms/register', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+
 var test_cases =
 [
     //register,
     login,
-    logout,
+    sms_register,
+    //logout,
 ];
 
 function test_main() {

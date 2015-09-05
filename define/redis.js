@@ -1,8 +1,9 @@
 var redis_define = {};
 
 var redis_type_enum = {};
-redis_type_enum.LOGIN   = 1;
+redis_type_enum.LOGIN   = 1; //存放个人登录信息
 redis_type_enum.TIMER = 2; //用来存放TIMER的辅助数据
+redis_type_enum.PHONE = 3; //存放短信验证码
 
 var redis_type = [
     {
@@ -12,6 +13,10 @@ var redis_type = [
     },{
 	iType : redis_type_enum.TIMER,//用来存储Timer的辅助数据
 	szPre : "__TIMER_",
+    },{
+	iType : redis_type_enum.PHONE,//存放短信验证码
+	szPre : "PHONE",
+	TIMEOUT:600
     }
 ];
 

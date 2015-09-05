@@ -41,6 +41,7 @@ _.commonInit = function(app){
     aMids.push({f:null, r:null, a:accessLogger});
     aMids.push({f:'routes/common/post_data', r:null});
     aMids.push({f:'routes/common/router_check', r:null});
+    aMids.push({f:'routes/common/sms', r:'/common/sms'});
 };
 
 _.userInit = function(app){
