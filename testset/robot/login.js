@@ -113,6 +113,19 @@ var updateinfo = function(robot, cb){
     });
 };
 
+var queryMyInfo = function(robot, cb){
+    var obj = {};
+
+    var dist_url = robot_util.makeUrl('/user/user/query', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+
 
 
 var test_cases =
@@ -123,7 +136,8 @@ var test_cases =
     //modifypsw,
     //sms_register,
     //updatepsw,
-    updateinfo,
+    //updateinfo,
+    queryMyInfo,
     //logout,
 ];
 
