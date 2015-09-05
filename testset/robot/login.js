@@ -137,6 +137,19 @@ var queryLiensePlate = function(robot, cb){
     });
 };
 
+var updateLiense = function(robot, cb){
+    var obj = {};
+    obj.szLiensePlate = 'yyyyyy';
+
+    var dist_url = robot_util.makeUrl('/user/user/updateliense', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
 
 var test_cases =
 [
@@ -148,7 +161,8 @@ var test_cases =
     //updatepsw,
     //updateinfo,
     //queryMyInfo,
-    queryLiensePlate,
+    //queryLiensePlate,
+    updateLiense,
     //logout,
 ];
 
