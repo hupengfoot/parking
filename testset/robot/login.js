@@ -125,7 +125,17 @@ var queryMyInfo = function(robot, cb){
     });
 };
 
+var queryLiensePlate = function(robot, cb){
+    var obj = {};
 
+    var dist_url = robot_util.makeUrl('/user/user/querylienseplate', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
 
 
 var test_cases =
@@ -137,7 +147,8 @@ var test_cases =
     //sms_register,
     //updatepsw,
     //updateinfo,
-    queryMyInfo,
+    //queryMyInfo,
+    queryLiensePlate,
     //logout,
 ];
 

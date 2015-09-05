@@ -7,6 +7,10 @@ var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 
 var userBiz = {};
 
+userBiz.queryLiensePlate = function(params, cb){
+    sqlPool.excute(3, [params.iPhoneNum], cb);
+};
+
 userBiz.updateInfo = function(params, cb){
     sqlPool.excute(10002, [params.szUserName, params.szRealName, params.szMail, params.szLiensePlate, params.szAddress, params.szModels, params.szBankCard, params.iPhoneNum], cb);
 };

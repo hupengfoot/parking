@@ -12,6 +12,13 @@ var sms = require(path.join(global.rootPath, 'util/sms'));
 var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
 var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 
+router.post('/querylienseplate', function(req, res){
+    var param = url.parse(req.url, true).query;
+    userBiz.queryLiensePlate(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
 router.post('/query', function(req, res){
     var param = url.parse(req.url, true).query;
     userBiz.myInfo(param, function(err, rows, fields){
