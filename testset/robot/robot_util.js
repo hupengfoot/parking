@@ -4,6 +4,7 @@ var url = require('url');
 var assert = require('assert');
 var async = require('async');
 var request = require('request');
+var crypto = require('crypto');  
 
 var robot_util = {};
 
@@ -24,6 +25,18 @@ robot_util.arrToUrl = function arrToUrl(arr){
     return search.substring(0,search.length - 1);
 };
 
+robot_util.encodePasswd = function(szPasswd){
+    var alg = 'des-ecb';
+    var autoPad = true;
+    var key = new Buffer('01234567');
+    var iv = new Buffer(0);
+
+    var cipher = crypto.createCipheriv(alg, key, iv);  
+    cipher.setAutoPadding(autoPad)  //default true  
+    var ciph = cipher.update(szPasswd, 'utf8', 'hex');  
+    ciph += cipher.final('hex');
+    return ciph;
+};
 
 function format_url(host,path,obj){
     var search_str = robot_util.arrToUrl(obj);

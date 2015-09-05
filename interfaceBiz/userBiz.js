@@ -26,8 +26,11 @@ userBiz.recordPsw = function(params, cb){
 };
 
 userBiz.myInfo = function(params, cb){
-    var szSql = 'select * from tbUserInfo where iPhoneNum = ?';
-    
+    sqlPool.excute(1, [params.iPhoneNum], cb);
+};
+
+userBiz.getPsw = function(params, cb){
+    sqlPool.excute(2, [params.iPhoneNum], cb);
 };
 
 module.exports = userBiz;
