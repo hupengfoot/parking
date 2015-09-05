@@ -33,7 +33,7 @@ router.post('/', function(req, res){
 
     async.waterfall([
 	function(callback){
-	    _.checkPasswd(param, function(err, check){
+	    userBiz.checkPasswd(param, function(err, check){
 		if(err){
 		    callback(err);
 		}else{
@@ -54,20 +54,6 @@ router.post('/', function(req, res){
 	msg.wrapper(err, results, res);
     });
 });
-
-_.checkPasswd = function(params, cb){
-    userBiz.getPsw(params, function(err, rows, fields){
-	if(!err && rows.length > 0){
-	    if(params.szPasswd == rows[0].szPasswd){
-		cb(null, true);
-	    }else{
-		cb(null, false);
-	    }
-	}else{
-	    cb(msg.code.ERR_NOT_EXIST_USER);
-	}
-    });
-};
 
 _.login = function(params, cb){
     var result = {};

@@ -14,7 +14,7 @@ msg.code.ERR_VALID_SMS_TIME = -8;
 
 msg.define[msg.code.ERR_SUCCESS] = 'success';
 msg.define[msg.code.ERR_DB_ERR] = '服务器内部错误，请联系客服';
-msg.define[msg.code.ERR_VALID_SMS] = '非法的短信验证码';
+msg.define[msg.code.ERR_VALID_SMS] = '短信验证码不正确';
 msg.define[msg.code.ERR_VALID_QUERY] = '非法的请求参数';
 msg.define[msg.code.ERR_BOOK_FAIL] = '该挂单已被抢走';
 msg.define[msg.code.ERR_HAS_REGISTER] = '该用户已注册';

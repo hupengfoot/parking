@@ -3,6 +3,7 @@ module.exports.sqls = {
     '1': ' * from tbUserInfo where iPhoneNum = ?',
     '2': ' * from tbUserPasswd where iPhoneNum = ?',
     //下标10000-20000的用于update语句
+    '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',

@@ -7,6 +7,24 @@ var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 
 var userBiz = {};
 
+userBiz.modifyPasswd = function(params, cb){
+    sqlPool.excute(10001, [params.szPasswd, params.iPhoneNum], cb);
+};
+
+userBiz.checkPasswd = function(params, cb){
+    userBiz.getPsw(params, function(err, rows, fields){
+	if(!err && rows.length > 0){
+	    if(params.szPasswd == rows[0].szPasswd){
+		cb(null, true);
+	    }else{
+		cb(null, false);
+	    }
+	}else{
+	    cb(msg.code.ERR_NOT_EXIST_USER);
+	}
+    });
+};
+
 userBiz.register = function(params, cb){
     sqlPool.excute(20001, [params.iPhoneNum], function(err, rows, fields){
 	if(err){

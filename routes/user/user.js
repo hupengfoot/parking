@@ -8,6 +8,9 @@ var async = require('async');
 var userBiz = require(path.join(global.rootPath,'interfaceBiz/userBiz'));
 var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 var decode = require(path.join(global.rootPath, 'util/decode'));
+var sms = require(path.join(global.rootPath, 'util/sms'));
+var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
+var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 
 router.post('/register', function(req, res){
     var param = url.parse(req.url, true).query;
@@ -31,6 +34,64 @@ router.post('/register', function(req, res){
 	    });
 	}
     ],function(err, results){
+	msg.wrapper(err, results, res);
+    });
+});
+
+router.post('/updatepsw', function(req, res){
+    var param = url.parse(req.url, true).query;
+    async.waterfall([
+	function(callback){
+	    sms.valid(param.szCode, param.iPhoneNum, function(check){
+		if(check === true){
+		    callback(null);
+		}else{
+		    callback(msg.code.ERR_VALID_SMS);
+		}
+	    });
+	},
+	function(callback){
+	    userBiz.modifyPasswd(param, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	}
+    ], function(err, results){
+	msg.wrapper(err, results, res);
+    });
+});
+
+router.post('/modifypsw', function(req, res){
+    var param = url.parse(req.url, true).query;
+    async.waterfall([
+	function(callback){
+	    //解码密码
+	    param.szOldPasswd = decode.decodePasswd(param.szOldPasswd);
+	    if(param.szOldPasswd === null){
+		callback(msg.code.ERR_PASSWD_INCORRECT);
+		return;
+	    }
+
+	    var tempParam = {};
+	    tempParam.szPasswd = param.szOldPasswd;
+	    userBiz.checkPasswd(tempParam, function(err, check){
+		if(err){
+		    callback(err);
+		}else{
+		    if(check === true){
+			callback(null);
+		    }else{
+			callback(msg.code.ERR_PASSWD_INCORRECT);
+		    }
+		}
+	    });
+	},
+	function(callback){
+	    param.szPasswd = decode.decodePasswd(param.szPasswd);
+	    userBiz.modifyPasswd(param, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	}
+    ], function(err, results){
 	msg.wrapper(err, results, res);
     });
 });
