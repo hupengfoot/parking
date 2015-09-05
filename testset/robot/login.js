@@ -11,7 +11,7 @@ var getRobot = function(cb){
 var login = function(cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
-    obj.szPasswd = robot_util.encodePasswd('111111');
+    obj.szPasswd = robot_util.encodePasswd('000000');
     var robot = {};
     robot.iPhoneNum = '13917658422';
  
@@ -83,9 +83,28 @@ var modifypsw = function(robot, cb){
 var updatepsw = function(robot, cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
-    obj.szCode = '935162';
+    obj.szCode = '718530';
     obj.szPasswd = robot_util.encodePasswd('000000');
     var dist_url = robot_util.makeUrl('/user/user/updatepsw', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+var updateinfo = function(robot, cb){
+    var obj = {};
+    obj.szUserName = 'xxx';
+    obj.szRealName = 'xxx';
+    obj.szMail = 'xxx';
+    obj.szLiensePlate = 'xxx';
+    obj.szAddress = 'xxx';
+    obj.szModels = 'xxx';
+    obj.szBankCard = 'xxx';
+
+    var dist_url = robot_util.makeUrl('/user/user/updateinfo', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
@@ -98,12 +117,13 @@ var updatepsw = function(robot, cb){
 
 var test_cases =
 [
-    getRobot,
+    //getRobot,
     //register,
-    //login,
+    login,
     //modifypsw,
     //sms_register,
-    updatepsw,
+    //updatepsw,
+    updateinfo,
     //logout,
 ];
 

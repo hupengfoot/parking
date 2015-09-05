@@ -12,6 +12,13 @@ var sms = require(path.join(global.rootPath, 'util/sms'));
 var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
 var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 
+router.post('/updateinfo', function(req, res){
+    var param = url.parse(req.url, true).query;
+    userBiz.updateInfo(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
 router.post('/register', function(req, res){
     var param = url.parse(req.url, true).query;
 
@@ -51,6 +58,13 @@ router.post('/updatepsw', function(req, res){
 	    });
 	},
 	function(callback){
+	    //解码密码
+	    param.szPasswd = decode.decodePasswd(param.szPasswd);
+	    if(param.szPasswd === null){
+		msg.wrapper(msg.code.ERR_DB_ERR, null, res);
+		return;
+	    }
+
 	    userBiz.modifyPasswd(param, function(err, rows, fields){
 		callback(err, rows);
 	    });
