@@ -47,6 +47,7 @@ _.commonInit = function(app){
 _.userInit = function(app){
     //用户侧
     aMids.push({f:'routes/user/user', r:'/user/user'});
+    aMids.push({f:'routes/user/space', r:'/user/space'});
 };
 
 var initRoutes = function(app){

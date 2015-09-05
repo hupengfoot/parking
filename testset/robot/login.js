@@ -37,8 +37,6 @@ var logout = function(robot, cb){
     });
 };
 
-
-
 var register = function(robot, cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
