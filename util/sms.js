@@ -49,7 +49,7 @@ sms.send = function(iPhoneNum, cb){
             redis_mgr.set2(redis_define.enum.PHONE, iPhoneNum, smsRedisItem);
 	    var str = 'xxxxx'//TODO
             var iRet = _.send(iPhoneNum);
-            cb(iErr);
+            cb(iErr, {szCode : smsRedisItem.value});
         }else{
             cb(iErr);
         }
