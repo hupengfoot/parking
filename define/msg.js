@@ -22,7 +22,7 @@ msg.define[msg.code.ERR_HAS_REGISTER] = '该用户已注册';
 msg.define[msg.code.ERR_NOT_EXIST_USER] = '没有注册的用户';
 msg.define[msg.code.ERR_PASSWD_INCORRECT] = '密码不正确';
 msg.define[msg.code.ERR_VALID_SMS_TIME] = "短信验证码间隔时间不足一分钟";
-msg.define[msg.code.ERR_ACCESS_FAIL] = "没有访问权限";
+msg.define[msg.code.ERR_ACCESS_FAIL] = "未登录或者登录态失效";
 
 msg.wrapper = function(err,result,res){
     if(err){

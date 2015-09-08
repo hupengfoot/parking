@@ -108,6 +108,7 @@ router.post('/modifypsw', function(req, res){
 
 	    var tempParam = {};
 	    tempParam.szPasswd = param.szOldPasswd;
+	    tempParam.iPhoneNum = param.iPhoneNum;
 	    userBiz.checkPasswd(tempParam, function(err, check){
 		if(err){
 		    callback(err);
