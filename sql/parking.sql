@@ -28,7 +28,7 @@ create table IF NOT EXISTS tbUserPasswd(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户密码表';
 
 create table IF NOT EXISTS tbParkingSpaceInfo(
-    iSpaceID bigint unsigned not null default 0 comment '车位系统编号',
+    iSpaceID bigint unsigned not null auto_increment comment '车位系统编号',
     iPhoneNum bigint unsigned not null comment '用户手机号码',
     iCommunityID bigint unsigned not null comment '小区ID',
     szParkingNum varchar(1024) default '' comment '用户车位号',
