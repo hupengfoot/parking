@@ -89,7 +89,7 @@ module.exports.global_query_define = [
 {
     router : '/user/user/updatepsw',
     query : ['iPhoneNum', 'szPasswd', 'szCode'],
-    queryType : ['string', 'string', 'string'],
+    queryType : ['num', 'string', 'string'],
     access : 0,
     limit : 500,
     comment : '直接修改密码接口'
