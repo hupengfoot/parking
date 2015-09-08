@@ -51,8 +51,12 @@ router.post('/', function(req, res){
 	    });
 	}
     ], function(err, results){
-	res.cookie('parking_app_key', results.parking_app_key);
-	msg.wrapper(err, results, res);
+	if(err){
+	    msg.wrapper(err, results, res);
+	}else{
+	    res.cookie('parking_app_key', results.parking_app_key);
+	    msg.wrapper(err, results, res);
+	}
     });
 });
 

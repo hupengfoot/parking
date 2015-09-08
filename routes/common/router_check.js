@@ -11,6 +11,10 @@ var _ = {};
 
 router.use(function(req, res, next){
     var queryObj = queryCenter.get(req);
+    if(queryObj === null){
+	msg.wrapper(msg.code.ERR_ACCESS, null, res);	
+	return;
+    }
     if(queryObj.access > 0){
 	if(req.cookies.parking_app_key !== 'undefined' && req.cookies.parking_app_key !== null){
 	    if(req.url.indexOf('?') === -1){
