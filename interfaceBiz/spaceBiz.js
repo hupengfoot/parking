@@ -15,6 +15,10 @@ spaceBiz.querySpace = function(params, cb){
     sqlPool.excute(4, [params.iPhoneNum], cb);
 };
 
+spaceBiz.queryASpace = function(params, cb){
+    sqlPool.excute(5, [params.iPhoneNum, params.iSpaceID], cb);
+};
+
 spaceBiz.deleteSpace = function(params, cb){
     sqlPool.excute(10004, [params.iPhoneNum, params.iSpaceID], cb);
 };
