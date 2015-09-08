@@ -12,14 +12,16 @@ var login = function(cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
     obj.szPasswd = robot_util.encodePasswd('000000');
+    console.error(obj.szPasswd);
     var robot = {};
     robot.iPhoneNum = '13917658422';
  
     var dist_url = robot_util.makeUrl('/login', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+	console.error(res.cookies);
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
-	    robot.key = result.key;
+	    robot.parking_app_key = result.parking_app_key;
 	    cb(null, robot);
         });
     });
@@ -42,7 +44,7 @@ var register = function(robot, cb){
     obj.iPhoneNum = '13917658422';
     obj.szPasswd = robot_util.encodePasswd('000000');
     var robot = {};
-    robot.key = 'xxx';
+    robot.parking_app_key = 'xxx';
     var dist_url = robot_util.makeUrl('/user/user/register', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
@@ -59,6 +61,7 @@ var sms_register = function(robot, cb){
     var dist_url = robot_util.makeUrl('/common/sms/register', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
+	    console.error(body);
 	    console.error(result);
 	    cb(null, robot);
         });
@@ -158,10 +161,10 @@ var test_cases =
     //sms_register,
     //updatepsw,
     //updateinfo,
-    //queryMyInfo,
+    queryMyInfo,
     //queryLiensePlate,
-    updateLiense,
-    //logout,
+    //updateLiense,
+    logout,
 ];
 
 function test_main() {

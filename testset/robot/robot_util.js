@@ -82,7 +82,7 @@ function checkRes(body,cb){
 //带key的POST请求  
 robot_util.postWithKey = function(robot,dist_url,object,cb){
     var j = request.jar();
-    var cookie = request.cookie('key=' + robot.key);
+    var cookie = request.cookie('parking_app_key=' + robot.parking_app_key);
     j.setCookie(cookie,'http://' + config.host ,function(err,cookie){});
     var post_option = {
         url:dist_url,

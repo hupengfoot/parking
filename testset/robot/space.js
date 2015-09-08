@@ -19,7 +19,7 @@ var login = function(cb){
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
-	    robot.key = result.key;
+	    robot.parking_app_key = result.parking_app_key;
 	    cb(null, robot);
         });
     });
