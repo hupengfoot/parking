@@ -55,6 +55,7 @@ var initRoutes = function(app){
     _.commonInit(app);
     _.userInit(app);
     aMids.push({f:'routes/login', r:'/login'});
+    aMids.push({f:'routes/search/search', r:'/search'});
     console.time('async');
     var iMax = 0;
     var szMax = '';
