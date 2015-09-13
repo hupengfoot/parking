@@ -14,6 +14,7 @@ msg.code.ERR_VALID_SMS_TIME = -8;
 msg.code.ERR_ACCESS_FAIL = -9;
 msg.code.ERR_ACCESS = -10;
 msg.code.ERR_NOT_YOUR_SPACE = -11;
+msg.code.ERR_UPLOAD_ARGS = -12;
 
 msg.define[msg.code.ERR_SUCCESS] = 'success';
 msg.define[msg.code.ERR_DB_ERR] = '服务器内部错误，请联系客服';
@@ -27,6 +28,7 @@ msg.define[msg.code.ERR_VALID_SMS_TIME] = "短信验证码间隔时间不足一�
 msg.define[msg.code.ERR_ACCESS_FAIL] = "未登录或者登录态失效";
 msg.define[msg.code.ERR_ACCESS] = "非法请求";
 msg.define[msg.code.ERR_NOT_YOUR_SPACE] = "不是你的车位";
+msg.define[msg.code.ERR_UPLOAD_ARGS] = "上传文件参数错误";
 
 msg.wrapper = function(err,result,res){
     if(err){
