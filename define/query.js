@@ -128,8 +128,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/addspace',
-    query : ['iCommunityID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
-    queryType : ['num', 'string', 'num', 'num'],
+    query : ['iCommunityID', 'szParkingNum', 'szParkingPic', 'iParkingType', 'iParkingNature'],
+    queryType : ['num', 'string', 'string', 'num', 'num'],
     access : 1,
     limit : 500,
     comment : '添加用户车位'
@@ -148,8 +148,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/updatespace',
-    query : ['iSpaceID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
-    queryType : ['num', 'string', 'num', 'num'],
+    query : ['iSpaceID', 'szParkingNum', 'szParkingPic', 'iParkingType', 'iParkingNature'],
+    queryType : ['num', 'string', 'string', 'num', 'num'],
     access : 1,
     limit : 500,
     comment : '更新车位信息'
@@ -419,7 +419,7 @@ module.exports.global_query_define = [
     query : [],
     queryType : [],
     post : true,
-    access : 1,
+    access : 0,
     limit : 500,
     comment : '上传图片接口'
     //成功 {'errCode':0, 'msg':'success'}

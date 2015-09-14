@@ -7,5 +7,13 @@
 	"max_memory_restart" : "300M",
         "out_file"    : "./logs/www.log",
         "error_file"  : "./logs/www.error"
+    },{
+        "name":"upload0",
+        "args":["3002"],
+        "script"      : "bin/upload",
+        "max_restarts": 3,
+	"max_memory_restart" : "300M",
+        "out_file"    : "./logs/upload.log",
+        "error_file"  : "./logs/upload.error"
     }]
 }

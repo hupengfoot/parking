@@ -41,6 +41,7 @@ var addspace = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 1;
     obj.szParkingNum = 'xxxxx';
+    obj.szParkingPic = 'xxxx';
     obj.iParkingType = 1;
     obj.iParkingNature = 1;
  
@@ -68,8 +69,9 @@ var deletespace = function(robot, cb){
 
 var updatespace = function(robot, cb){
     var obj = {};
-    obj.iSpaceID = 1;
+    obj.iSpaceID = 0;
     obj.szParkingNum = 'adasd';
+    obj.szParkingPic = 'asdasd';
     obj.iParkingType = 1;
     obj.iParkingNature = 1;
 

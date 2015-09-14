@@ -8,7 +8,7 @@ var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 var spaceBiz = {};
 
 spaceBiz.addSpace = function(params, cb){
-    sqlPool.excute(20003, [params.iPhoneNum, params.iCommunityID, params.szParkingNum, params.iParkingType, params.iParkingNature], cb);
+    sqlPool.excute(20003, [params.iPhoneNum, params.iCommunityID, params.szParkingNum, params.szParkingPic, params.iParkingType, params.iParkingNature], cb);
 };
 
 spaceBiz.querySpace = function(params, cb){
@@ -24,7 +24,7 @@ spaceBiz.deleteSpace = function(params, cb){
 };
 
 spaceBiz.updateSpace = function(params, cb){
-    sqlPool.excute(10005, [params.szParkingNum, params.iParkingType, params.iParkingNature, params.iPhoneNum, params.iSpaceID], cb);
+    sqlPool.excute(10005, [params.szParkingNum, params.szParkingPic, params.iParkingType, params.iParkingNature, params.iPhoneNum, params.iSpaceID], cb);
 };
 
 module.exports = spaceBiz;

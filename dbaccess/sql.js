@@ -10,11 +10,11 @@ module.exports.sqls = {
     '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ? where iPhoneNum = ?', 
     '10003': ' tbUserInfo set szLiensePlate = ? where iPhoneNum = ?',
     '10004': ' tbParkingSpaceInfo set iDelete = 1 where iPhoneNum = ? and iSpaceID = ?',
-    '10005': ' tbParkingSpaceInfo set szParkingNum = ?, iParkingType = ?, iParkingNature = ? where iPhoneNum = ? and iSpaceID = ?', 
+    '10005': ' tbParkingSpaceInfo set szParkingNum = ?, szParkingPic = ?, iParkingType = ?, iParkingNature = ? where iPhoneNum = ? and iSpaceID = ?', 
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',
-    '20003': 'into tbParkingSpaceInfo(iPhoneNum, iCommunityID, szParkingNum, iParkingType, iParkingNature) values(?, ?, ?, ?, ?)',
+    '20003': 'into tbParkingSpaceInfo(iPhoneNum, iCommunityID, szParkingNum, szParkingPic, iParkingType, iParkingNature) values(?, ?, ?, ?, ?, ?)',
     //下标30000-40000的用于delete语句
     //下标40000-50000的用于replace语句
 };
