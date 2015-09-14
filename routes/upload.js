@@ -14,7 +14,8 @@ var msg = require(path.join(global.rootPath, 'define/msg')).global_msg_define;
 //上传配置项
 var uploadconfig = {
     "uploaddir":"./upload", //本地缓存目录
-    'uploadBucket': global_config.aliyunBucketName
+    'uploadBucket': global_config.aliyunBucketName,
+    "uploadmaxsize":"50 * 1024 * 1024", //缓冲区大小
 };
 
 //创建本地上传目录
@@ -25,6 +26,7 @@ if(!fs.existsSync(uploadconfig.uploaddir)){
 router.post('/uploadpic', function(req, res){
     var form = new formidable.IncomingForm();
     form.uploadDir = uploadconfig.uploaddir;
+    form.maxFieldsSize = uploadconfig.uploadmaxsize;
     form.parse(req, function(err, fields, files) {
         if(files.file === null || files.file === undefined){
             msg.wrapper(msg.code.ERR_UPLOAD_ARGS, null, res);

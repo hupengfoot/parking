@@ -42,7 +42,7 @@ aliyunBiz.uploadObject = function(fileName, bucket, cb){
 	        }else{
 		    var result = {};
 		    result.bucket = bucket;
-		    result.endpoint = global_config.aliyunEndPoint;
+		    result.endpoint = global_config.aliyunEndPoint.substring(7);
 		    result.url = fileName;
 		    cb(err, result);
 		    console.log('success:', data);
