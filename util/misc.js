@@ -18,4 +18,15 @@ misc.getEndID = function(iID){
     return iID % Math.pow(2, 20);
 };
 
+misc.getTimeLimit = function(params){
+    var szWhere = '';
+    if(params.tStart !== null && params.tStart !== undefined && params.tStart.length > 0){
+	szWhere = szWhere + " and unix_timestamp(tStart) > unix_timestamp('" + params.tStart + "') " ;
+    }
+    if(params.tEnd !== null && params.tEnd !== undefined && params.tEnd.length > 0){
+	szWhere = szWhere + " and unix_timestamp(tStart) < unix_timestamp('" + params.tEnd + "') " ;
+    }
+    return szWhere;
+};
+
 module.exports = misc;

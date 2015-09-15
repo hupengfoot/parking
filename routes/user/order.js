@@ -6,40 +6,33 @@ var util = require('util');
 var url = require('url');
 var async = require('async');
 
-var pendingBiz = require(path.join(global.rootPath,'interfaceBiz/pendingBiz'));
+var orderBiz = require(path.join(global.rootPath,'interfaceBiz/orderBiz'));
 var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
-
-router.post('/publish', function(req, res){
-    var param = url.parse(req.url, true).query;
-    pendingBiz.publish(param, function(err, rows, fields){
-	msg.wrapper(err, rows, res);
-    });
-});
 
 router.post('/querymine', function(req, res){
     var param = url.parse(req.url, true).query;
-    pendingBiz.queryMine(param, function(err, rows, fields){
+    orderBiz.queryMine(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
 });
 
-router.post('/query', function(req, res){
+router.post('/book', function(req, res){
     var param = url.parse(req.url, true).query;
-    pendingBiz.query(param, function(err, rows, fields){
+    orderBiz.book(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
 });
 
 router.post('/detail', function(req, res){
     var param = url.parse(req.url, true).query;
-    pendingBiz.detail(param, function(err, rows, fields){
+    orderBiz.detail(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
 });
 
-router.post('/calprice', function(req, res){
+router.post('/pay', function(req, res){
     var param = url.parse(req.url, true).query;
-    pendingBiz.calPrice(param, function(err, rows, fields){
+    orderBiz.pay(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
 });

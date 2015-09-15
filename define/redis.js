@@ -1,5 +1,6 @@
 var redis_define = {};
 redis_define.pendingID = 'PENDING_ID';
+redis_define.orderID = 'ORDER_ID';
 
 var redis_type_enum = {};
 redis_type_enum.LOGIN   = 1; //存放个人登录信息

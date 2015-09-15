@@ -35,7 +35,7 @@ pendingBiz.calPrice = function(params, cb){
 
 pendingBiz.query = function(params, cb){
     var szWhere = '';
-    szWhere = szWhere + _.getTimeLimit(params);
+    szWhere = szWhere + misc.getTimeLimit(params);
     var tableNum = parseInt(params.iCommunityID) % pendingCnt;
     var insertParams = [tableNum, params.iPendingID, params.iCommunityID, szWhere, params.iNum];
     sqlPool.excute(9, insertParams, cb);
@@ -53,7 +53,7 @@ pendingBiz.queryMine = function(params, cb){
     if(parseInt(params.iStatus) !== -1){
 	szWhere = szWhere + ' and iStatus = ' + params.iStatus;
     }
-    szWhere = szWhere + _.getTimeLimit(params);
+    szWhere = szWhere + misc.getTimeLimit(params);
     var tableNum = parseInt(params.iPhoneNum) % userPendingCnt;
     var insertParams = [tableNum, params.iPendingID, params.iPhoneNum, szWhere, params.iNum];
     sqlPool.excute(8, insertParams, cb);
@@ -109,15 +109,19 @@ pendingBiz.addUserPendingInfo = function(params, cb){
     sqlPool.excute(20006, insertParams, cb);
 };
 
-_.getTimeLimit = function(params){
-    var szWhere = '';
-    if(params.tStart !== null && params.tStart !== undefined && params.tStart.length > 0){
-	szWhere = szWhere + " and unix_timestamp(tStart) > unix_timestamp('" + params.tStart + "') " ;
-    }
-    if(params.tEnd !== null && params.tEnd !== undefined && params.tEnd.length > 0){
-	szWhere = szWhere + " and unix_timestamp(tStart) < unix_timestamp('" + params.tEnd + "') " ;
-    }
-    return szWhere;
+pendingBiz.lockPendingStatus = function(params, cb){
+    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
+    sqlPool.excute(10006, [tableNum, params.iPendingID], cb);
+};
+
+pendingBiz.updatePendingStatus = function(params, iStatus, cb){
+    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
+    sqlPool.excute(10008, [tableNum, iStatus, params.iPendingID], cb);
+};
+
+pendingBiz.updateUserPendingStatus = function(params, iStatus, cb){
+    var tableNum = parseInt(params.iPhoneNum) % userPendingCnt;
+    sqlPool.excute(10007, [tableNum, iStatus, params.iPendingID], cb);
 };
 
 module.exports = pendingBiz;

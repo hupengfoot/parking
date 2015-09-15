@@ -38,4 +38,8 @@ communityBiz.search = function(params, cb){
     sqlPool.excute(7, [params.iProvince, params.iCity, params.szName], cb);
 };
 
+communityBiz.detail = function(params, cb){
+    sqlPool.excute(11, [params.iCommunityID], cb);
+};
+
 module.exports = communityBiz;

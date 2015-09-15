@@ -296,7 +296,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/order/querymine',
-    query : ['iPendingID', 'iNum', 'tStart', 'tEnd', 'iPay'],
+    query : ['iOrderID', 'iNum', 'tStart', 'tEnd', 'iPay'],
     //iPay 0 未付款，1 已付款 -1 全部
     queryType : ['num', 'num', 'date', 'date'],
     access : 1,
