@@ -55,9 +55,13 @@ create table IF NOT EXISTS tbCommunityInfo(
     iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
     iX bigint unsigned not null default 0 comment '小区纬度坐标',
     iY bigint unsigned not null default 0 comment '小区经度坐标',
+    iProvince int unsigned not null default 0 comment '省编号',
+    iCity int unsigned not null default 0 comment '城市编号',
+    szAreaName varchar(1024) default '' comment '区编号',
     szComminityName varchar(1024) default '' comment '小区名',
     szPicUrl varchar(4096) default '' comment '小区车库照片地址，用|分隔',
-    primary key (`iCommunityID`)
+    primary key (`iCommunityID`),
+    index(`iProvince`, `iCity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='小区表';
 
 create table IF NOT EXISTS tbPendingInfo(

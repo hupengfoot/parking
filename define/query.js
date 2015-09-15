@@ -337,15 +337,15 @@ module.exports.global_query_define = [
 },
 {
     router : '/community/publish',
-    query : ['iChargesType', 'iX', 'iY', 'szComminityName', 'szPicUrl'],
+    query : ['iChargesType', 'iX', 'iY', 'iProvince', 'iCity', 'szAreaName', 'szComminityName', 'szPicUrl'],
     queryType : ['num', 'num', 'num', 'string', 'string'],
     access : 3,
     limit : 500,
     comment : '发布小区详情接口'
 },
 {
-    router : '/user/community/search',
-    query : ['szName'],
+    router : '/community/search',
+    query : ['iProvince', 'iCity', 'szName'],
     queryType : ['string'],
     access : 1,
     limit : 500,
