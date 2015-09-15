@@ -18,4 +18,32 @@ router.post('/publish', function(req, res){
     });
 });
 
+router.post('/querymine', function(req, res){
+    var param = url.parse(req.url, true).query;
+    pendingBiz.queryMine(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
+router.post('/query', function(req, res){
+    var param = url.parse(req.url, true).query;
+    pendingBiz.query(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
+router.post('/detail', function(req, res){
+    var param = url.parse(req.url, true).query;
+    pendingBiz.detail(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
+router.post('/calprice', function(req, res){
+    var param = url.parse(req.url, true).query;
+    pendingBiz.calPrice(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
 module.exports = router;
