@@ -1,9 +1,11 @@
 var redis_define = {};
+redis_define.pendingID = 'PENDING_ID';
 
 var redis_type_enum = {};
 redis_type_enum.LOGIN   = 1; //存放个人登录信息
 redis_type_enum.TIMER = 2; //用来存放TIMER的辅助数据
 redis_type_enum.PHONE = 3; //存放短信验证码
+redis_type_enum.INCREMENT = 4;//存放自增键
 
 var redis_type = [
     {
@@ -17,6 +19,9 @@ var redis_type = [
 	iType : redis_type_enum.PHONE,//存放短信验证码
 	szPre : "PHONE",
 	TIMEOUT:600
+    },{
+	iType : redis_type_enum.INCREMENT,//存放自增键
+	szPre : "INCREMENT",
     }
 ];
 

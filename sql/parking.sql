@@ -87,7 +87,6 @@ create table IF NOT EXISTS tbUserPendingInfo(
     tStart datetime not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetime not null default '1970-01-01 08:00:00' comment '结束时间',
     iMiniRental int unsigned not null comment '最少租用时间',
-    iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
     tPublishTime datetime not null default '1970-01-01 08:00:00' comment '挂单发布时间',
     iStatus int unsigned not null default 0 comment '0 未出租，1 已被抢单未支付，2 已支付 3 关闭订单',
     primary key (`iPendingID`),

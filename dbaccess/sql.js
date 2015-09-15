@@ -18,6 +18,8 @@ module.exports.sqls = {
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',
     '20003': 'into tbParkingSpaceInfo(iPhoneNum, iCommunityID, szParkingNum, szParkingPic, iParkingType, iParkingNature) values(?, ?, ?, ?, ?, ?)',
     '20004': 'into tbCommunityInfo(iChargesType, iX, iY, iProvince, iCity, szAreaName, szComminityName, szPicUrl) values(?, ?, ?, ?, ?, ?, ?, ?)',
+    '20005': ' into tbPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())',
+    '20006':' into tbUserPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())', 
     //下标30000-40000的用于delete语句
     //下标40000-50000的用于replace语句
 };

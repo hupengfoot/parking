@@ -48,6 +48,7 @@ _.userInit = function(app){
     //用户侧
     aMids.push({f:'routes/user/user', r:'/user/user'});
     aMids.push({f:'routes/user/space', r:'/user/space'});
+    aMids.push({f:'routes/user/pending', r:'/user/pending'});
 };
 
 var initRoutes = function(app){

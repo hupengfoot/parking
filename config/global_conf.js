@@ -3,5 +3,7 @@ module.exports.global_config={
     aliyunSecretAccessKey : 'zvUvgdFV2cVX2zDdkVhAcAf75KiseZ',
     aliyunEndPoint : 'http://oss-cn-hangzhou.aliyuncs.com',
     aliyunApiVersion : '2013-10-15',
-    aliyunBucketName : 'parking-test1'
+    aliyunBucketName : 'parking-test1',
+    baiduMapGeoTableID : 119656,
+    baiduMapAk : 'tNlhkboHzkSA3ev2Gk46foWO'
 };
