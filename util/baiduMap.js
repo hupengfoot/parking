@@ -1,5 +1,7 @@
 'use strict';
 var path = require('path');
+var request = require('request');
+
 var global_config = require(path.join(global.rootPath, 'config/global_conf')).global_config;
 
 var baiduMap = {};

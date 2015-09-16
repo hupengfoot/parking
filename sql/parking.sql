@@ -37,6 +37,7 @@ create table IF NOT EXISTS tbParkingSpaceInfo(
     iParkingNature int unsigned not null default 0 comment '0自有，1自用',
     iHasApprove int unsigned not null default 0 comment '0未认证，1已认证',
     iDelete int unsigned not null default 0 comment '0 未删除，1 已删除',
+    iStatus int unsigned not null default 0 comment '0 未挂单，1 已挂单',
     tTime datetime not null default '1970-01-01 08:00:00' comment '认证时间',
     primary key (`iSpaceID`),
     index(`iPhoneNum`)
@@ -103,7 +104,7 @@ create table IF NOT EXISTS tbOrderInfo(
     tStart datetime not null default '1970-01-01 08:00:00' comment '起租时间',
     tEnd datetime not null default '1970-01-01 08:00:00' comment '结束时间',
     iPrice int unsigned not null default 0 comment '本单价格',
-    iPay int unsigned not null default 0 comment '0 未付款，1 已付款',
+    iPay int unsigned not null default 0 comment '0 未付款，1 已付款, 2付款超时',
     iStatus int unsigned not null default 0 comment '0 未停车，1 已停车，2 好评，3 中评，4 差评',
     szLiensePlate varchar(1024) default '' comment '用户车牌号',
     primary key (`iOrderID`),

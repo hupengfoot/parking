@@ -7,6 +7,7 @@ redis_type_enum.LOGIN   = 1; //存放个人登录信息
 redis_type_enum.TIMER = 2; //用来存放TIMER的辅助数据
 redis_type_enum.PHONE = 3; //存放短信验证码
 redis_type_enum.INCREMENT = 4;//存放自增键
+redis_type_enum.ORDER = 5;//存放订单验证码
 
 var redis_type = [
     {
@@ -23,11 +24,17 @@ var redis_type = [
     },{
 	iType : redis_type_enum.INCREMENT,//存放自增键
 	szPre : "INCREMENT",
+    },{
+	iType : redis_type_enum.ORDER,//存放订单验证码
+	szPre : "ORDER",
+	TIMEOUT : 864000
     }
 ];
 
 var redis_timer_enum = Object.freeze({
     'EXAMPLE':0,
+    'PAY_OVER_TIME':1,
+    'BOOK_SUCCESS':2,
 });
 
 var redis_channel_enum = Object.freeze({

@@ -13,6 +13,9 @@ var logger = require(path.join(global.rootPath,'util/logger')).logger;
 var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
 var queryCenter = require(path.join(global.rootPath, 'routes/common/common'));
 var aliyunBiz = require(path.join(global.rootPath, 'interfaceBiz/aliyunBiz.js'));
+var spaceBiz = require(path.join(global.rootPath, 'interfaceBiz/spaceBiz.js'));
+var pendingBiz = require(path.join(global.rootPath, 'interfaceBiz/pendingBiz.js'));
+var orderBiz = require(path.join(global.rootPath, 'interfaceBiz/orderBiz.js'));
 
 //解析cookie
 app.use(cookieParser());
@@ -25,6 +28,9 @@ app.use(bodyParser.urlencoded());
 redis_mgr.init(7776);
 queryCenter.init();
 aliyunBiz.init();
+spaceBiz.init();
+pendingBiz.init();
+orderBiz.init();
 
 var initRoutes = require('./routes/init');
 initRoutes(app);

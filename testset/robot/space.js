@@ -39,7 +39,7 @@ var queryspace = function(robot, cb){
 
 var addspace = function(robot, cb){
     var obj = {};
-    obj.iCommunityID = 1;
+    obj.iCommunityID = 5;
     obj.szParkingNum = 'xxxxx';
     obj.szParkingPic = 'xxxx';
     obj.iParkingType = 1;
@@ -84,17 +84,30 @@ var updatespace = function(robot, cb){
     });
 };
 
+var approve = function(robot, cb){
+    var obj = {};
+    obj.iSpaceID = 2;
+
+    var dist_url = robot_util.makeUrl('/master/space/approve', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
 
 
 var test_cases =
 [
     login,
-    addspace,
-    queryspace,
-    updatespace,
-    queryspace,
-    deletespace,
-    queryspace,
+    //addspace,
+    approve,
+    //queryspace,
+    //updatespace,
+    //queryspace,
+    //deletespace,
+    //queryspace,
 ];
 
 function test_main() {

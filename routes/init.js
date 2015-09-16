@@ -53,10 +53,18 @@ _.userInit = function(app){
     aMids.push({f:'routes/user/order', r:'/user/order'});
 };
 
+
+_.masterInit = function(app){
+    //管理侧
+    aMids.push({f:'routes/master/space', r:'/master/space'});
+    aMids.push({f:'routes/master/order', r:'/master/order'});
+};
+
 var initRoutes = function(app){
     console.time('all');
     _.commonInit(app);
     _.userInit(app);
+    _.masterInit(app);
     aMids.push({f:'routes/login', r:'/login'});
     aMids.push({f:'routes/search/search', r:'/search'});
     aMids.push({f:'routes/community', r:'/community'});

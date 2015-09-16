@@ -4,14 +4,6 @@ var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_def
 var msg = require(path.join(global.rootPath, "define/msg")).global_msg_define;
 var async = require('async');
 
-function getSMSNum(){
-    var res = "";
-    for(var i=0; i!=6; ++i){
-        res += "" + Math.floor(Math.random() * 10);
-    }
-    return res;
-}
-
 var smsRedisItem = {};
 smsRedisItem.tTime = 0;
 smsRedisItem.value = "";
@@ -24,8 +16,16 @@ _.send = function(iPhoneNum){
     return 0;
 };
 
+sms.getsmsnum = function(){
+    var res = "";
+    for(var i=0; i!=6; ++i){
+        res += "" + Math.floor(Math.random() * 10);
+    }
+    return res;
+};
+
 sms.send = function(iPhoneNum, cb){
-    var num = getSMSNum();
+    var num = sms.getsmsnum();
     redis_mgr.get2(redis_define.enum.PHONE, iPhoneNum, function(err, res){
         var bSend = false;
         var iErr = 0;

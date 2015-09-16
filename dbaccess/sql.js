@@ -24,6 +24,12 @@ module.exports.sqls = {
     '10008': ' tbPendingInfo_! set iStatus = ? where iPendingID = ?',
     '10009': ' tbOrderInfo_! set iPay = ? where iOrderID = ?',
     '10010': ' tbUserOrderInfo_! set iPay = ? where iOrderID = ?',
+    '10011': ' tbOrderInfo_! set iStatus = ? where iOrderID = ? and iStatus < ?',
+    '10012': 'tbParkingSpaceInfo set iStatus = ? where iSpaceID = ?',
+    '10013': ' tbOrderInfo_! set iPay = ? where iOrderID = ? and iPay = 0',
+    '10014': ' tbUserOrderInfo_! set iStatus = ? where iOrderID = ? and iStatus < ?',
+    '10015': ' tbParkingSpaceInfo set iHasApprove = 1 where iSpaceID = ?',
+
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',

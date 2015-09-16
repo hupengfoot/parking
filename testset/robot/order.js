@@ -27,9 +27,9 @@ var login = function(cb){
 
 var book = function(robot, cb){
     var obj = {};
-    obj.iPendingID = 4294967297;
+    obj.iPendingID = 4194309;
     obj.tStart = '2015-11-11';
-    obj.tEnd = '2015-12-12';
+    obj.tEnd = '2015-11-11 08:00:00';
     obj.szLiensePlate = 'xxxxx';
  
     var dist_url = robot_util.makeUrl('/user/order/book', 0);
@@ -53,6 +53,22 @@ var detail = function(robot, cb){
         });
     });
 };
+
+var check = function(robot, cb){
+    var obj = {};
+    obj.iOrderID = 1048577;
+    obj.szCode = 'xxx';
+    obj.iPassStatus = 1;
+ 
+    var dist_url = robot_util.makeUrl('/master/order/check', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
 
 var queryMine = function(robot, cb){
     var obj = {};
@@ -91,10 +107,11 @@ var pay = function(robot, cb){
 var test_cases =
 [
     login,
-    //book,
+    book,
     //detail,
     //queryMine,
-    pay,
+    //pay,
+    //check,
 ];
 
 function test_main() {
