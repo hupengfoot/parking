@@ -103,6 +103,17 @@ var calprice = function(robot, cb){
     });
 };
 
+var price_get = function(robot, cb){
+    var obj = {};
+ 
+    var dist_url = robot_util.makeUrl('/common/charge/get', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
 
 var test_cases =
 [
@@ -111,7 +122,8 @@ var test_cases =
     //querymine,
     //query,
     //detail,
-    calprice,
+    //calprice,
+    price_get
 ];
 
 function test_main() {

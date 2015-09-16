@@ -110,7 +110,7 @@ module.exports.global_query_define = [
     router : '/common/charge/get',
     query : [],
     queryType : [],
-    access : 1,
+    access : 3,
     limit : 500,
     comment : '获取收费类型接口'	    
     //成功 {'errCode':0, 'msg':'success', 'result':{}}
