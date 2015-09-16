@@ -11,7 +11,7 @@ var baiduMap = require(path.join(global.rootPath, 'util/baiduMap'));
 var communityBiz = {};
 
 communityBiz.publish = function(params, cb){
-    var insertParams = [params.iChargesType, params.iX, params.iY, params.iProvince, params.iCity, params.szAreaName, params.szComminityName, params.szPicUrl];
+    var insertParams = [params.iChargesType, params.iX, params.iY, params.iProvince, params.iCity, params.iAreaName, params.szComminityName, params.szPicUrl];
     sqlPool.excute(20004, insertParams, function(err, rows, fields){
 	if(err){
 	    cb(err);
@@ -21,8 +21,8 @@ communityBiz.publish = function(params, cb){
 	    //TODO
 	    console.error('TODO TODO TODO TODO TODO TODO');
 	    var obj = {};
-	    obj.latitude = params.iX;
-	    obj.longitude = params.iY;
+	    obj.latitude = parseInt(params.iX) / 1000000;
+	    obj.longitude = params.iY / 1000000;
 	    obj.coord_type = 1;
 	    obj.iCommunityID = rows.insertId;
 	    baiduMap.createPoi(obj);

@@ -107,6 +107,16 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/common/charge/get',
+    query : [],
+    queryType : [],
+    access : 1,
+    limit : 500,
+    comment : '获取收费类型接口'	    
+    //成功 {'errCode':0, 'msg':'success', 'result':{}}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
     router  : '/login',
     query   : ['iPhoneNum', 'szPasswd'],
     queryType : ['num', 'string'],
@@ -337,7 +347,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/community/publish',
-    query : ['iChargesType', 'iX', 'iY', 'iProvince', 'iCity', 'szAreaName', 'szComminityName', 'szPicUrl'],
+    query : ['iChargesType', 'iX', 'iY', 'iProvince', 'iCity', 'iAreaName', 'szComminityName', 'szPicUrl'],
     queryType : ['num', 'num', 'num', 'string', 'string'],
     access : 3,
     limit : 500,
