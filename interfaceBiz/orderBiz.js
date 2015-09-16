@@ -135,7 +135,7 @@ orderBiz.checkOrderPay = function(params, iStatus, cb){
 
 orderBiz.updateUserOrderPay = function(params, iStatus, cb){
     var tableNum = parseInt(params.iPhoneNum) % userOrderCnt;
-    sqlPool.excute(10010, [tableNum2, iStatus, params.iOrderID], cb);
+    sqlPool.excute(10010, [tableNum, iStatus, params.iOrderID], cb);
 };
 
 orderBiz.queryMine = function(params, cb){
