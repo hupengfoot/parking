@@ -142,7 +142,7 @@ orderBiz.queryMine = function(params, cb){
     var szWhere = '';
     szWhere = szWhere + misc.getTimeLimit(params);
     if(parseInt(params.iPay) !== -1){
-	szWhere = szWhere + ' iPay = ' + params.iPay;
+	szWhere = szWhere + ' and iPay = ' + params.iPay;
     }
     var tableNum = params.iPhoneNum % userOrderCnt;
     sqlPool.excute(13, [tableNum, params.iPhoneNum, params.iOrderID, szWhere, params.iNum], cb);

@@ -31,7 +31,13 @@ communityBiz.publish = function(params, cb){
 };
 
 communityBiz.get = function(params, cb){
-    sqlPool.excute(6, [params.iCommunityID], cb);
+    sqlPool.excute(6, [params.iCommunityID], function(err, rows, fields){
+	if(!err && rows.length > 0){
+	    cb(err, rows, fields);
+	}else{
+	    cb(msg.code.ERR_NOT_REGISTER_COMMUNITY);
+	}
+    });
 };
 
 communityBiz.search = function(params, cb){
