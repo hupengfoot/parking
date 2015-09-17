@@ -18,4 +18,12 @@ price.calPrice = function(params){
     }
 };
 
+price.check = function(iChargesType){
+    if(priceDefine[iChargesType] === null || priceDefine[iChargesType] === undefined){
+	return 0;
+    }else{
+	return 1;
+    }
+};
+
 module.exports = price;

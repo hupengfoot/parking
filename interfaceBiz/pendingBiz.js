@@ -56,7 +56,7 @@ pendingBiz.calPrice = function(params, cb){
 
 pendingBiz.query = function(params, cb){
     var szWhere = '';
-    szWhere = szWhere + misc.getTimeLimit(params);
+    szWhere = szWhere + misc.getSectionTimeLimit(params);
     var tableNum = parseInt(params.iCommunityID) % pendingCnt;
     var insertParams = [tableNum, params.iPendingID, params.iCommunityID, szWhere, params.iNum];
     sqlPool.excute(9, insertParams, cb);
