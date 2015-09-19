@@ -20,8 +20,38 @@ var _ = {};
 var pendingCnt = mysql_define.getTableCount('tbPendingInfo');
 var userPendingCnt = mysql_define.getTableCount('tbUserPendingInfo');
 
+var pendingStatusEnum = {
+    'NOT_RENTAL':0,
+    'HAS_GROB':1,
+    'HAS_PAY':2,
+    'HAS_CLOSE':3
+};
+
 var bookSuccessTimeHandle = redis_mgr.regTimer(redis_define.timer.BOOK_SUCCESS, function(obj){
     _.updatePendingStatus(obj, 3);
+});
+
+var pendingOverTimeTimeHandle = redis_mgr.regTimer(redis_define.timer.PENDING_OVER_TIME, function(obj){
+    async.waterfall([
+	function(callback){
+	    pendingBiz.detail(obj, function(err, rows, fields){
+		if(!err && rows.length > 0){
+		    if(rows[0].iStatus < pendingStatusEnum.HAS_CLOSE){
+			callback(null);
+		    }else{
+			callback(false);
+		    }
+		}else{
+		    callback(false);
+		}
+	    });
+	},
+	function(callback){
+	    eventMgr.emit(eventDefine.enumType.PENDING_OVER_TIME, obj);
+	    callback(null);
+	}
+    ], function(err, results){
+    });
 });
 
 pendingBiz.init = function(){
@@ -36,6 +66,9 @@ pendingBiz.init = function(){
     });
     eventMgr.register(eventDefine.enumType.ORDER_FINISH,function(obj){
 	_.orderFinishOperate(obj);
+    });
+    eventMgr.register(eventDefine.enumType.PENDING_OVER_TIME,function(obj){
+	_.updatePendingStatus(obj, pendingStatusEnum.HAS_CLOSE);
     });
 };
 
@@ -52,6 +85,45 @@ pendingBiz.calPrice = function(params, cb){
     }else{
 	cb(null, {'price':iTotal * price[1].price});
     }
+};
+
+pendingBiz.cancel = function(params, cb){
+    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
+    sqlPool.excute(10006, [tableNum, 3, params.iPendingID], function(err, rows, fields){
+	if(!err && rows.affectedRows > 0){
+	    async.waterfall([
+		function(callback){
+		    pendingBiz.detail(params, function(err, rows, fields){
+			if(!err && rows.length > 0){
+			    callback(null, rows[0]);
+			}else{
+			    callback(msg.code.ERR_INVALID_PENDING);
+			}
+		    });
+		},
+		function(pendingInfo, callback){
+		    var obj = {};
+		    obj.iSpaceID = pendingInfo.iSpaceID;
+		    obj.iStatus = 0;
+		    spaceBiz.updateSpaceStatus(obj, function(err, rows, fields){
+			callback(null, pendingInfo);
+		    })
+		}, 
+		function(pendingInfo, callback){
+		    var obj1 = {};
+		    obj1.iPendingID = params.iPendingID;
+		    obj1.iPhoneNum = pendingInfo.iPhoneNum;
+		    pendingBiz.updateUserPendingStatus(obj1, 3, function(err, rows, fields){
+			callback(null);
+		    });
+		}
+	    ], function(err, results){
+		cb(err, results);
+	    });
+	}else{
+	    cb(msg.code.ERR_CAN_NOT_CANCEL_PENDING);
+	}
+    });
 };
 
 pendingBiz.query = function(params, cb){
@@ -83,7 +155,7 @@ pendingBiz.queryMine = function(params, cb){
 pendingBiz.publish = function(params, cb){
     async.waterfall([
 	function(callback){
-	    spaceBiz.detail(params, function(err, rows, fields){
+	    spaceBiz.getMySpace(params, function(err, rows, fields){
 		if(!err && rows.length > 0){
 		    if(rows[0].iHasApprove === 1){
 			params.iCommunityID = rows[0].iCommunityID;
@@ -122,13 +194,19 @@ pendingBiz.publish = function(params, cb){
 	    });
 	}
     ], function(err){
-	cb(err);
+	cb(err, {'iPendingID':params.iPendingID});
 	//将该车位设置为已租用
 	if(!err){
 	    var obj = {};
 	    obj.iSpaceID = params.iSpaceID;
 	    obj.iStatus = 1;
 	    spaceBiz.updateSpaceStatus(obj, function(){});
+
+	    //挂单超时
+	    var timeout = (Date.parse(params.tEnd) - Date.parse(new Date())) / 1000 - (params.iMiniRental * 3600); 
+	    obj.iPendingID = params.iPendingID;
+	    console.error('register pendingOverTimeTimeHandle!');
+	    redis_mgr.addTimer(timeout, obj, pendingOverTimeTimeHandle);
 	}
     });
 };
@@ -147,7 +225,7 @@ pendingBiz.addUserPendingInfo = function(params, cb){
 
 pendingBiz.lockPendingStatus = function(params, cb){
     var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
-    sqlPool.excute(10006, [tableNum, params.iPendingID], cb);
+    sqlPool.excute(10006, [tableNum, 1, params.iPendingID], cb);
 };
 
 pendingBiz.updatePendingStatus = function(params, iStatus, cb){

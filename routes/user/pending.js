@@ -44,4 +44,12 @@ router.post('/calprice', function(req, res){
     });
 });
 
+router.post('/cancel', function(req, res){
+    var param = url.parse(req.url, true).query;
+    pendingBiz.cancel(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
+
 module.exports = router;

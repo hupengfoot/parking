@@ -3,6 +3,8 @@
 var async = require('async');
 var robot_util = require('./robot_util');
 
+var space = {};
+
 var getRobot = function(cb){
     var robot = {};
     cb(null, robot);
@@ -25,7 +27,7 @@ var login = function(cb){
     });
 };
 
-var queryspace = function(robot, cb){
+space.queryspace = function(robot, cb){
     var obj = {};
  
     var dist_url = robot_util.makeUrl('/user/space/queryspace', 0);
@@ -37,7 +39,22 @@ var queryspace = function(robot, cb){
     });
 };
 
-var addspace = function(robot, cb){
+space.detail = function(robot, cb){
+    var obj = {};
+    obj.iSpaceID = robot.obj.iSpaceID;
+ 
+    var dist_url = robot_util.makeUrl('/user/space/detail', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    robot.result = result;
+	    cb(null, robot);
+        });
+    });
+};
+
+
+space.addspace = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 5;
     obj.szParkingNum = 'xxxxx';
@@ -54,7 +71,7 @@ var addspace = function(robot, cb){
     });
 };
 
-var deletespace = function(robot, cb){
+space.deletespace = function(robot, cb){
     var obj = {};
     obj.iSpaceID = 1;
 
@@ -67,7 +84,7 @@ var deletespace = function(robot, cb){
     });
 };
 
-var updatespace = function(robot, cb){
+space.updatespace = function(robot, cb){
     var obj = {};
     obj.iSpaceID = 0;
     obj.szParkingNum = 'adasd';
@@ -84,7 +101,7 @@ var updatespace = function(robot, cb){
     });
 };
 
-var approve = function(robot, cb){
+space.approve = function(robot, cb){
     var obj = {};
     obj.iSpaceID = 2;
 
@@ -97,17 +114,24 @@ var approve = function(robot, cb){
     });
 };
 
+var L1 = function(robot, cb){
+    robot.obj = {};
+    robot.obj.iSpaceID = 2;
+    cb(null, robot);
+};
 
 var test_cases =
 [
     login,
-    //addspace,
-    approve,
-    //queryspace,
-    //updatespace,
-    //queryspace,
-    //deletespace,
-    //queryspace,
+    //space.addspace,
+    //space.approve,
+    //space.queryspace,
+    //space.updatespace,
+    //space.queryspace,
+    //space.deletespace,
+    //space.queryspace,
+    L1,
+    space.detail,
 ];
 
 function test_main() {
@@ -127,3 +151,4 @@ if (require.main === module) {
     test_main();
 }
 
+module.exports = space;

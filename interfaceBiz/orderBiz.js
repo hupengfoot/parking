@@ -151,20 +151,31 @@ orderBiz.queryMine = function(params, cb){
 orderBiz.book = function(params, cb){
     async.waterfall([
 	function(callback){
-	    //抢单
-	    pendingBiz.lockPendingStatus(params, function(err, rows, fields){
-		if(!err && rows.affectedRows > 0){
-		    callback(null);
+	    //获取订单详情
+	    pendingBiz.detail(params, function(err, rows, fields){
+		if(!err && rows.length > 0){
+		    callback(null, rows[0]);
 		}else{
 		    callback(msg.code.ERR_BOOK_FAIL);
 		}
 	    });
 	},
-	function(callback){
-	    //获取订单详情
-	    pendingBiz.detail(params, function(err, rows, fields){
-		if(!err && rows.length > 0){
-		    callback(null, rows[0]);
+	function(pendingInfo, callback){
+	    //判断抢单条件是否满足
+	    _.checkOrderCondition(params, pendingInfo, function(err, pass){
+		console.error(pass);
+		if(pass === true){
+		    callback(null, pendingInfo);
+		}else{
+		    callback(msg.code.ERR_NOT_SATISFY_TIME);
+		}
+	    });
+	},
+	function(pendingInfo, callback){
+	    //抢单
+	    pendingBiz.lockPendingStatus(params, function(err, rows, fields){
+		if(!err && rows.affectedRows > 0){
+		    callback(null, pendingInfo);
 		}else{
 		    callback(msg.code.ERR_BOOK_FAIL);
 		}
@@ -293,6 +304,22 @@ _.orderFinishOperate = function(obj){
 	}
     ], function(err, results){
     });
+};
+
+_.checkOrderCondition = function(params, pendingInfo, cb){
+    var orderStart = Date.parse(params.tStart);
+    var orderEnd = Date.parse(params.tEnd);
+    var pendingStart = Date.parse(pendingInfo.tStart);
+    var pendingEnd = Date.parse(pendingInfo.tEnd);
+    if(orderStart >= pendingStart && orderEnd <= pendingEnd){
+	if((orderEnd - orderStart)/1000/3600 >= pendingInfo.iMiniRental){
+	    cb(null, true);
+	}else{
+	    cb(null, false);
+	}
+    }else{
+	cb(null, false);
+    }
 };
 
 module.exports = orderBiz;

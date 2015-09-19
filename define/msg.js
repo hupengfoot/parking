@@ -24,6 +24,9 @@ msg.code.ERR_HAS_PENDING = -18;
 msg.code.ERR_PAY_OVER_TIME = -19;
 msg.code.ERR_NOT_REGISTER_COMMUNITY = -20;
 msg.code.ERR_HAS_NOT_APPROVE = -21;
+msg.code.ERR_NOT_SATISFY_TIME = -22;
+msg.code.ERR_CAN_NOT_CANCEL_PENDING = -23;
+msg.code.ERR_INVALID_PENDING = -24;
 
 msg.define[msg.code.ERR_SUCCESS] = 'success';
 msg.define[msg.code.ERR_DB_ERR] = '服务器内部错误，请联系客服';
@@ -47,6 +50,9 @@ msg.define[msg.code.ERR_HAS_PENDING] = "该车位已挂单";
 msg.define[msg.code.ERR_PAY_OVER_TIME] = "付款超时";
 msg.define[msg.code.ERR_NOT_REGISTER_COMMUNITY] = "未接入的小区";
 msg.define[msg.code.ERR_HAS_NOT_APPROVE] = "未认证的车位";
+msg.define[msg.code.ERR_NOT_SATISFY_TIME] = "不满足抢单条件";
+msg.define[msg.code.ERR_CAN_NOT_CANCEL_PENDING] = "无法取消订单";
+msg.define[msg.code.ERR_INVALID_PENDING] = "无效的挂单";
 
 msg.wrapper = function(err,result,res){
     if(err){

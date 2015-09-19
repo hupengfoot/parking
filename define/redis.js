@@ -35,6 +35,7 @@ var redis_timer_enum = Object.freeze({
     'EXAMPLE':0,
     'PAY_OVER_TIME':1,
     'BOOK_SUCCESS':2,
+    'PENDING_OVER_TIME':3,
 });
 
 var redis_channel_enum = Object.freeze({

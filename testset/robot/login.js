@@ -3,18 +3,18 @@
 var async = require('async');
 var robot_util = require('./robot_util');
 
-var getRobot = function(cb){
+var login = {};
+
+login.getRobot = function(cb){
     var robot = {};
+    robot.parking_app_key = 0;
     cb(null, robot);
 };
 
-var login = function(cb){
+login.login = function(robot, cb){
     var obj = {};
-    obj.iPhoneNum = '13917658422';
-    obj.szPasswd = robot_util.encodePasswd('000000');
-    console.error(obj.szPasswd);
-    var robot = {};
-    robot.iPhoneNum = '13917658422';
+    obj.iPhoneNum = robot.obj.iPhoneNum;
+    obj.szPasswd = robot.obj.szPasswd;
  
     var dist_url = robot_util.makeUrl('/login', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -22,12 +22,13 @@ var login = function(cb){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
 	    robot.parking_app_key = result.parking_app_key;
+	    robot.result = result;
 	    cb(null, robot);
         });
     });
 };
 
-var logout = function(robot, cb){
+login.logout = function(robot, cb){
     var obj = {};
  
     var dist_url = robot_util.makeUrl('/login/logout', 0);
@@ -39,36 +40,35 @@ var logout = function(robot, cb){
     });
 };
 
-var register = function(robot, cb){
+login.register = function(robot, cb){
     var obj = {};
-    obj.iPhoneNum = '13917658422';
-    obj.szPasswd = robot_util.encodePasswd('000000');
-    var robot = {};
-    robot.parking_app_key = 'xxx';
+    obj.iPhoneNum = robot.obj.iPhoneNum;
+    obj.szPasswd = robot.obj.szPasswd;
+    obj.szCode = robot.obj.szCode;
     var dist_url = robot_util.makeUrl('/user/user/register', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
+	    robot.result = result;
 	    cb(null, robot);
         });
     });
 };
 
-var sms_register = function(robot, cb){
+login.sms_register = function(robot, cb){
     var obj = {};
-    obj.iPhoneNum = '13917658422';
-    var robot = {};
+    obj.iPhoneNum = robot.obj.iPhoneNum;
     var dist_url = robot_util.makeUrl('/common/sms/register', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
-	    console.error(body);
 	    console.error(result);
+	    robot.result = result;
 	    cb(null, robot);
         });
     });
 };
 
-var modifypsw = function(robot, cb){
+login.modifypsw = function(robot, cb){
     var obj = {};
     obj.szPasswd = robot_util.encodePasswd('000000');
     obj.szOldPasswd = robot_util.encodePasswd('111111');
@@ -81,7 +81,7 @@ var modifypsw = function(robot, cb){
     });
 };
 
-var updatepsw = function(robot, cb){
+login.updatepsw = function(robot, cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
     obj.szCode = '718530';
@@ -95,7 +95,7 @@ var updatepsw = function(robot, cb){
     });
 };
 
-var updateinfo = function(robot, cb){
+login.updateinfo = function(robot, cb){
     var obj = {};
     obj.szUserName = 'xxx';
     obj.szRealName = 'xxx';
@@ -114,7 +114,7 @@ var updateinfo = function(robot, cb){
     });
 };
 
-var queryMyInfo = function(robot, cb){
+login.queryMyInfo = function(robot, cb){
     var obj = {};
 
     var dist_url = robot_util.makeUrl('/user/user/query', 0);
@@ -126,7 +126,7 @@ var queryMyInfo = function(robot, cb){
     });
 };
 
-var queryLiensePlate = function(robot, cb){
+login.queryLiensePlate = function(robot, cb){
     var obj = {};
 
     var dist_url = robot_util.makeUrl('/user/user/querylienseplate', 0);
@@ -138,7 +138,7 @@ var queryLiensePlate = function(robot, cb){
     });
 };
 
-var updateLiense = function(robot, cb){
+login.updateLiense = function(robot, cb){
     var obj = {};
     obj.szLiensePlate = 'yyyyyy';
 
@@ -154,17 +154,17 @@ var updateLiense = function(robot, cb){
 
 var test_cases =
 [
-    //getRobot,
-    //register,
-    login,
-    //modifypsw,
-    //sms_register,
-    //updatepsw,
-    //updateinfo,
-    queryMyInfo,
-    //queryLiensePlate,
-    //updateLiense,
-    logout,
+    login.getRobot,
+    login.register,
+    //login.login,
+    //login.modifypsw,
+    //login.sms_register,
+    //login.updatepsw,
+    //login.updateinfo,
+    //login.queryMyInfo,
+    //login.queryLiensePlate,
+    //login.updateLiense,
+    //login.logout,
 ];
 
 function test_main() {
@@ -184,3 +184,4 @@ if (require.main === module) {
     test_main();
 }
 
+module.exports = login;

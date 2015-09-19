@@ -177,6 +177,14 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/user/space/detail',
+    query : ['iSpaceID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '查询车位详情'
+},
+{
     router : '/master/space/approve',
     query : ['iSpaceID'],
     queryType : ['num'],
@@ -282,6 +290,14 @@ module.exports.global_query_define = [
     comment : '查询挂单接口'
     //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxxx', iPhoneNum:'xxx', iSpaceID:'xxxx', tStart:'xxxx', tEnd:'xxxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx', szCharges:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/user/pending/cancel',
+    query : ['iPendingID'],
+    queryType : ['num'],
+    access : 1,
+    limit : 500,
+    comment : '取消挂单接口'
 },
 {
     router : '/user/pending/detail',

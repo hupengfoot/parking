@@ -6,6 +6,7 @@ var enumType = {
     PAY_OVER_TIME : 10002,
     PAY_SUCCESS : 10003,
     ORDER_FINISH : 10004,
+    PENDING_OVER_TIME : 10005,
 };
 
 var define = [
@@ -28,8 +29,11 @@ var define = [
 {
     iType : enumType.PAY_SUCCESS,
     szName : 'PAY_SUCCESS'
+},
+{
+    iType : enumType.PENDING_OVER_TIME,
+    szName : 'PENDING_OVER_TIME'
 }
-
 ];
 
 eventDefine.enumType = enumType;

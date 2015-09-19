@@ -13,12 +13,20 @@ var communityBiz = require(path.join(global.rootPath, 'interfaceBiz/communityBiz
 var spaceBiz = {};
 var _ = {};
 
+var spaceStatusEnum = {
+    'NOT_PENDING':0,
+    'HAS_PENDING':1
+};
+
 spaceBiz.init = function(){
     eventMgr.register(eventDefine.enumType.BOOK_SUCCESS, function(obj){
 	_.bookSuccessOperate(obj);
     });
     eventMgr.register(eventDefine.enumType.PAY_OVER_TIME, function(obj){
 	_.payOverTimeOperate(obj);
+    });
+    eventMgr.register(eventDefine.enumType.PENDING_OVER_TIME,function(obj){
+	_.pendingOverTimeOperate(obj);
     });
 };
 
@@ -51,12 +59,16 @@ spaceBiz.querySpace = function(params, cb){
     sqlPool.excute(4, [params.iPhoneNum], cb);
 };
 
-spaceBiz.detail = function(params, cb){
+spaceBiz.getMySpace = function(params, cb){
     sqlPool.excute(5, [params.iPhoneNum, params.iSpaceID], cb);
 };
 
 spaceBiz.deleteSpace = function(params, cb){
     sqlPool.excute(10004, [params.iPhoneNum, params.iSpaceID], cb);
+};
+
+spaceBiz.detail = function(params, cb){
+    sqlPool.excute(14, [params.iSpaceID], cb);
 };
 
 spaceBiz.updateSpace = function(params, cb){
@@ -75,6 +87,13 @@ _.bookSuccessOperate = function(obj){
 };
 
 _.payOverTimeOperate = function(obj){
+    var param = {};
+    param.iStatus = 0;
+    param.iSpaceID = obj.iSpaceID;
+    spaceBiz.updateSpaceStatus(param, function(){});
+};
+
+_.pendingOverTimeOperate = function(obj){
     var param = {};
     param.iStatus = 0;
     param.iSpaceID = obj.iSpaceID;

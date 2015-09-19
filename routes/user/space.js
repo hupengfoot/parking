@@ -17,6 +17,13 @@ router.post('/queryspace', function(req, res){
     });
 });
 
+router.post('/detail', function(req, res){
+    var param = url.parse(req.url, true).query;
+    spaceBiz.detail(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
 router.post('/addspace', function(req, res){
     var param = url.parse(req.url, true).query;
     spaceBiz.addSpace(param, function(err, rows, fields){
@@ -35,7 +42,7 @@ router.post('/updatespace', function(req, res){
     var param = url.parse(req.url, true).query;
     async.waterfall([
 	function(callback){
-	    spaceBiz.detail(param, function(err, rows, fields){
+	    spaceBiz.getMySpace(param, function(err, rows, fields){
 		if(!err && rows.length > 0){
 		    if(param.iPhoneNum == rows[0].iPhoneNum){
 			callback(null);
