@@ -68,7 +68,13 @@ spaceBiz.deleteSpace = function(params, cb){
 };
 
 spaceBiz.detail = function(params, cb){
-    sqlPool.excute(14, [params.iSpaceID], cb);
+    sqlPool.excute(14, [params.iSpaceID], function(err, rows, fields){
+	if(!err && rows.length > 0){
+	    cb(null, rows);
+	}else{
+	    cb(msg.code.ERR_INVALID_ORDER);
+	}
+    });
 };
 
 spaceBiz.updateSpace = function(params, cb){
