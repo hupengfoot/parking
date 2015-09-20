@@ -16,6 +16,10 @@ module.exports.tables = [
 {
     table : 'tbUserOrderInfo',
     count : 128
+},
+{
+    table : 'tbUserExchangeInfo',
+    count : 128
 }
 ];
 

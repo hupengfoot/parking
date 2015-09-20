@@ -137,6 +137,7 @@ create table IF NOT EXISTS tbGoodsInfo(
     iPrice int unsigned not null default 0 comment '需要的积分',
     iNum int unsigned not null default 0 comment '数量',
     iSendNum int unsigned not null default 0 comment '已发送的数量',
+    iDelete int unsigned not null default 0 comment '0商品在线， 1商品下架',
     primary key (`iGoodsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='商品表';
 

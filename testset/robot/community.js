@@ -3,13 +3,15 @@
 var async = require('async');
 var robot_util = require('./robot_util');
 
+var community = {};
+
 var getRobot = function(cb){
     var robot = {};
     robot.parking_app_key = 0;
     cb(null, robot);
 };
 
-var login = function(cb){
+var login = function(obj, cb){
     var obj = {};
     obj.iPhoneNum = '13917658422';
     obj.szPasswd = robot_util.encodePasswd('000000');
@@ -28,7 +30,7 @@ var login = function(cb){
     });
 };
 
-var community_publish = function(robot, cb){
+var community.publish = function(robot, param, cb){
     var obj = {};
     obj.iChargesType = 1;
     obj.iX = 10;
@@ -49,7 +51,7 @@ var community_publish = function(robot, cb){
     });
 };
 
-var community_get = function(robot, cb){
+var community.get = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 1;
     
@@ -63,7 +65,7 @@ var community_get = function(robot, cb){
     });
 };
 
-var community_search = function(robot, cb){
+var community.search = function(robot, cb){
     var obj = {};
     obj.szName = 'xx';
     obj.iProvince = 1;
@@ -82,9 +84,9 @@ var community_search = function(robot, cb){
 var test_cases =
 [
     login,
-    //community_publish,
-    //community_get,
-    community_search
+    community.publish,
+    //community.get,
+    //community.search
 ];
 
 function test_main() {
@@ -104,3 +106,4 @@ if (require.main === module) {
     test_main();
 }
 
+module.exports = community;

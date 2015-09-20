@@ -28,6 +28,7 @@ msg.code.ERR_NOT_SATISFY_TIME = -22;
 msg.code.ERR_CAN_NOT_CANCEL_PENDING = -23;
 msg.code.ERR_INVALID_PENDING = -24;
 msg.code.ERR_INVALID_SPACE = -25;
+msg.code.ERR_INVALID_GOODS = -26;
 
 msg.define[msg.code.ERR_SUCCESS] = 'success';
 msg.define[msg.code.ERR_DB_ERR] = '服务器内部错误，请联系客服';
@@ -55,6 +56,7 @@ msg.define[msg.code.ERR_NOT_SATISFY_TIME] = "不满足抢单条件";
 msg.define[msg.code.ERR_CAN_NOT_CANCEL_PENDING] = "无法取消订单";
 msg.define[msg.code.ERR_INVALID_PENDING] = "无效的挂单";
 msg.define[msg.code.ERR_INVALID_SPACE] = "不存在的车位";
+msg.define[msg.code.ERR_INVALID_GOODS] = "不存在的商品";
 
 msg.wrapper = function(err,result,res){
     if(err){

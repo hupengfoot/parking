@@ -453,12 +453,21 @@ module.exports.global_query_define = [
 },
 {
     router : '/master/goods/publish',
-    query : ['szDesc', 'szPicUrl'],
-    queryType : ['string', 'string'],
-    post : true,
-    access : 1,
+    query : ['szDesc', 'szPicUrl', 'iPrice', 'iNum'],
+    queryType : ['string', 'string', 'num', 'num'],
+    access : 3,
     limit : 500,
     comment : '发布商品接口'
+    //成功 {'errCode':0, 'msg':'success'}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/master/goods/set',
+    query : ['iGoodsID', 'iDelete'],
+    queryType : ['num', 'num'],
+    access : 3,
+    limit : 500,
+    comment : '商品下架接口'
     //成功 {'errCode':0, 'msg':'success'}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 }

@@ -72,7 +72,7 @@ spaceBiz.detail = function(params, cb){
 	if(!err && rows.length > 0){
 	    cb(null, rows);
 	}else{
-	    cb(msg.code.ERR_INVALID_ORDER);
+	    cb(msg.code.ERR_INVALID_SPACE);
 	}
     });
 };
