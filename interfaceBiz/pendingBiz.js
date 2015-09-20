@@ -172,6 +172,13 @@ pendingBiz.query = function(params, cb){
 };
 
 pendingBiz.detail = function(params, cb){
+    var szWhere = '';
+    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
+    var insertParams = [tableNum, params.iPendingID];
+    sqlPool.excute(10, insertParams, cb); 
+};
+
+pendingBiz.getDetail = function(params, cb){
     async.waterfall([
 	function(callback){
 	    var szWhere = '';

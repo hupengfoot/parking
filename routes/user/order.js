@@ -25,7 +25,7 @@ router.post('/book', function(req, res){
 
 router.post('/detail', function(req, res){
     var param = url.parse(req.url, true).query;
-    orderBiz.detail(param, function(err, rows, fields){
+    orderBiz.getDetail(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
 });

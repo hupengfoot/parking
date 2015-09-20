@@ -268,6 +268,11 @@ orderBiz.book = function(params, cb){
 };
 
 orderBiz.detail = function(params, cb){
+    var tableNum = misc.getEndID(params.iOrderID) % orderCnt;
+    sqlPool.excute(12, [tableNum, params.iOrderID], cb);
+};
+
+orderBiz.getDetail = function(params, cb){
     async.waterfall([
 	function(callback){
 	    var tableNum = misc.getEndID(params.iOrderID) % orderCnt;

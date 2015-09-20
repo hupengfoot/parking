@@ -32,7 +32,7 @@ router.post('/query', function(req, res){
 
 router.post('/detail', function(req, res){
     var param = url.parse(req.url, true).query;
-    pendingBiz.detail(param, function(err, rows, fields){
+    pendingBiz.getDetail(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
 });
