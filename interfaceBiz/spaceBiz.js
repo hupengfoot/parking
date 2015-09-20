@@ -85,6 +85,10 @@ spaceBiz.updateSpaceStatus = function(params, cb){
     sqlPool.excute(10012, [params.iStatus, params.iSpaceID], cb);
 };
 
+spaceBiz.getBatchInfo = function(array, cb){
+    sqlPool.excute(19, [array.join(',')], cb);
+};
+
 _.bookSuccessOperate = function(obj){
     var param = {};
     param.iStatus = 1;

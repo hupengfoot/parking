@@ -10,6 +10,7 @@ var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
 var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 var misc = require(path.join(global.rootPath, 'util/misc'));
 var spaceBiz = require(path.join(global.rootPath, 'interfaceBiz/spaceBiz'));
+var communityBiz = require(path.join(global.rootPath, 'interfaceBiz/communityBiz'));
 var mysql_define = require(path.join(global.rootPath, 'sql/mysql_define'));
 var price = require(path.join(global.rootPath, "config/price"));
 var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
@@ -127,29 +128,137 @@ pendingBiz.cancel = function(params, cb){
 };
 
 pendingBiz.query = function(params, cb){
-    var szWhere = '';
-    szWhere = szWhere + misc.getSectionTimeLimit(params);
-    var tableNum = parseInt(params.iCommunityID) % pendingCnt;
-    var insertParams = [tableNum, params.iPendingID, params.iCommunityID, szWhere, params.iNum];
-    sqlPool.excute(9, insertParams, cb);
+    async.waterfall([
+	function(callback){
+	    var szWhere = '';
+	    szWhere = szWhere + misc.getSectionTimeLimit(params);
+	    var tableNum = parseInt(params.iCommunityID) % pendingCnt;
+	    var insertParams = [tableNum, params.iPendingID, params.iCommunityID, szWhere, params.iNum];
+	    sqlPool.excute(9, insertParams, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+	function(pendingArray, callback){
+	    if(pendingArray.length > 0){
+		var communities = pendingArray.map(function(one){
+		    return one.iCommunityID;
+		});
+		communityBiz.getBatchInfo(communities, function(err, rows, fields){
+		    callback(null, pendingArray, rows);	    
+		});
+	    }else{
+		callback(null, pendingArray, []);
+	    }
+	},
+	function(pendingArray, communityArray, callback){
+	    if(pendingArray.length > 0){
+		var spaces = pendingArray.map(function(one){
+		    return one.iSpaceID;
+		});
+		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
+		    callback(null, pendingArray, communityArray, rows);
+		});
+	    }else{
+		callback(null, pendingArray, communityArray, []);
+	    }
+	}
+    ], function(err, pendingArray, communityArray, spaceArray){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
+	}
+    });
 };
 
 pendingBiz.detail = function(params, cb){
-    var szWhere = '';
-    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
-    var insertParams = [tableNum, params.iPendingID];
-    sqlPool.excute(10, insertParams, cb);
+    async.waterfall([
+	function(callback){
+	    var szWhere = '';
+	    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
+	    var insertParams = [tableNum, params.iPendingID];
+	    sqlPool.excute(10, insertParams, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+	function(pendingArray, callback){
+	    if(pendingArray.length > 0){
+		var communities = pendingArray.map(function(one){
+		    return one.iCommunityID;
+		});
+		communityBiz.getBatchInfo(communities, function(err, rows, fields){
+		    callback(null, pendingArray, rows);	    
+		});
+	    }else{
+		callback(null, pendingArray, []);
+	    }
+	},
+	function(pendingArray, communityArray, callback){
+	    if(pendingArray.length > 0){
+		var spaces = pendingArray.map(function(one){
+		    return one.iSpaceID;
+		});
+		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
+		    callback(null, pendingArray, communityArray, rows);
+		});
+	    }else{
+		callback(null, pendingArray, communityArray, []);
+	    }
+	}
+    ], function(err, pendingArray, communityArray, spaceArray){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
+	}
+    });
 };
 
 pendingBiz.queryMine = function(params, cb){
-    var szWhere = '';
-    if(parseInt(params.iStatus) !== -1){
-	szWhere = szWhere + ' and iStatus = ' + params.iStatus;
-    }
-    szWhere = szWhere + misc.getTimeLimit(params);
-    var tableNum = parseInt(params.iPhoneNum) % userPendingCnt;
-    var insertParams = [tableNum, params.iPendingID, params.iPhoneNum, szWhere, params.iNum];
-    sqlPool.excute(8, insertParams, cb);
+    async.waterfall([
+	function(callback){
+	    var szWhere = '';
+	    if(parseInt(params.iStatus) !== -1){
+		szWhere = szWhere + ' and iStatus = ' + params.iStatus;
+	    }
+	    szWhere = szWhere + misc.getTimeLimit(params);
+	    var tableNum = parseInt(params.iPhoneNum) % userPendingCnt;
+	    var insertParams = [tableNum, params.iPendingID, params.iPhoneNum, szWhere, params.iNum];
+	    sqlPool.excute(8, insertParams, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+	function(pendingArray, callback){
+	    if(pendingArray.length > 0){
+		var communities = pendingArray.map(function(one){
+		    return one.iCommunityID;
+		});
+		communityBiz.getBatchInfo(communities, function(err, rows, fields){
+		    callback(null, pendingArray, rows);	    
+		});
+	    }else{
+		callback(null, pendingArray, []);
+	    }
+	},
+	function(pendingArray, communityArray, callback){
+	    if(pendingArray.length > 0){
+		var spaces = pendingArray.map(function(one){
+		    return one.iSpaceID;
+		});
+		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
+		    callback(null, pendingArray, communityArray, rows);
+		});
+	    }else{
+		callback(null, pendingArray, communityArray, []);
+	    }
+	}
+    ], function(err, pendingArray, communityArray,spaceArray){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
+	}
+    });
 };
 
 pendingBiz.publish = function(params, cb){

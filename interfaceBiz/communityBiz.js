@@ -48,4 +48,8 @@ communityBiz.detail = function(params, cb){
     sqlPool.excute(11, [params.iCommunityID], cb);
 };
 
+communityBiz.getBatchInfo = function(array, cb){
+    sqlPool.excute(18, [array.join(',')], cb);
+};
+
 module.exports = communityBiz;
