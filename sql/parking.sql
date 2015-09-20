@@ -98,6 +98,7 @@ create table IF NOT EXISTS tbUserPendingInfo(
 create table IF NOT EXISTS tbOrderInfo(
     iOrderID bigint unsigned not null comment '抢单号',
     iCommunityID bigint unsigned not null comment '小区ID',
+    iSpaceID bigint unsigned not null comment '车位ID',
     iPendingID bigint unsigned not null comment '挂单号',
     iPhoneNum bigint unsigned not null comment '用户手机号码',
     tGrobTime datetime not null default '1970-01-01 08:00:00' comment '抢单时间',
@@ -115,6 +116,7 @@ create table IF NOT EXISTS tbOrderInfo(
 create table IF NOT EXISTS tbUserOrderInfo(
     iOrderID bigint unsigned not null comment '抢单号',
     iCommunityID bigint unsigned not null comment '小区ID',
+    iSpaceID bigint unsigned not null comment '车位ID',
     iPendingID bigint unsigned not null comment '挂单号',
     iPhoneNum bigint unsigned not null comment '用户手机号码',
     tGrobTime datetime not null default '1970-01-01 08:00:00' comment '抢单时间',

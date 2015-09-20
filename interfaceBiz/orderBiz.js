@@ -139,13 +139,49 @@ orderBiz.updateUserOrderPay = function(params, iStatus, cb){
 };
 
 orderBiz.queryMine = function(params, cb){
-    var szWhere = '';
-    szWhere = szWhere + misc.getTimeLimit(params);
-    if(parseInt(params.iPay) !== -1){
-	szWhere = szWhere + ' and iPay = ' + params.iPay;
-    }
-    var tableNum = params.iPhoneNum % userOrderCnt;
-    sqlPool.excute(13, [tableNum, params.iPhoneNum, params.iOrderID, szWhere, params.iNum], cb);
+    async.waterfall([
+	function(callback){
+	    var szWhere = '';
+	    szWhere = szWhere + misc.getTimeLimit(params);
+	    if(parseInt(params.iPay) !== -1){
+		szWhere = szWhere + ' and iPay = ' + params.iPay;
+	    }
+	    var tableNum = params.iPhoneNum % userOrderCnt;
+	    sqlPool.excute(13, [tableNum, params.iPhoneNum, params.iOrderID, szWhere, params.iNum], function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+	function(orderArray, callback){
+	    if(orderArray.length > 0){
+		var communities = orderArray.map(function(one){
+		    return one.iCommunityID;
+		});
+		communityBiz.getBatchInfo(communities, function(err, rows, fields){
+		    callback(null, orderArray, rows);	    
+		});
+	    }else{
+		callback(null, orderArray, []);
+	    }
+	},
+	function(orderArray, communityArray, callback){
+	    if(orderArray.length > 0){
+		var spaces = orderArray.map(function(one){
+		    return one.iSpaceID;
+		});
+		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
+		    callback(null, orderArray, communityArray, rows);	    
+		});
+	    }else{
+		callback(null, orderArray, communityArray, []);
+	    }
+	}
+    ], function(err, orderArray, communityArray, spaceArray){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'order':orderArray, 'community':communityArray, 'space':spaceArray});
+	}
+    });
 };
 
 orderBiz.book = function(params, cb){
@@ -232,19 +268,55 @@ orderBiz.book = function(params, cb){
 };
 
 orderBiz.detail = function(params, cb){
-    var tableNum = misc.getEndID(params.iOrderID) % orderCnt;
-    sqlPool.excute(12, [tableNum, params.iOrderID], cb);
+    async.waterfall([
+	function(callback){
+	    var tableNum = misc.getEndID(params.iOrderID) % orderCnt;
+	    sqlPool.excute(12, [tableNum, params.iOrderID], function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+	function(orderArray, callback){
+	    if(orderArray.length > 0){
+		var communities = orderArray.map(function(one){
+		    return one.iCommunityID;
+		});
+		communityBiz.getBatchInfo(communities, function(err, rows, fields){
+		    callback(null, orderArray, rows);	    
+		});
+	    }else{
+		callback(null, orderArray, []);
+	    }
+	},
+	function(orderArray, communityArray, callback){
+	    if(orderArray.length > 0){
+		var spaces = orderArray.map(function(one){
+		    return one.iSpaceID;
+		});
+		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
+		    callback(null, orderArray, communityArray, rows);	    
+		});
+	    }else{
+		callback(null, orderArray, communityArray, []);
+	    }
+	}
+    ], function(err, orderArray, communityArray, spaceArray){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'order':orderArray, 'community':communityArray, 'space':spaceArray});
+	}
+    });
 };
 
 orderBiz.addOrderInfo = function(params, cb){
     var tableNum = parseInt(params.iCommunityID) % orderCnt;
-    var insertParams = [tableNum, params.iOrderID, params.iCommunityID, params.iPendingID, params.iPhoneNum, params.tStart, params.tEnd, params.iPrice, params.szLiensePlate];
+    var insertParams = [tableNum, params.iOrderID, params.iCommunityID, params.iSpaceID, params.iPendingID, params.iPhoneNum, params.tStart, params.tEnd, params.iPrice, params.szLiensePlate];
     sqlPool.excute(20007, insertParams, cb);
 };
 
 orderBiz.addUserOrderInfo = function(params, cb){
     var tableNum = parseInt(params.iPhoneNum) % userOrderCnt;
-    var insertParams = [tableNum, params.iOrderID, params.iCommunityID, params.iPendingID, params.iPhoneNum, params.tStart, params.tEnd, params.iPrice, params.szLiensePlate];
+    var insertParams = [tableNum, params.iOrderID, params.iCommunityID, params.iSpaceID, params.iPendingID, params.iPhoneNum, params.tStart, params.tEnd, params.iPrice, params.szLiensePlate];
     sqlPool.excute(20008, insertParams, cb);
 };
 

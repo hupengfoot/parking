@@ -46,8 +46,8 @@ module.exports.sqls = {
     '20004': 'into tbCommunityInfo(iChargesType, iX, iY, iProvince, iCity, iAreaName, szComminityName, szPicUrl) values(?, ?, ?, ?, ?, ?, ?, ?)',
     '20005': ' into tbPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())',
     '20006':' into tbUserPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())', 
-    '20007': ' into tbOrderInfo_!(iOrderID, iCommunityID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, now(), ?, ?, ?, ?)',
-    '20008': ' into tbUserOrderInfo_!(iOrderID, iCommunityID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, now(), ?, ?, ?, ?)',
+    '20007': ' into tbOrderInfo_!(iOrderID, iCommunityID, iSpaceID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, ?, now(), ?, ?, ?, ?)',
+    '20008': ' into tbUserOrderInfo_!(iOrderID, iCommunityID, iSpaceID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, ?, now(), ?, ?, ?, ?)',
     '20009': ' into tbGoodsInfo(szDesc, szPicUrl, tPublishTime, iPrice, iNum) values(?, ?, now(), ?, ?)',
     '20010':' into tbUserExchangeInfo_! (iExchangeID, iPhoneNum, iGoodsID, tTime) values(?, ?, ?, now())',
     //下标30000-40000的用于delete语句
