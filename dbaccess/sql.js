@@ -16,6 +16,7 @@ module.exports.sqls = {
     '14':' * from tbParkingSpaceInfo where iSpaceID = ?',
     '15':' * from tbGoodsInfo where iGoodsID > ? and iDelete = 0 limit !',
     '16':' * from tbGoodsInfo where iGoodsID = ? and iDelete = 0',
+    '17':' *from tbUserExchangeInfo_! where iPhoneNum = ? and iExchangeID > ? limit !',
     //下标10000-20000的用于update语句
     '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',
     '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ? where iPhoneNum = ?', 
@@ -33,6 +34,8 @@ module.exports.sqls = {
     '10014': ' tbUserOrderInfo_! set iStatus = ? where iOrderID = ? and iStatus < ?',
     '10015': ' tbParkingSpaceInfo set iHasApprove = 1 where iSpaceID = ?',
     '10016': ' tbGoodsInfo set iDelete = ? where iGoodsID = ?',
+    '10017': ' tbUserInfo set iScore = iScore + (!) where iPhoneNum = ? and iScore > - (!)',
+    '10018': ' tbGoodsInfo set iNum = iNum + (!) where iGoodsID = ? and iNum > -(!)',
 
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
@@ -44,6 +47,7 @@ module.exports.sqls = {
     '20007': ' into tbOrderInfo_!(iOrderID, iCommunityID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, now(), ?, ?, ?, ?)',
     '20008': ' into tbUserOrderInfo_!(iOrderID, iCommunityID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, now(), ?, ?, ?, ?)',
     '20009': ' into tbGoodsInfo(szDesc, szPicUrl, tPublishTime, iPrice, iNum) values(?, ?, now(), ?, ?)',
+    '20010':' into tbUserExchangeInfo_! (iExchangeID, iPhoneNum, iGoodsID, tTime) values(?, ?, ?, now())',
     //下标30000-40000的用于delete语句
     //下标40000-50000的用于replace语句
 };

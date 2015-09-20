@@ -63,4 +63,12 @@ userBiz.getPsw = function(params, cb){
     sqlPool.excute(2, [params.iPhoneNum], cb);
 };
 
+userBiz.updateScore = function(params, cb, conn){
+    if(conn){
+	conn.excute(10017, [params.iScore, params.iPhoneNum, params.iScore], cb);
+    }else{
+	sqlPool.excute(10017, [params.iScore, params.iPhoneNum, params.iScore], cb);
+    }
+};
+
 module.exports = userBiz;

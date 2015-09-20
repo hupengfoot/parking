@@ -381,8 +381,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/exchange/exchange',
-    query : ['iGoodsID'],
-    queryType : ['num'],
+    query : ['iGoodsID', 'iNum'],
+    queryType : ['num', 'num'],
     access : 1,
     limit : 500,
     comment : '兑换接口'
@@ -392,7 +392,7 @@ module.exports.global_query_define = [
 {
     router : '/user/exchange/query',
     query : ['iExchangeID', 'iNum'],
-    queryType : ['num', 'num'],
+    queryType : ['num', 'num', 'num'],
     access : 1,
     limit: 500,
     comment : '查询兑换记录接口'
@@ -463,7 +463,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/master/goods/set',
-    query : ['iGoodsID', 'iDelete'],
+    query : ['iGoodsID', 'iDelete'], // iDelete 0商品上架， 1商品下架
     queryType : ['num', 'num'],
     access : 3,
     limit : 500,

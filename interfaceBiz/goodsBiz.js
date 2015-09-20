@@ -51,5 +51,13 @@ goodsBiz.detail = function(params, cb){
     });
 };
 
+goodsBiz.updateGoodsNum = function(params, cb, conn){
+    if(conn){
+	conn.excute(10018, [params.iNum, params.iGoodsID, params.iNum], cb);
+    }else{
+	sqlPool.excute(10018, [params.iNum, params.iGoodsID, params.iNum], cb);
+    }
+};
+
 module.exports = goodsBiz;
 

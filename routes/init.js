@@ -52,6 +52,7 @@ _.userInit = function(app){
     aMids.push({f:'routes/user/pending', r:'/user/pending'});
     aMids.push({f:'routes/user/order', r:'/user/order'});
     aMids.push({f:'routes/user/goods', r:'/user/goods'});
+    aMids.push({f:'routes/user/exchange', r:'/user/exchange'});
 };
 
 
