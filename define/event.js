@@ -7,6 +7,7 @@ var enumType = {
     PAY_SUCCESS : 10003,
     ORDER_FINISH : 10004,
     PENDING_OVER_TIME : 10005,
+    MSG_SEND : 10006,
 };
 
 var define = [
@@ -33,6 +34,10 @@ var define = [
 {
     iType : enumType.PENDING_OVER_TIME,
     szName : 'PENDING_OVER_TIME'
+},
+{
+    iType : enumType.MSG_SEND,
+    szName : 'MSG_SEND'
 }
 ];
 
