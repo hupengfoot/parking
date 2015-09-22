@@ -50,6 +50,8 @@ module.exports.sqls = {
     '20008': ' into tbUserOrderInfo_!(iOrderID, iCommunityID, iSpaceID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, ?, now(), ?, ?, ?, ?)',
     '20009': ' into tbGoodsInfo(szDesc, szPicUrl, tPublishTime, iPrice, iNum) values(?, ?, now(), ?, ?)',
     '20010':' into tbUserExchangeInfo_! (iExchangeID, iPhoneNum, iGoodsID, tTime) values(?, ?, ?, now())',
+    '20011':'into tbMessageInfo_! (iMessageID, iType, szContent, szTitle, dtPublishTime) values(?, ?, ?, ?, now())',
+    '20012':'into tbMessageBox_! (iMessageID, iPhoneNum, iType, dtPublishTime) values(?, ?, ?, now())',
     //下标30000-40000的用于delete语句
     //下标40000-50000的用于replace语句
 };

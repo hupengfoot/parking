@@ -20,6 +20,14 @@ module.exports.tables = [
 {
     table : 'tbUserExchangeInfo',
     count : 128
+},
+{
+    table : 'tbMessageInfo',
+    count : 128
+},
+{
+    table : 'tbMessageBox',
+    count : 128
 }
 ];
 

@@ -17,6 +17,7 @@ var price = require(path.join(global.rootPath, 'util/price'));
 var sms = require(path.join(global.rootPath, 'util/sms'));
 var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
 var eventDefine = require(path.join(global.rootPath, 'define/event'));
+var sendMsg = require(path.join(global.rootPath, 'util/sendMsg'));
 
 var orderBiz = {};
 var _ = {};
@@ -43,6 +44,7 @@ orderBiz.check = function(params, cb){
 		if(!err && rows.length > 0){
 		    params.iPendingID = rows[0].iPendingID;
 		    params.iPhoneNum = rows[0].iPhoneNum;
+		    params.iSpaceID = rows[0].iSpaceID;
 		    if(rows[0].iPay === 1){
 			callback(null);
 		    }else{
@@ -67,7 +69,7 @@ orderBiz.check = function(params, cb){
 	    });
 	},
 	function(callback){
-	    orderBiz.updateOrderStatus(params, function(err, rows, fields){
+	    orderBiz.updateOrderStatus(params, 1, function(err, rows, fields){
 		callback(err, rows);
 	    });
 	}
@@ -79,6 +81,7 @@ orderBiz.check = function(params, cb){
 		obj.iPendingID = params.iPendingID;
 		obj.iOrderID = params.iOrderID;
 		obj.iPhoneNum = params.iPhoneNum;
+		obj.iSpaceID = params.iSpaceID;
 		eventMgr.emit(eventDefine.enumType.ORDER_FINISH, obj);
 	    }
 	}
@@ -112,6 +115,11 @@ orderBiz.pay = function(params, cb){
 		    obj.TIMEOUT = (Date.parse(orderInfo.tEnd) - Date.parse(new Date())) /1000;
 		    eventMgr.emit(eventDefine.enumType.PAY_SUCCESS, obj);
 		    orderBiz.updateUserOrderPay(params, 1, function(){});
+		    //向挂单用户发送订单成功消息
+		    obj.tStart = orderInfo.tStart;
+		    obj.tEnd = orderInfo.tEnd;
+		    obj.iPhoneNum = params.iPhoneNum;
+		    sendMsg.send(sendMsg.enum.BOOKMSG, obj);
 		    callback(null, {'szCode':num});
 		}else{
 		    callback(msg.code.ERR_PAY_FAIL);
@@ -325,9 +333,9 @@ orderBiz.addUserOrderInfo = function(params, cb){
     sqlPool.excute(20008, insertParams, cb);
 };
 
-orderBiz.updateOrderStatus = function(params, cb){
+orderBiz.updateOrderStatus = function(params, iStatus, cb){
     var tableNum = misc.getEndID(params.iOrderID) % orderCnt;
-    sqlPool.excute(10011, [tableNum, params.iStatus, params.iOrderID, params.iStatus], cb);
+    sqlPool.excute(10011, [tableNum, iStatus, params.iOrderID, iStatus], cb);
 };
 
 orderBiz.updateUserOrderStatus = function(params, cb){
@@ -374,7 +382,7 @@ _.orderFinishOperate = function(obj){
 	    param.iStatus = iStatus;
 	    param.iOrderID = obj.iOrderID;
 	    param.iPhoneNum = obj.iPhoneNum;
-	    orderBiz.updateOrderStatus(param, function(err, rows, fields){
+	    orderBiz.updateOrderStatus(param, param.iStatus, function(err, rows, fields){
 		callback(null);
 	    });
 	    orderBiz.updateUserOrderStatus(param, function(){});

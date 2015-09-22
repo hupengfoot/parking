@@ -28,6 +28,10 @@ spaceBiz.init = function(){
     eventMgr.register(eventDefine.enumType.PENDING_OVER_TIME,function(obj){
 	_.pendingOverTimeOperate(obj);
     });
+    eventMgr.register(eventDefine.enumType.ORDER_FINISH,function(obj){
+	_.orderFinishOverTimeOperate(obj);
+    });
+
 };
 
 spaceBiz.approve = function(params, cb){
@@ -104,6 +108,13 @@ _.payOverTimeOperate = function(obj){
 };
 
 _.pendingOverTimeOperate = function(obj){
+    var param = {};
+    param.iStatus = 0;
+    param.iSpaceID = obj.iSpaceID;
+    spaceBiz.updateSpaceStatus(param, function(){});
+};
+
+_.orderFinishOverTimeOperate = function(obj){
     var param = {};
     param.iStatus = 0;
     param.iSpaceID = obj.iSpaceID;
