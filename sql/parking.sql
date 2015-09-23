@@ -61,6 +61,7 @@ create table IF NOT EXISTS tbCommunityInfo(
     iAreaName int unsigned not null default 0 comment '区编号',
     szComminityName varchar(1024) default '' comment '小区名',
     szPicUrl varchar(4096) default '' comment '小区车库照片地址，用|分隔',
+    tTime datetime not null default '1970-01-01 08:00:00' comment '发布时间',
     primary key (`iCommunityID`),
     index(`iProvince`, `iCity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='小区表';
