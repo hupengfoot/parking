@@ -17,7 +17,8 @@ var price = require(path.join(global.rootPath, 'util/price'));
 var sms = require(path.join(global.rootPath, 'util/sms'));
 var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
 var eventDefine = require(path.join(global.rootPath, 'define/event'));
-var sendMsg = require(path.join(global.rootPath, 'util/sendMsg'));
+var msgCenter = require(path.join(global.rootPath, 'oss/send'));
+var user_msg_define = require(path.join(global.rootPath, "define/userMsg"));
 
 var orderBiz = {};
 var _ = {};
@@ -119,7 +120,7 @@ orderBiz.pay = function(params, cb){
 		    obj.tStart = orderInfo.tStart;
 		    obj.tEnd = orderInfo.tEnd;
 		    obj.iPhoneNum = params.iPhoneNum;
-		    sendMsg.send(sendMsg.enum.BOOKMSG, obj);
+		    msgCenter.send(user_msg_define.enum.ORDER_PAY, obj);
 		    callback(null, {'szCode':num});
 		}else{
 		    callback(msg.code.ERR_PAY_FAIL);

@@ -29,4 +29,17 @@ msgboxBiz.insertMessageBox = function(params, cb){
     sqlPool.excute(20012, [tableNum, params.iMessageID, params.iPhoneNum, params.iType], cb);
 };
 
+msgboxBiz.queryMsg = function(params, cb){
+    var tableNum1 = params.iPhoneNum % messageBoxCnt;
+    var tableNum2 = params.iPhoneNum % messageInfoCnt;
+    var szWhere = '';
+    if(parseInt(params.iType) !== -1){
+	szWhere = szWhere + ' and b.iType = ' + params.iType;
+    }
+    if(params.tPublishTime !== null && params.tPublishTime !== undefined){
+	szWhere = szWhere + " and unix_timestamp(b.dtPublishTime) < unix_timestamp('" + params.tPublishTime + "')";
+    }
+    sqlPool.excute(20, [tableNum1, tableNum2, params.iPhoneNum, params.iMessageID, szWhere, params.iNum], cb);
+};
+
 module.exports = msgboxBiz;

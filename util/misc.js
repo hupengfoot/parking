@@ -2,6 +2,10 @@
 
 var misc = {};
 
+misc.getiPhoneNumTail = function(iPhoneNum){
+    return iPhoneNum % Math.floor(iPhoneNum / 10000);
+};
+
 //低20位为小区号，接入小区阈值为10W
 misc.getUniqueID = function(iID1, iID2){
     if(iID2 < 0){

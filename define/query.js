@@ -206,7 +206,7 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
-    router : '/msg/querymsg',
+    router : '/user/msg/querymsg',
     query : ['iMessageID', 'iNum', 'iType', 'tPublishTime'],
     //iMessageID  上一次拉去的最后一个iMessageID
     //iNum 拉取个数

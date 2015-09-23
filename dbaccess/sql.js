@@ -19,6 +19,7 @@ module.exports.sqls = {
     '17':' *from tbUserExchangeInfo_! where iPhoneNum = ? and iExchangeID > ? limit !',
     '18':' * from tbCommunityInfo where iCommunityID in(!)',
     '19':'* from tbParkingSpaceInfo where iSpaceID in(!)',
+    '20':'* from tbMessageBox_! as b left join tbMessageInfo_! as m on b.iMessageID = m.iMessageID where b.iPhoneNum = ? and b.iMessageID > ? ! order by b.iMessageID desc limit !',
     //下标10000-20000的用于update语句
     '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',
     '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ? where iPhoneNum = ?', 
