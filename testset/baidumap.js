@@ -14,7 +14,7 @@ var formatUrl = function(url, obj){
 
 var createGeoTable = function(){
     var object = {};
-    object.name = 'hupengtest';
+    object.name = 'hupengtest1';
     object.geotype = 1;
     object.is_published = 1;
     object.ak = 'tNlhkboHzkSA3ev2Gk46foWO';
@@ -104,5 +104,6 @@ var listPoi = function(){
     });
 };
 
-
-listPoi();
+createGeoTable();
+//createPoi();
+//listPoi();
