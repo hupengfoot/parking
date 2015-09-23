@@ -44,7 +44,7 @@ module.exports.sqls = {
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',
     '20003': 'into tbParkingSpaceInfo(iPhoneNum, iCommunityID, szParkingNum, szParkingPic, iParkingType, iParkingNature, tTime) values(?, ?, ?, ?, ?, ?, now())',
-    '20004': 'into tbCommunityInfo(iChargesType, iX, iY, iProvince, iCity, iAreaName, szComminityName, szPicUrl) values(?, ?, ?, ?, ?, ?, ?, ?)',
+    '20004': 'into tbCommunityInfo(iChargesType, iX, iY, iProvince, iCity, iAreaName, szComminityName, szPicUrl, tTime) values(?, ?, ?, ?, ?, ?, ?, ?, now())',
     '20005': ' into tbPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())',
     '20006':' into tbUserPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())', 
     '20007': ' into tbOrderInfo_!(iOrderID, iCommunityID, iSpaceID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, ?, now(), ?, ?, ?, ?)',
