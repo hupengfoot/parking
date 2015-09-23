@@ -99,6 +99,7 @@ order.pay = function(robot, cb){
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
+	    robot.result = result;
 	    cb(null, robot);
         });
     });
@@ -106,7 +107,7 @@ order.pay = function(robot, cb){
 
 var L1 = function(robot, cb){
     robot.obj = {};
-    robot.obj.iPendingID = 8388613;
+    robot.obj.iPendingID = 16777221;
     robot.obj.tStart = '2015-09-19 10:00:00';
     robot.obj.tEnd = '2015-09-19 22:00:00';
     robot.obj.szLiensePlate = '沪Axxxxxxx';
@@ -126,11 +127,11 @@ var test_cases =
     order.login,
     //L1,
     //order.book,
-    //order.detail,
+    order.detail,
     //order.queryMine,
     //order.pay,
-    L2,
-    order.check,
+    //L2,
+    //order.check,
 ];
 
 function test_main() {

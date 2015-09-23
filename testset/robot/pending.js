@@ -81,7 +81,7 @@ pending.query = function(robot, cb){
     obj.iCommunityID = 5;
     obj.iPendingID = 0;
     obj.tStart = '2015-11-12';
-    obj.tEnd = '2015-12-11';
+    obj.tEnd = '2015-11-13';
     obj.iNum = 10;
  
     var dist_url = robot_util.makeUrl('/user/pending/query', 0);
@@ -95,7 +95,7 @@ pending.query = function(robot, cb){
 
 pending.detail = function(robot, cb){
     var obj = {};
-    obj.iPendingID = 4294967297;
+    obj.iPendingID = 3145733;
  
     var dist_url = robot_util.makeUrl('/user/pending/detail', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -145,11 +145,11 @@ var L1 = function(robot, cb){
 var test_cases =
 [
     pending.login,
-    L1,
-    pending.publish,
+    //L1,
+    //pending.publish,
     //pending.querymine,
     //pending.query,
-    //pending.detail,
+    pending.detail,
     //pending.calprice,
     //pending.price_get,
     //L1,

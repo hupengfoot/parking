@@ -15,16 +15,16 @@ var L1 = function(robot, cb){
 
 var L2 = function(robot, cb){
     robot.obj.iSpaceID = 2;
-    robot.obj.tStart = '2015-09-19 08:00:00';
-    robot.obj.tEnd = '2015-09-19 22:00:00';
+    robot.obj.tStart = '2015-09-24 08:00:00';
+    robot.obj.tEnd = '2015-09-24 22:00:00';
     robot.obj.iMiniRental = 4;
     cb(null, robot);
 };
 
 var L3 = function(robot, cb){
     robot.obj.iPendingID = robot.result.iPendingID;
-    robot.obj.tStart = '2015-09-19 10:00:00';
-    robot.obj.tEnd = '2015-09-19 22:00:00';
+    robot.obj.tStart = '2015-09-24 10:00:00';
+    robot.obj.tEnd = '2015-09-24 22:00:00';
     robot.obj.szLiensePlate = '沪Axxxxxxx';
     cb(null, robot);
 };
@@ -35,6 +35,7 @@ var L4 = function(robot, cb){
 };
 
 var L5 = function(robot, cb){
+    console.error(robot.result);
     robot.obj.iPassStatus = 0;
     robot.obj.szCode = robot.result.szCode;
     cb(null, robot);

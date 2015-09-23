@@ -123,15 +123,15 @@ var L1 = function(robot, cb){
 var test_cases =
 [
     login,
-    //space.addspace,
+    space.addspace,
     //space.approve,
     //space.queryspace,
     //space.updatespace,
     //space.queryspace,
     //space.deletespace,
     //space.queryspace,
-    L1,
-    space.detail,
+    //L1,
+    //space.detail,
 ];
 
 function test_main() {

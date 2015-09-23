@@ -30,14 +30,14 @@ var login = function(obj, cb){
     });
 };
 
-var community.publish = function(robot, param, cb){
+community.publish = function(robot, param, cb){
     var obj = {};
     obj.iChargesType = 1;
     obj.iX = 10;
     obj.iY = 10;
     obj.iProvince = 1;
     obj.iCity = 1;
-    obj.szAreaName = 'xxxx';
+    obj.iAreaName = 1;
     obj.szComminityName = 'xxx';
     obj.szPicUrl = 'xxxx';
     
@@ -51,7 +51,7 @@ var community.publish = function(robot, param, cb){
     });
 };
 
-var community.get = function(robot, cb){
+community.get = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 1;
     
@@ -65,7 +65,7 @@ var community.get = function(robot, cb){
     });
 };
 
-var community.search = function(robot, cb){
+community.search = function(robot, cb){
     var obj = {};
     obj.szName = 'xx';
     obj.iProvince = 1;
@@ -83,6 +83,7 @@ var community.search = function(robot, cb){
 
 var test_cases =
 [
+    getRobot,
     login,
     community.publish,
     //community.get,

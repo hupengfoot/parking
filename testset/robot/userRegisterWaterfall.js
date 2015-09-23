@@ -6,7 +6,7 @@ var login = require('./login');
 
 var L1 = function(robot, cb){
     robot.obj = {};
-    robot.obj.iPhoneNum = '13717658422';
+    robot.obj.iPhoneNum = '13917658422';
     cb(null, robot);
 };
 
