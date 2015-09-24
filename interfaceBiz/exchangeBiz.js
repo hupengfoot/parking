@@ -38,7 +38,7 @@ exchangeBiz.exchange = function(params, cb){
 	    userBiz.myInfo(params, function(err, rows, fields){
 		if(!err && rows.length > 0){
 		    if(rows[0].iScore > goodsInfo.iPrice * params.iNum){
-			callback(null, goodsInfo);
+			callback(null, goodsInfo, rows[0]);
 		    }else{
 			callback(msg.code.ERR_NOT_ENOUGH_SCORE);
 		    }
@@ -47,7 +47,7 @@ exchangeBiz.exchange = function(params, cb){
 		}
 	    });
 	},
-	function(goodsInfo, callback){
+	function(goodsInfo, userInfo, callback){
 	    sqlPool.beginTrans(function(conn, callback1){
 		async.waterfall([
 		    function(callback2){
@@ -83,7 +83,8 @@ exchangeBiz.exchange = function(params, cb){
 		], function(err){
 		    if(!err){
 			callback1(null);
-			callback(null);
+			var remainScore = userInfo.iScore - params.iNum * goodsInfo.iPrice;
+			callback(null, {'iScore': remainScore});
 		    }else{
 			callback1(1);
 			callback(err);
@@ -91,8 +92,8 @@ exchangeBiz.exchange = function(params, cb){
 		});
 	    });
 	}
-    ], function(err){
-	cb(err);
+    ], function(err, results){
+	cb(err, results);
     });
 };
 
@@ -126,7 +127,27 @@ exchangeBiz.insertUserExchangeInfo = function(params, cb, conn){
 
 exchangeBiz.query = function(params, cb){
     var tableNum = params.iPhoneNum % userExchangeCnt;
-    sqlPool.excute(17, [tableNum, params.iPhoneNum, params.iExchangeID, params.iNum], cb);
+    async.waterfall([
+	function(callback){
+	    sqlPool.excute(17, [tableNum, params.iPhoneNum, params.iExchangeID, params.iNum], function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+	function(pendingInfos, callback){
+	    var goodsArray = pendingInfos.map(function(one){
+		return one.iGoodsID;
+	    });
+	    goodsBiz.getBatchInfo(goodsArray, function(err, rows, fields){
+		callback(err, pendingInfos, rows);
+	    });
+	}
+    ], function(err, pendingInfos, goodsInfos){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'exchange':pendingInfos, 'goods':goodsInfos});
+	}
+    });
 };
 
 module.exports = exchangeBiz;

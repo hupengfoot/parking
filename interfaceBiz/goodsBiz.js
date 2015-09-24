@@ -41,6 +41,10 @@ goodsBiz.query = function(params, cb){
     sqlPool.excute(15, [params.iGoodsID, params.iNum], cb);
 };
 
+goodsBiz.getBatchInfo = function(goodsArray, cb){
+    sqlPool.excute(21, [goodsArray], cb);
+};
+
 goodsBiz.detail = function(params, cb){
     sqlPool.excute(16, [params.iGoodsID], function(err, rows, fields){
 	if(!err && rows.length > 0){
