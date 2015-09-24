@@ -38,8 +38,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/user/updateinfo',
-    query : ['szUserName', 'szRealName', 'szMail', 'szLiensePlate', 'szAddress', 'szModels', 'szBankCard'],
-    queryType :['string', 'string', 'string', 'string', 'string', 'string', 'string'], 
+    query : ['szUserName', 'szRealName', 'szMail', 'szLiensePlate', 'szAddress', 'szModels', 'szBankCard', 'szBankAddress'],
+    queryType :['string', 'string', 'string', 'string', 'string', 'string', 'string', 'string'], 
     access : 1,
     limit : 500,
     comment : '用户完善资料接口'
