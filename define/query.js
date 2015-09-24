@@ -216,7 +216,7 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '查看站内信'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iType:'xx', szContent:'xx', szTitle:'xxx', dtPublishTime:'xxxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iMessageID:'xx', iType:'xx', szContent:'xx', szTitle:'xxx', dtPublishTime:'xxxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -230,7 +230,7 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
-    router : '/announce/query',
+    router : '/user/announce/query',
     query : ['iAnnounceID', 'iNum', 'tPublishTime'],
     queryType : ['num', 'num', 'date'],
     access : 1,

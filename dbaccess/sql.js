@@ -21,6 +21,7 @@ module.exports.sqls = {
     '19':'* from tbParkingSpaceInfo where iSpaceID in(!)',
     '20':'* from tbMessageBox_! as b left join tbMessageInfo_! as m on b.iMessageID = m.iMessageID where b.iPhoneNum = ? and b.iMessageID > ? ! order by b.iMessageID desc limit !',
     '21': ' * from tbGoodsInfo where iGoodsID in(!)  and iDelete = 0',
+    '22':' * from tbAnnounceInfo where iAnnounceID > ? ! limit !',
     //下标10000-20000的用于update语句
     '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',
     '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ? where iPhoneNum = ?', 
@@ -54,6 +55,7 @@ module.exports.sqls = {
     '20010':' into tbUserExchangeInfo_! (iExchangeID, iPhoneNum, iGoodsID, tTime) values(?, ?, ?, now())',
     '20011':'into tbMessageInfo_! (iMessageID, iType, szContent, szTitle, dtPublishTime) values(?, ?, ?, ?, now())',
     '20012':'into tbMessageBox_! (iMessageID, iPhoneNum, iType, dtPublishTime) values(?, ?, ?, now())',
+    '20013':' into tbAnnounceInfo(szDetailUrl, szImgUrl, tPublishTime) values(?, ?, now())',
     //下标30000-40000的用于delete语句
     //下标40000-50000的用于replace语句
 };

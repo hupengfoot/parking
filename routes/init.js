@@ -54,6 +54,7 @@ _.userInit = function(app){
     aMids.push({f:'routes/user/goods', r:'/user/goods'});
     aMids.push({f:'routes/user/exchange', r:'/user/exchange'});
     aMids.push({f:'routes/user/msg', r:'/user/msg'});
+    aMids.push({f:'routes/user/announce', r:'/user/announce'});
 };
 
 
@@ -62,6 +63,7 @@ _.masterInit = function(app){
     aMids.push({f:'routes/master/space', r:'/master/space'});
     aMids.push({f:'routes/master/order', r:'/master/order'});
     aMids.push({f:'routes/master/goods', r:'/master/goods'});
+    aMids.push({f:'routes/master/announce', r:'/master/announce'});
 };
 
 var initRoutes = function(app){
