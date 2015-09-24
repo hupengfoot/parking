@@ -29,6 +29,10 @@ router.use(function(req, res, next){
 		if(err || !user){
 		    msg.wrapper(msg.code.ERR_ACCESS_FAIL, null, res);	
 		}else{
+		    if(!_.accessRightCheck(queryObj, user)){
+			msg.wrapper(msg.code.ERR_NOT_ENOUGH_ACCESS_RIGHT, null, res);	
+			return;
+		    }
 		    if(user.parking_app_key == req.cookies.parking_app_key){
 			req.url += '&iPhoneNum=' + iPhoneNum;
 			next();
@@ -44,5 +48,29 @@ router.use(function(req, res, next){
 	next();
     }
 });
+
+_.accessRightCheck = function(queryObj, user){
+    var access = queryObj.access;
+    switch(access){
+	case 0:
+	    return true;
+	case 1:
+	    return true;
+	case 2:
+	    if(parseInt(user.iRoleType) > 0){
+		return true;
+	    }else{
+		return false;
+	    }
+	case 3:
+	    if(parseInt(user.iRoleType) > 1){
+		return true;
+	    }else{
+		return false;
+	    }
+	default:
+	    return false;
+    };
+};
 
 module.exports = router;
