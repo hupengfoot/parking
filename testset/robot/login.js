@@ -13,8 +13,8 @@ login.getRobot = function(cb){
 
 login.login = function(robot, cb){
     var obj = {};
-    obj.iPhoneNum = robot.obj.iPhoneNum;
-    obj.szPasswd = robot.obj.szPasswd;
+    obj.iPhoneNum = '13917658422';
+    obj.szPasswd = robot_util.encodePasswd('000000');
  
     var dist_url = robot_util.makeUrl('/login', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -104,6 +104,7 @@ login.updateinfo = function(robot, cb){
     obj.szAddress = 'xxx';
     obj.szModels = 'xxx';
     obj.szBankCard = 'xxx';
+    obj.szBankAddress = 'xxx';
 
     var dist_url = robot_util.makeUrl('/user/user/updateinfo', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -155,12 +156,12 @@ login.updateLiense = function(robot, cb){
 var test_cases =
 [
     login.getRobot,
-    login.register,
-    //login.login,
+    //login.register,
+    login.login,
     //login.modifypsw,
     //login.sms_register,
     //login.updatepsw,
-    //login.updateinfo,
+    login.updateinfo,
     //login.queryMyInfo,
     //login.queryLiensePlate,
     //login.updateLiense,

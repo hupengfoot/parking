@@ -30,15 +30,18 @@ var login = function(obj, cb){
     });
 };
 
-community.publish = function(robot, param, cb){
+community.publish = function(robot, cb){
     var obj = {};
     obj.iChargesType = 1;
-    obj.iX = 10;
-    obj.iY = 10;
+    obj.iPer = 1;
+    obj.iPerPrice = 10;
+    obj.iMaxPrice = 10;
+    obj.szX = '10.1236123';
+    obj.szY = '10.187263';
     obj.iProvince = 1;
     obj.iCity = 1;
     obj.iAreaName = 1;
-    obj.szComminityName = 'xxx';
+    obj.szCommunityName = 'xxx';
     obj.szPicUrl = 'xxxx';
     
     var dist_url = robot_util.makeUrl('/community/publish', 0);

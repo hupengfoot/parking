@@ -7,6 +7,7 @@ var sqlPool = require(path.join(global.rootPath, 'dbaccess/dbparking'));
 var msg = require(path.join(global.rootPath, "define/msg")).global_msg_define;
 var redis_mgr = require(path.join(global.rootPath, 'redis/redis_mgr'));
 var baiduMap = require(path.join(global.rootPath, 'util/baiduMap'));
+var price = require(path.join(global.rootPath, 'util/price'));
 
 var communityBiz = {};
 
@@ -49,7 +50,16 @@ communityBiz.detail = function(params, cb){
 };
 
 communityBiz.getBatchInfo = function(array, cb){
-    sqlPool.excute(18, [array.join(',')], cb);
+    sqlPool.excute(18, [array.join(',')], function(err, rows, fields){
+	if(!err && rows.length > 0){
+	    for(var i in rows){
+		rows[i].szCharges = price.getInfo(rows[i]);
+	    }
+	    cb(null, rows);
+	}else{
+	    cb(err, rows);
+	}
+    });
 };
 
 module.exports = communityBiz;
