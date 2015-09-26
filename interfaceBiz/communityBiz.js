@@ -11,7 +11,7 @@ var baiduMap = require(path.join(global.rootPath, 'util/baiduMap'));
 var communityBiz = {};
 
 communityBiz.publish = function(params, cb){
-    var insertParams = [params.iChargesType, params.iX, params.iY, params.iProvince, params.iCity, params.iAreaName, params.szCommunityName, params.szPicUrl];
+    var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.iAreaName, params.szCommunityName, params.szPicUrl];
     sqlPool.excute(20004, insertParams, function(err, rows, fields){
 	if(err){
 	    cb(err);
@@ -19,8 +19,8 @@ communityBiz.publish = function(params, cb){
 	    cb(err, rows, fields);
 	    //百度云上创建POI
 	    var obj = {};
-	    obj.latitude = parseInt(params.iX) / 1000000;
-	    obj.longitude = params.iY / 1000000;
+	    obj.latitude = params.szX;
+	    obj.longitude = params.szY;
 	    obj.coord_type = 1;
 	    obj.iCommunityID = rows.insertId;
 	    obj.title = params.szCommunityName;

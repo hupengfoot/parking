@@ -54,8 +54,11 @@ create table IF NOT EXISTS tbAnnounceInfo(
 create table IF NOT EXISTS tbCommunityInfo(
     iCommunityID bigint unsigned not null auto_increment comment '小区ID',
     iChargesType int unsigned not null default 0 comment '收费标准类型，具体类型在配置文件中定义',
-    iX bigint unsigned not null default 0 comment '小区纬度坐标',
-    iY bigint unsigned not null default 0 comment '小区经度坐标',
+    iPer int unsigned not null default 0 comment '每单位时间',
+    iPerPrice int unsigned not null default 0 comment '每单位时间收费值',
+    iMaxPrice int unsigned not null default 0 comment '最大收费值',
+    szX varchar(512) default '' comment '小区纬度坐标',
+    szY varchar(512) default '' comment '小区经度坐标',
     iProvince int unsigned not null default 0 comment '省编号',
     iCity int unsigned not null default 0 comment '城市编号',
     iAreaName int unsigned not null default 0 comment '区编号',
