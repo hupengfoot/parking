@@ -17,7 +17,7 @@ userBiz.queryLiensePlate = function(params, cb){
 
 userBiz.updateInfo = function(params, cb){
     var iHasComplete = 0;
-    if(params.szMail !== null && params.szMail !== undefined && params.szLiensePlate !== null && params.szLiensePlate !== undefined && params.szBankCard !== null && params.szBankCard !== undefined && params.szBankAddress !== null && params.szBankAddress !== undefined){
+    if(params.szMail !== null && params.szMail !== undefined && params.szRealName !== null && params.szRealName !== undefined && params.szBankCard !== null && params.szBankCard !== undefined && params.szBankAddress !== null && params.szBankAddress !== undefined){
 	iHasComplete = 1;
     }
     sqlPool.excute(10002, [params.szUserName, params.szRealName, params.szMail, params.szLiensePlate, params.szAddress, params.szModels, params.szBankCard, params.szBankAddress, iHasComplete, params.iPhoneNum], cb);

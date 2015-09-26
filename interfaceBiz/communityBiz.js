@@ -11,20 +11,20 @@ var baiduMap = require(path.join(global.rootPath, 'util/baiduMap'));
 var communityBiz = {};
 
 communityBiz.publish = function(params, cb){
-    var insertParams = [params.iChargesType, params.iX, params.iY, params.iProvince, params.iCity, params.iAreaName, params.szComminityName, params.szPicUrl];
+    var insertParams = [params.iChargesType, params.iX, params.iY, params.iProvince, params.iCity, params.iAreaName, params.szCommunityName, params.szPicUrl];
     sqlPool.excute(20004, insertParams, function(err, rows, fields){
 	if(err){
 	    cb(err);
 	}else{
 	    cb(err, rows, fields);
 	    //百度云上创建POI
-	    //TODO
-	    console.error('TODO TODO TODO TODO TODO TODO');
 	    var obj = {};
 	    obj.latitude = parseInt(params.iX) / 1000000;
 	    obj.longitude = params.iY / 1000000;
 	    obj.coord_type = 1;
 	    obj.iCommunityID = rows.insertId;
+	    obj.title = params.szCommunityName;
+	    obj.tags = '小区';
 	    baiduMap.createPoi(obj);
 	}
     });

@@ -358,12 +358,12 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '获取小区详情接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxx', iChargesType:'xxx', iX:'xxx', iY:'xxx', szComminityName:'xxx', szPicUrl:'xxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxx', iChargesType:'xxx', iX:'xxx', iY:'xxx', szCommunityName:'xxx', szPicUrl:'xxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
     router : '/community/publish',
-    query : ['iChargesType', 'iX', 'iY', 'iProvince', 'iCity', 'iAreaName', 'szComminityName', 'szPicUrl'],
+    query : ['iChargesType', 'iX', 'iY', 'iProvince', 'iCity', 'iAreaName', 'szCommunityName', 'szPicUrl'],
     queryType : ['num', 'num', 'num', 'string', 'string'],
     access : 3,
     limit : 500,
@@ -376,7 +376,7 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '搜索小区接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szComminityName:'xxxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szCommunityName:'xxxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
