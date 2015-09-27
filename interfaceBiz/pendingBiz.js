@@ -82,9 +82,9 @@ pendingBiz.calPrice = function(params, cb){
     console.error(price[params.iChargesType]);
     console.error(iTotal);
     if(price[params.iChargesType] !== null && price[params.iChargesType] !== undefined){
-	cb(null, {'price':iTotal * price[params.iChargesType].price});
+	cb(null, {'price':iTotal * price[params.iChargesType].price, 'tStart' : params.tStart, 'tEnd' : params.tEnd});
     }else{
-	cb(null, {'price':iTotal * price[1].price});
+	cb(null, {'price':iTotal * price[1].price, 'tStart':params.tStart, 'tEnd':params.tEnd});
     }
 };
 
