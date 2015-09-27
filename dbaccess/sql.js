@@ -24,6 +24,7 @@ module.exports.sqls = {
     '22':' * from tbAnnounceInfo where iAnnounceID > ? ! limit !',
     '23':' * from tbCommunityInfo where iProvince = ? and iCity = ? and iAreaName = ?',
     '24':'* from tbParkingSpaceInfo where iCommunityID = ?',
+    '25':'* from tbPendingInfo_! where iCommunityID = ? and iPendingID > ? ! limit !',
     //下标10000-20000的用于update语句
     '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',
     '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ?, szBankAddress = ?, iHasComplete = ? where iPhoneNum = ?', 
@@ -43,7 +44,8 @@ module.exports.sqls = {
     '10016': ' tbGoodsInfo set iDelete = ? where iGoodsID = ?',
     '10017': ' tbUserInfo set iScore = iScore + (!) where iPhoneNum = ? and iScore > - (!)',
     '10018': ' tbGoodsInfo set iNum = iNum + (!) where iGoodsID = ? and iNum > -(!)',
-
+    '10019': ' tbPendingInfo_! set iStatus = ? where iPendingID = ?',
+    '10020': ' tbUserPendingInfo_! set iStatus = ? where iPendingID = ?',
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',

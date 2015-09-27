@@ -64,6 +64,7 @@ _.masterInit = function(app){
     aMids.push({f:'routes/master/order', r:'/master/order'});
     aMids.push({f:'routes/master/goods', r:'/master/goods'});
     aMids.push({f:'routes/master/announce', r:'/master/announce'});
+    aMids.push({f:'routes/master/pending', r:'/master/pending'});
 };
 
 var initRoutes = function(app){

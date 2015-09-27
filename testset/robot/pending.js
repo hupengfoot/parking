@@ -133,6 +133,39 @@ pending.price_get = function(robot, cb){
     });
 };
 
+pending.list = function(robot, cb){
+    var obj = {};
+    obj.iCommunityID = 5;
+    obj.iPendingID = 0;
+    obj.iNum = 10;
+    obj.tStart = '2014-11-11 11:11:11';
+    obj.tEnd = '2015-11-11 11:11:11';
+ 
+    var dist_url = robot_util.makeUrl('/master/pending/list', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+pending.opt = function(robot, cb){
+    var obj = {};
+    obj.iPendingID = 25165829;
+    obj.iStatus = 3;
+ 
+    var dist_url = robot_util.makeUrl('/master/pending/opt', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+
+
 var L1 = function(robot, cb){
     robot.obj = {};
     robot.obj.iSpaceID = 2;
@@ -149,11 +182,13 @@ var test_cases =
     //pending.publish,
     //pending.querymine,
     //pending.query,
-    pending.detail,
+    //pending.detail,
     //pending.calprice,
     //pending.price_get,
     //L1,
     //pending.cancel,
+    pending.list,
+    pending.opt,
 ];
 
 function test_main() {

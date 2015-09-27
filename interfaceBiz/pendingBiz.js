@@ -354,6 +354,56 @@ pendingBiz.updateUserPendingStatus = function(params, iStatus, cb){
     sqlPool.excute(10007, [tableNum, iStatus, params.iPendingID], cb);
 };
 
+pendingBiz.list = function(params, cb){
+    var tableNum = params.iCommunityID % pendingCnt;
+    var szWhere = '';
+    if(params.tStart !== null && params.tStart !== undefined && params.tStart.length > 0){
+	szWhere = szWhere + " and unix_timestamp(tStart) >= unix_timestamp('" + params.tStart + "')" ;
+    }
+    if(params.tEnd !== null && params.tEnd !== undefined && params.tEnd.length > 0){
+	szWhere = szWhere + " and unix_timestamp(tStart) <= unix_timestamp('" + params.tEnd + "')";
+    }
+    sqlPool.excute(25, [tableNum, params.iCommunityID, params.iPendingID, szWhere, params.iNum], cb);
+};
+
+pendingBiz.opt = function(params, cb){
+    async.waterfall([
+	function(callback){
+	    pendingBiz.detail(params, function(err, rows, fields){
+	        if(!err && rows.length > 0){
+		   callback(null, rows[0]);
+	        }else{
+		   callback(msg.code.ERR_INVALID_PENDING);
+	        }
+	    });
+	},
+	function(pendingInfo, callback){
+	    var tableNum = misc.getEndID(params.iPendingID) % pendingCnt;
+	    //TODO 该接口目前只能关闭挂单
+	    sqlPool.excute(10019, [tableNum, 3, params.iPendingID], function(err, rows, fields){
+		if(!err && rows.affectedRows > 0){
+		    callback(null, pendingInfo);
+		}else{
+		    callback(err);
+		}
+	    });
+	},
+	function(pendingInfo, callback){
+	    var tableNum1 = pendingInfo.iPhoneNum % userPendingCnt;
+	    sqlPool.excute(10020, [tableNum1, 3, params.iPendingID], function(err, rows, fields){
+		if(!err && rows.affectedRows > 0){
+		    callback(null, rows);
+		}else{
+		    callback(err);
+		}
+	    });
+	}
+    ], function(err, results){
+	cb(err, results);
+    });
+};
+
+
 _.bookSuccessOperate = function(obj){
     _.updatePendingStatus(obj, 1);
 };
