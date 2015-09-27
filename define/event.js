@@ -2,18 +2,23 @@ var eventDefine = {};
 
 var enumType = {
     ARTICLE_UPDATE : 10000,  //文章表更新事件
-    BOOK_SUCCESS : 10001,
-    PAY_OVER_TIME : 10002,
-    PAY_SUCCESS : 10003,
-    ORDER_FINISH : 10004,
-    PENDING_OVER_TIME : 10005,
-    MSG_SEND : 10006,
+    PUBLISH_PENDING : 10001,
+    BOOK_SUCCESS : 10002,
+    PAY_OVER_TIME : 10003,
+    PAY_SUCCESS : 10004,
+    ORDER_FINISH : 10005,
+    PENDING_OVER_TIME : 10006,
+    MSG_SEND : 10007,
 };
 
 var define = [
 {
   iType:enumType.ARTICLE_UPDATE,
   szName:'ARTI_UPDATE'
+},
+{
+    iType : enumType.PUBLISH_PENDING,
+    szName : 'PUBLISH_PENDING'
 },
 {
     iType : enumType.BOOK_SUCCESS,

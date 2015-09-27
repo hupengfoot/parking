@@ -23,7 +23,7 @@ module.exports.sqls = {
     '21': ' * from tbGoodsInfo where iGoodsID in(!)  and iDelete = 0',
     '22':' * from tbAnnounceInfo where iAnnounceID > ? ! limit !',
     '23':' * from tbCommunityInfo where iProvince = ? and iCity = ? and iAreaName = ?',
-    '24':'* from tbParkingSpaceInfo where iCommunityID = ?',
+    '24':'* from tbParkingSpaceInfo where iCommunityID = ? and iDelete = 0',
     '25':'* from tbPendingInfo_! where iCommunityID = ? and iPendingID > ? ! limit !',
     //下标10000-20000的用于update语句
     '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',

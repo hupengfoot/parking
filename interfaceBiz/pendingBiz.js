@@ -139,35 +139,12 @@ pendingBiz.query = function(params, cb){
 	    });
 	},
 	function(pendingArray, callback){
-	    if(pendingArray.length > 0){
-		var communities = pendingArray.map(function(one){
-		    return one.iCommunityID;
-		});
-		communityBiz.getBatchInfo(communities, function(err, rows, fields){
-		    callback(null, pendingArray, rows);	    
-		});
-	    }else{
-		callback(null, pendingArray, []);
-	    }
-	},
-	function(pendingArray, communityArray, callback){
-	    if(pendingArray.length > 0){
-		var spaces = pendingArray.map(function(one){
-		    return one.iSpaceID;
-		});
-		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
-		    callback(null, pendingArray, communityArray, rows);
-		});
-	    }else{
-		callback(null, pendingArray, communityArray, []);
-	    }
+	    _.getPendingListDetail(params, pendingArray, function(err, rows, fields){
+		callback(err, rows);
+	    });
 	}
-    ], function(err, pendingArray, communityArray, spaceArray){
-	if(err){
-	    cb(err);
-	}else{
-	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
-	}
+    ], function(err, results){
+	cb(err, results);
     });
 };
 
@@ -189,35 +166,12 @@ pendingBiz.getDetail = function(params, cb){
 	    });
 	},
 	function(pendingArray, callback){
-	    if(pendingArray.length > 0){
-		var communities = pendingArray.map(function(one){
-		    return one.iCommunityID;
-		});
-		communityBiz.getBatchInfo(communities, function(err, rows, fields){
-		    callback(null, pendingArray, rows);	    
-		});
-	    }else{
-		callback(null, pendingArray, []);
-	    }
-	},
-	function(pendingArray, communityArray, callback){
-	    if(pendingArray.length > 0){
-		var spaces = pendingArray.map(function(one){
-		    return one.iSpaceID;
-		});
-		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
-		    callback(null, pendingArray, communityArray, rows);
-		});
-	    }else{
-		callback(null, pendingArray, communityArray, []);
-	    }
+	    _.getPendingListDetail(params, pendingArray, function(err, rows, fields){
+		callback(err, rows);
+	    });
 	}
-    ], function(err, pendingArray, communityArray, spaceArray){
-	if(err){
-	    cb(err);
-	}else{
-	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
-	}
+    ], function(err, results){
+	cb(err, results);
     });
 };
 
@@ -236,35 +190,12 @@ pendingBiz.queryMine = function(params, cb){
 	    });
 	},
 	function(pendingArray, callback){
-	    if(pendingArray.length > 0){
-		var communities = pendingArray.map(function(one){
-		    return one.iCommunityID;
-		});
-		communityBiz.getBatchInfo(communities, function(err, rows, fields){
-		    callback(null, pendingArray, rows);	    
-		});
-	    }else{
-		callback(null, pendingArray, []);
-	    }
-	},
-	function(pendingArray, communityArray, callback){
-	    if(pendingArray.length > 0){
-		var spaces = pendingArray.map(function(one){
-		    return one.iSpaceID;
-		});
-		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
-		    callback(null, pendingArray, communityArray, rows);
-		});
-	    }else{
-		callback(null, pendingArray, communityArray, []);
-	    }
+	    _.getPendingListDetail(params, pendingArray, function(err, rows, fields){
+		callback(err, rows);
+	    });
 	}
-    ], function(err, pendingArray, communityArray,spaceArray){
-	if(err){
-	    cb(err);
-	}else{
-	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
-	}
+    ], function(err, results){
+	cb(err, results);
     });
 };
 
@@ -323,6 +254,10 @@ pendingBiz.publish = function(params, cb){
 	    obj.iPendingID = params.iPendingID;
 	    console.error('register pendingOverTimeTimeHandle!');
 	    redis_mgr.addTimer(timeout, obj, pendingOverTimeTimeHandle);
+
+	    //发送挂单成功事件
+	    obj.iPhoneNum = params.iPhoneNum;
+	    eventMgr.emit(eventDefine.enumType.PUBLISH_PENDING, obj);
 	}
     });
 };
@@ -355,15 +290,32 @@ pendingBiz.updateUserPendingStatus = function(params, iStatus, cb){
 };
 
 pendingBiz.list = function(params, cb){
-    var tableNum = params.iCommunityID % pendingCnt;
-    var szWhere = '';
-    if(params.tStart !== null && params.tStart !== undefined && params.tStart.length > 0){
-	szWhere = szWhere + " and unix_timestamp(tStart) >= unix_timestamp('" + params.tStart + "')" ;
-    }
-    if(params.tEnd !== null && params.tEnd !== undefined && params.tEnd.length > 0){
-	szWhere = szWhere + " and unix_timestamp(tStart) <= unix_timestamp('" + params.tEnd + "')";
-    }
-    sqlPool.excute(25, [tableNum, params.iCommunityID, params.iPendingID, szWhere, params.iNum], cb);
+    async.waterfall([
+	function(callback){
+	    var tableNum = params.iCommunityID % pendingCnt;
+	    var szWhere = '';
+	    if(params.tStart !== null && params.tStart !== undefined && params.tStart.length > 0){
+		szWhere = szWhere + " and unix_timestamp(tStart) >= unix_timestamp('" + params.tStart + "')" ;
+	    }
+	    if(params.tEnd !== null && params.tEnd !== undefined && params.tEnd.length > 0){
+		szWhere = szWhere + " and unix_timestamp(tStart) <= unix_timestamp('" + params.tEnd + "')";
+	    }
+	    sqlPool.excute(25, [tableNum, params.iCommunityID, params.iPendingID, szWhere, params.iNum], function(err, rows, fields){
+		if(err){
+		    callback(err);
+		}else{
+		    callback(null, rows);
+		}
+	    });
+	},
+	function(pendingArray, callback){
+	    _.getPendingListDetail(params, pendingArray, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	},
+    ], function(err, results){
+	cb(err, results);
+    });
 };
 
 pendingBiz.opt = function(params, cb){
@@ -448,6 +400,41 @@ _.paySuccessOperate = function(obj){
 
 _.orderFinishOperate = function(obj){
     _.updatePendingStatus(obj, 3);
+};
+
+_.getPendingListDetail = function(params, pendingArray, cb){
+    async.waterfall([
+	function(callback){
+	    if(pendingArray.length > 0){
+		var communities = pendingArray.map(function(one){
+		    return one.iCommunityID;
+		});
+		communityBiz.getBatchInfo(communities, function(err, rows, fields){
+		    callback(null, rows);	    
+		});
+	    }else{
+		callback(null, []);
+	    }
+	},
+	function(communityArray, callback){
+	    if(pendingArray.length > 0){
+		var spaces = pendingArray.map(function(one){
+		    return one.iSpaceID;
+		});
+		spaceBiz.getBatchInfo(spaces, function(err, rows, fields){
+		    callback(null, communityArray, rows);
+		});
+	    }else{
+		callback(null, communityArray, []);
+	    }
+	}
+    ], function(err, communityArray, spaceArray){
+	if(err){
+	    cb(err);
+	}else{
+	    cb(null, {'pending':pendingArray, 'community':communityArray, 'space':spaceArray});
+	}
+    });
 };
 
 module.exports = pendingBiz;

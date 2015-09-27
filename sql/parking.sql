@@ -12,6 +12,7 @@ create table IF NOT EXISTS tbUserInfo(
     tLastLoginTime datetime not null default '1970-01-01 08:00:00' comment '用户最后登录时间',
     iScore bigint unsigned not null default 0 comment '用户积分',
     iCredit bigint unsigned not null default 0 comment '信用积分',
+    iMoney int unsigned not null default 0 comment '用户累计赚取的钱',
     iRoleType int unsigned not null default 0 comment '0 普通用户，1 小区管理员，2 后台管理员',
     szBankCard varchar(128)  not null default '' comment '出租用户绑定银行卡信息',
     szBankAddress varchar(512)  not null default '' comment '开户行信息',

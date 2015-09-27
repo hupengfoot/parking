@@ -6,6 +6,13 @@ var sqlPool = require(path.join(global.rootPath, 'dbaccess/dbparking'));
 var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 
 var userBiz = {};
+var _ = {};
+
+userBiz.init = function(){
+    eventMgr.register(eventDefine.enumType.PUBLISH_PENDING, function(obj){
+	_.publishPendingOperate(obj);
+    });
+};
 
 userBiz.updateLiense = function(params, cb){
     sqlPool.excute(10003, [params.szLiensePlate, params.iPhoneNum], cb);
@@ -73,6 +80,9 @@ userBiz.updateScore = function(params, cb, conn){
     }else{
 	sqlPool.excute(10017, [params.iScore, params.iPhoneNum, params.iScore], cb);
     }
+};
+
+_.publishPendingOperate = function(params){
 };
 
 module.exports = userBiz;
