@@ -68,6 +68,22 @@ community.get = function(robot, cb){
     });
 };
 
+community.list = function(robot, cb){
+    var obj = {};
+    obj.iProvince = 1;
+    obj.iCity = 1;
+    obj.iAreaName = 1;
+    
+    var dist_url = robot_util.makeUrl('/community/list', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+	console.error(res.cookies);
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
 community.search = function(robot, cb){
     var obj = {};
     obj.szName = 'xx';
@@ -88,9 +104,10 @@ var test_cases =
 [
     getRobot,
     login,
-    community.publish,
+    //community.publish,
     //community.get,
-    //community.search
+    //community.search,
+    community.list
 ];
 
 function test_main() {

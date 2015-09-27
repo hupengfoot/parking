@@ -53,6 +53,21 @@ space.detail = function(robot, cb){
     });
 };
 
+space.list = function(robot, cb){
+    var obj = {};
+    obj.iCommunityID = 5;
+ 
+    var dist_url = robot_util.makeUrl('/master/space/list', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    robot.result = result;
+	    cb(null, robot);
+        });
+    });
+};
+
+
 
 space.addspace = function(robot, cb){
     var obj = {};
@@ -123,7 +138,7 @@ var L1 = function(robot, cb){
 var test_cases =
 [
     login,
-    space.addspace,
+    //space.addspace,
     //space.approve,
     //space.queryspace,
     //space.updatespace,
@@ -132,6 +147,7 @@ var test_cases =
     //space.queryspace,
     //L1,
     //space.detail,
+    space.list
 ];
 
 function test_main() {

@@ -195,6 +195,14 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/master/space/list',
+    query : ['iCommunityID'],
+    queryType : ['num'],
+    access : 3,
+    limit : 500,
+    comment : '小区车位列表接口'
+},
+{
     router : '/master/order/check',
     query : ['iOrderID', 'szCode', 'iPassStatus'],
     //iPassStatus 0 进入车库，1 离开车库
@@ -372,12 +380,20 @@ module.exports.global_query_define = [
 {
     router : '/community/search',
     query : ['iProvince', 'iCity', 'szName'],
-    queryType : ['string'],
+    queryType : ['num', 'num', 'string'],
     access : 1,
     limit : 500,
     comment : '搜索小区接口'
     //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szCommunityName:'xxxx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/community/list',
+    query : ['iProvince', 'iCity', 'iAreaName'],
+    queryType : ['num', 'num', 'num'],
+    access : 3,
+    limit : 500,
+    comment : '小区列表接口'
 },
 {
     router : '/user/exchange/exchange',

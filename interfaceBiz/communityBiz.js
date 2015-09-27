@@ -24,7 +24,7 @@ communityBiz.publish = function(params, cb){
 	    obj.longitude = params.szY;
 	    obj.coord_type = 1;
 	    obj.iCommunityID = rows.insertId;
-	    obj.title = params.szCommunityName;
+	    obj.title = '小区-' + params.szCommunityName;
 	    obj.tags = '小区';
 	    baiduMap.createPoi(obj);
 	}
@@ -38,6 +38,12 @@ communityBiz.get = function(params, cb){
 	}else{
 	    cb(msg.code.ERR_NOT_REGISTER_COMMUNITY);
 	}
+    });
+};
+
+communityBiz.list = function(params, cb){
+    sqlPool.excute(23, [params.iProvince, params.iCity, params.iAreaName], function(err, rows, fields){
+	cb(err, rows);
     });
 };
 

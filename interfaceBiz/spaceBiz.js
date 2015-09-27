@@ -38,6 +38,10 @@ spaceBiz.approve = function(params, cb){
     sqlPool.excute(10015, [params.iSpaceID], cb);
 };
 
+spaceBiz.list = function(params, cb){
+    sqlPool.excute(24, [params.iCommunityID], cb);
+};
+
 spaceBiz.addSpace = function(params, cb){
     async.waterfall([
 	function(callback){

@@ -31,4 +31,12 @@ router.post('/get', function(req, res){
     });
 });
 
+router.post('/list', function(req, res){
+    var param = url.parse(req.url, true).query;
+    communityBiz.list(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
+
 module.exports = router;
