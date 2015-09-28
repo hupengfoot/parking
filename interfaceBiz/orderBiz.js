@@ -113,13 +113,15 @@ orderBiz.pay = function(params, cb){
 		    
 		    var obj = {};
 		    obj.iPendingID = orderInfo.iPendingID;
+		    obj.iPhoneNum = params.iPhoneNum;
+		    obj.tOrderStart = orderInfo.tStart;
+		    obj.tOrderEnd = orderInfo.tEnd;
 		    obj.TIMEOUT = (Date.parse(orderInfo.tEnd) - Date.parse(new Date())) /1000;
 		    eventMgr.emit(eventDefine.enumType.PAY_SUCCESS, obj);
 		    orderBiz.updateUserOrderPay(params, 1, function(){});
 		    //向挂单用户发送订单成功消息
 		    obj.tStart = orderInfo.tStart;
 		    obj.tEnd = orderInfo.tEnd;
-		    obj.iPhoneNum = params.iPhoneNum;
 		    msgCenter.send(user_msg_define.enum.ORDER_PAY, obj);
 		    callback(null, {'szCode':num});
 		}else{
