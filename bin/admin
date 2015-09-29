@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+var debug = require('debug')('myapp');
+var global_config = require('../config/global_conf').global_config;
+
+var admin = require('../admin');
+admin.set('port', process.argv[3]);
+admin.set('ip', process.argv[2]);
+
+
+var server = admin.listen(admin.get('port'), admin.get('ip'), function() {
+    console.log("admin listening on port "+ server.address().port);
+});

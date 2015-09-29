@@ -49,6 +49,9 @@ module.exports.sqls = {
     '10021': ' tbUserInfo set iRentTime = iRentTime + ? where iPhoneNum = ?',
     '10022': ' tbUserInfo set iOrderTime = iOrderTime + ? where iPhoneNum = ?',
     '10023':' tbParkingSpaceInfo set szParkingNum = ?, szParkingPic = ?, iParkingType = ?, iParkingNature = ? where iPhoneNum = ? and iSpaceID = ?',
+    '10024': ' tbUserInfo set iScore = IF(iScore > - (!), iScore + (!), 0) where iPhoneNum = ?',
+    '10025': 'tbUserInfo set iCredit = iCredit + ? where iPhoneNum = ?', 
+    '10026': ' tbUserInfo set iForbidden = ? where iPhoneNum = ?',
 	
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',

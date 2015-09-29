@@ -23,10 +23,17 @@ userBiz.init = function(){
     eventMgr.register(eventDefine.enumType.PAY_SUCCESS, function(obj){
 	_.paySuccessOperate(obj);
     });
+    eventMgr.register(eventDefine.enumType.ORDER_FINISH, function(obj){
+	_.orderFinishOperate(obj);
+    });
 };
 
 userBiz.updateLiense = function(params, cb){
     sqlPool.excute(10003, [params.szLiensePlate, params.iPhoneNum], cb);
+};
+
+userBiz.updateCredit = function(params, cb){
+    sqlPool.excute(10025, [params.iCredit, params.iPhoneNum], cb);
 };
 
 userBiz.queryLiensePlate = function(params, cb){
@@ -93,12 +100,37 @@ userBiz.updateScore = function(params, cb, conn){
     }
 };
 
+userBiz.updateScore2 = function(params, cb){
+    sqlPool.excute(10024, [params.iScore, params.iScore, params.iPhoneNum], cb);
+};
+
 userBiz.updateRentTime = function(params, cb){
     sqlPool.excute(10021, [params.iRentTime, params.iPhoneNum], cb);
 };
 
 userBiz.updateOrderTime = function(params, cb){
     sqlPool.excute(10022, [params.iOrderTime, params.iPhoneNum], cb);
+};
+
+userBiz.control = function(params, cb){
+    async.waterfall([
+	function(callback){
+	    sqlPool.excute(10026, [params.iStatus, params.iForbiddenPhoneNum], function(err, rows, fields){
+		callback(err);
+	    });
+	},
+	function(callback){
+	    if(parseInt(params.iStatus) === 1){
+		redis_mgr.del2(redis_define.enum.LOGIN, params.iForbiddenPhoneNum, function(err, info){
+		    callback(null);
+		});
+	    }else{
+		callback(null);
+	    }
+	}
+    ], function(err, results){
+	cb(err, results);
+    });
 };
 
 _.publishPendingOperate = function(params){
@@ -164,12 +196,30 @@ _.paySuccessOperate = function(params){
 	    var obj4 = {};
 	    obj4.iPhoneNum = params.iPhoneNum;
 	    obj4.iOrderTime = (Date.parse(params.tEnd) - Date.parse(params.tStart)) / 1000 / 60 / 60;
-	    userBiz.updateOrderTime(obj2, function(){
+	    userBiz.updateOrderTime(obj4, function(){
 		callback(null);
 	    });
 	}
     ], function(err, results){
     });
+};
+
+_.orderFinishOperate = function(params){
+    var endTime = Date.parse(params.tEnd);
+    var nowTime = Date.parse(new Date());
+    if(nowTime > endTime){
+	var obj = {};
+	obj.iPhoneNum = params.iPhoneNum;
+	obj.iScore = -5;
+	userBiz.updateScore2(obj, function(){
+	});
+    }else{
+	var obj1 = {};
+	obj1.iPhoneNum = params.iPhoneNum;
+	obj1.iCredit = 10;
+	userBiz.updateCredit(obj1, function(){
+	});
+    }
 };
 
 module.exports = userBiz;

@@ -97,6 +97,16 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/master/user/control',
+    query : ['iForbiddenPhoneNum', 'iStatus'],
+    queryType : ['num', 'num'],
+    access : 3,
+    limit : 500,
+    comment : '封禁解封用户接口'
+    //成功 {'errCode':0, 'msg':'success'}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
     router : '/common/sms/register',
     query : ['iPhoneNum'],
     queryType : ['num'],

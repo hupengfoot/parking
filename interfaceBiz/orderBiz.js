@@ -47,7 +47,7 @@ orderBiz.check = function(params, cb){
 		    params.iPhoneNum = rows[0].iPhoneNum;
 		    params.iSpaceID = rows[0].iSpaceID;
 		    if(rows[0].iPay === 1){
-			callback(null);
+			callback(null, rows[0]);
 		    }else{
 			callback(msg.code.ERR_NOT_PAY);
 		    }
@@ -56,11 +56,11 @@ orderBiz.check = function(params, cb){
 		}
 	    });
 	},
-	function(callback){
+	function(orderInfo, callback){
 	    redis_mgr.get2(redis_define.enum.ORDER, params.iOrderID, function(err, info){
 		if(!err){
 		    if(info == params.szCode){
-			callback(null);
+			callback(null, orderInfo);
 		    }else{
 			callback(msg.code.ERR_INVALID_SZCODE);
 		    }
@@ -69,12 +69,12 @@ orderBiz.check = function(params, cb){
 		}
 	    });
 	},
-	function(callback){
+	function(orderInfo, callback){
 	    orderBiz.updateOrderStatus(params, 1, function(err, rows, fields){
-		callback(err, rows);
+		callback(err, rows, orderInfo);
 	    });
 	}
-    ], function(err, results){
+    ], function(err, results, orderInfo){
 	cb(err, results);
 	if(!err){
 	    if(parseInt(params.iPassStatus) === 1){
@@ -83,6 +83,7 @@ orderBiz.check = function(params, cb){
 		obj.iOrderID = params.iOrderID;
 		obj.iPhoneNum = params.iPhoneNum;
 		obj.iSpaceID = params.iSpaceID;
+		obj.tEnd = orderInfo.tEnd;
 		eventMgr.emit(eventDefine.enumType.ORDER_FINISH, obj);
 	    }
 	}
@@ -201,7 +202,11 @@ orderBiz.book = function(params, cb){
 	    //获取订单详情
 	    pendingBiz.detail(params, function(err, rows, fields){
 		if(!err && rows.length > 0){
-		    callback(null, rows[0]);
+		    if(rows[0].iPhoneNum == params.iPhoneNum){
+			callback(msg.code.ERR_NOT_ALLOW_GROB_OWN_PENDING);
+		    }else{
+			callback(null, rows[0]);
+		    }
 		}else{
 		    callback(msg.code.ERR_BOOK_FAIL);
 		}

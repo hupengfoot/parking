@@ -21,6 +21,7 @@ create table IF NOT EXISTS tbUserInfo(
     iHasComplete int unsigned not null default 0 comment '是否已完善资料',
     iRentTime int unsigned not null default 0 comment '出租时数',
     iOrderTime int unsigned not null default 0 comment '租用时数',
+    iForbidden int unsigned not null default 0 comment '0 正常用户，1 被封用户',
     primary key (`iPhoneNum`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='用户信息表';
 

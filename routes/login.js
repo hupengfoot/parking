@@ -77,12 +77,16 @@ _.login = function(params, cb){
 	function(callback){
 	    userBiz.myInfo(params, function(err, rows, fields){
 		if(!err && rows.length > 0){
-		    result.parking_app_key = params.iPhoneNum + '_' +uuid.v1();
-		    result.iRoleType = rows[0].iRoleType;
-		    callback(null);
-		    //设置redis中的LOGIN信息
-		    rows[0].parking_app_key = result.parking_app_key;
-		    redis_mgr.set2(redis_define.enum.LOGIN, params.iPhoneNum, rows[0]);
+		    if(rows[0].iForbidden > 0){
+			callback(msg.code.ERR_FORBIDDEN_USER);
+		    }else{
+			result.parking_app_key = params.iPhoneNum + '_' +uuid.v1();
+			result.iRoleType = rows[0].iRoleType;
+			callback(null);
+			//设置redis中的LOGIN信息
+			rows[0].parking_app_key = result.parking_app_key;
+			redis_mgr.set2(redis_define.enum.LOGIN, params.iPhoneNum, rows[0]);
+		    }
 		}else{
 		    callback(msg.code.ERR_NOT_EXIST_USER);
 		}

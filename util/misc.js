@@ -44,4 +44,33 @@ misc.getSectionTimeLimit = function(params){
     return szWhere;
 };
 
+//正常函数模式
+misc.checkParaParam = function checkParams(str){
+    var vaild = true;
+    var arr;
+    if(typeof str === 'string' && str.length > 0){
+        arr = str.split('|');
+        if(arr.length > 0){
+            arr = arr.map(function(one){
+                //不为空且是有效的数字
+                if(one && one.length > 0 && !isNaN(one)){
+                    return parseInt(one,10);
+                }else{
+                    vaild = false;
+                    return -1;
+                }
+            });
+        }else{
+            vaild = false;
+        }
+    }else{
+        vaild = false;
+    }
+    if (vaild) {
+       return arr; 
+    } else {
+       return null; 
+    }
+};
+
 module.exports = misc;

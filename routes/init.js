@@ -40,6 +40,7 @@ _.commonInit = function(app){
     aMids.push({f:null, r:null, a:accessLog});
     aMids.push({f:null, r:null, a:accessLogger});
     aMids.push({f:'routes/common/post_data', r:null});
+    aMids.push({f:'routes/common/overload', r:null});
     aMids.push({f:'routes/common/router_check', r:null});
     aMids.push({f:'routes/common/sms', r:'/common/sms'});
     aMids.push({f:'routes/common/charge', r:'/common/charge'});
@@ -65,6 +66,7 @@ _.masterInit = function(app){
     aMids.push({f:'routes/master/goods', r:'/master/goods'});
     aMids.push({f:'routes/master/announce', r:'/master/announce'});
     aMids.push({f:'routes/master/pending', r:'/master/pending'});
+    aMids.push({f:'routes/master/user', r:'/master/user'});
 };
 
 var initRoutes = function(app){

@@ -11,6 +11,7 @@ redis_type_enum.PHONE = 3; //存放短信验证码
 redis_type_enum.INCREMENT = 4;//存放自增键
 redis_type_enum.ORDER = 5;//存放订单验证码
 redis_type_enum.HAS_PENDING_TODAY = 6;//今日是否挂单标记
+redis_type_enum.MISC = 7;//今日是否挂单标记
 
 var redis_type = [
     {
@@ -35,6 +36,9 @@ var redis_type = [
 	iType : redis_type_enum.HAS_PENDING_TODAY,//存放今日是否挂单标记
 	szPre : "HAS_PENDING_TODAY",
 	TIMEOUT : 864000
+    },{
+	iType : redis_type_enum.MISC,//存放今日是否挂单标记
+	szPre : "MISC"
     }
 ];
 
@@ -47,6 +51,7 @@ var redis_timer_enum = Object.freeze({
 
 var redis_channel_enum = Object.freeze({
     'CHANNEL_NAME':0,
+    'WEB_CONFIG':1,
 });
 
 //表示这个channel对应的接收端有几个,名字必须与上面的相等
@@ -54,11 +59,13 @@ var redis_channel_enum = Object.freeze({
 //接收的进程，第一个参数需要传一个ID，例如3个接受者为0 1 2
 //如果配置为-1，就是说接收者不再是负载均衡的角色，这个时候channel的定义是广播
 var redis_channel_num_define = Object.freeze({
+    'WEB_CONFIG':-1
 });
 
 redis_define.enum = redis_type_enum;
 redis_define.type = redis_type;
 redis_define.timer = redis_timer_enum;
 redis_define.channel_num_define = redis_channel_num_define;
+redis_define.redis_channel_enum = redis_channel_enum;
 
 module.exports.redis_define = redis_define;
