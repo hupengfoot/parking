@@ -27,7 +27,7 @@ module.exports.sqls = {
     '25':'* from tbPendingInfo_! where iCommunityID = ? and iPendingID > ? ! limit !',
     //下标10000-20000的用于update语句
     '10001': ' tbUserPasswd set szPasswd = ? where iPhoneNum = ?',
-    '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ?, szBankAddress = ?, iHasComplete = ? where iPhoneNum = ?', 
+    '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ?, szBankAddress = ?, iHasComplete = ?, szAlipay = ?, szAlipayNickname = ? where iPhoneNum = ?', 
     '10003': ' tbUserInfo set szLiensePlate = ? where iPhoneNum = ?',
     '10004': ' tbParkingSpaceInfo set iDelete = 1 where iPhoneNum = ? and iSpaceID = ?',
     '10005': ' tbParkingSpaceInfo set szParkingNum = ?, szParkingPic = ?, iParkingType = ?, iParkingNature = ?, tTime = now() where iPhoneNum = ? and iSpaceID = ?', 

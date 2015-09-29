@@ -38,7 +38,7 @@ userBiz.updateInfo = function(params, cb){
     if(params.szMail !== null && params.szMail !== undefined && params.szRealName !== null && params.szRealName !== undefined && params.szBankCard !== null && params.szBankCard !== undefined && params.szBankAddress !== null && params.szBankAddress !== undefined){
 	iHasComplete = 1;
     }
-    sqlPool.excute(10002, [params.szUserName, params.szRealName, params.szMail, params.szLiensePlate, params.szAddress, params.szModels, params.szBankCard, params.szBankAddress, iHasComplete, params.iPhoneNum], cb);
+    sqlPool.excute(10002, [params.szUserName, params.szRealName, params.szMail, params.szLiensePlate, params.szAddress, params.szModels, params.szBankCard, params.szBankAddress,iHasComplete, params.szAlipay, params.szAlipayNickname, params.iPhoneNum], cb);
 };
 
 userBiz.modifyPasswd = function(params, cb){
