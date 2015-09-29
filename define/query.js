@@ -381,7 +381,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/community/publish',
-    query : ['iChargesType', 'iPer', 'iPerPrice', 'iMaxPrice', 'szX', 'szY', 'iProvince', 'iCity', 'szCommunityName', 'szPicUrl'],
+    query : ['iChargesType', 'iPer', 'iPerPrice', 'iMaxPrice', 'szX', 'szY', 'iProvince', 'iCity', 'szCommunityName', 'szAddressName', 'szPicUrl'],
     queryType : ['num', 'num', 'num', 'num', 'string', 'string', 'num', 'num', 'string', 'string'],
     access : 3,
     limit : 500,
