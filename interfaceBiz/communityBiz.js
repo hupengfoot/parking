@@ -12,7 +12,7 @@ var price = require(path.join(global.rootPath, 'util/price'));
 var communityBiz = {};
 
 communityBiz.publish = function(params, cb){
-    var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.iAreaName, params.szCommunityName, params.szPicUrl];
+    var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.szCommunityName, params.szPicUrl];
     sqlPool.excute(20004, insertParams, function(err, rows, fields){
 	if(err){
 	    cb(err);
@@ -42,7 +42,7 @@ communityBiz.get = function(params, cb){
 };
 
 communityBiz.list = function(params, cb){
-    sqlPool.excute(23, [params.iProvince, params.iCity, params.iAreaName], function(err, rows, fields){
+    sqlPool.excute(23, [params.iProvince, params.iCity], function(err, rows, fields){
 	cb(err, rows);
     });
 };

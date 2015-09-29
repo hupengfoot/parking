@@ -33,7 +33,7 @@ create table IF NOT EXISTS tbParkingSpaceInfo(
     iPhoneNum bigint unsigned not null comment '用户手机号码',
     iCommunityID bigint unsigned not null comment '小区ID',
     szParkingNum varchar(1024) default '' comment '用户车位号',
-    szParkingPic varchar(1024) default '' comment '用户车位照片',
+    szParkingPic varchar(8192) default '' comment '用户车位照片',
     iParkingType int unsigned not null default 0 comment '车位类型 0地面，1车架',
     iParkingNature int unsigned not null default 0 comment '0自有，1自用',
     iHasApprove int unsigned not null default 0 comment '0未认证，1已认证',

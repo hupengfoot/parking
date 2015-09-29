@@ -22,7 +22,7 @@ module.exports.sqls = {
     '20':'* from tbMessageBox_! as b left join tbMessageInfo_! as m on b.iMessageID = m.iMessageID where b.iPhoneNum = ? and b.iMessageID > ? ! order by b.iMessageID desc limit !',
     '21': ' * from tbGoodsInfo where iGoodsID in(!)  and iDelete = 0',
     '22':' * from tbAnnounceInfo where iAnnounceID > ? ! limit !',
-    '23':' * from tbCommunityInfo where iProvince = ? and iCity = ? and iAreaName = ?',
+    '23':' * from tbCommunityInfo where iProvince = ? and iCity = ?',
     '24':'* from tbParkingSpaceInfo where iCommunityID = ? and iDelete = 0',
     '25':'* from tbPendingInfo_! where iCommunityID = ? and iPendingID > ? ! limit !',
     //下标10000-20000的用于update语句
@@ -52,7 +52,7 @@ module.exports.sqls = {
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',
     '20003': 'into tbParkingSpaceInfo(iPhoneNum, iCommunityID, szParkingNum, szParkingPic, iParkingType, iParkingNature, tTime) values(?, ?, ?, ?, ?, ?, now())',
-    '20004': 'into tbCommunityInfo(iChargesType, iPer, iPerPrice, iMaxPrice, szX, szY, iProvince, iCity, iAreaName, szCommunityName, szPicUrl, tTime) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())',
+    '20004': 'into tbCommunityInfo(iChargesType, iPer, iPerPrice, iMaxPrice, szX, szY, iProvince, iCity, szCommunityName, szPicUrl, tTime) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now())',
     '20005': ' into tbPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())',
     '20006':' into tbUserPendingInfo_!(iPendingID, iCommunityID, iPhoneNum, iSpaceID, tStart, tEnd, iMiniRental, tPublishTime) values(?, ?, ?, ?, ?, ?, ?, now())', 
     '20007': ' into tbOrderInfo_!(iOrderID, iCommunityID, iSpaceID, iPendingID, iPhoneNum, tGrobTime, tStart, tEnd, iPrice, szLiensePlate) values(?, ?, ?, ?, ?, now(), ?, ?, ?, ?)',

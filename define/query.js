@@ -138,8 +138,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/addspace',
-    query : ['iCommunityID', 'szParkingNum', 'szParkingPic', 'iParkingType', 'iParkingNature'],
-    queryType : ['num', 'string', 'string', 'num', 'num'],
+    query : ['iCommunityID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
+    queryType : ['num', 'string', 'num', 'num'],
     access : 1,
     limit : 500,
     comment : '添加用户车位'
@@ -371,8 +371,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/community/publish',
-    query : ['iChargesType', 'iPer', 'iPerPrice', 'iMaxPrice', 'szX', 'szY', 'iProvince', 'iCity', 'iAreaName', 'szCommunityName', 'szPicUrl'],
-    queryType : ['num', 'num', 'num', 'num', 'string', 'string', 'num', 'num'],
+    query : ['iChargesType', 'iPer', 'iPerPrice', 'iMaxPrice', 'szX', 'szY', 'iProvince', 'iCity', 'szCommunityName', 'szPicUrl'],
+    queryType : ['num', 'num', 'num', 'num', 'string', 'string', 'num', 'num', 'string', 'string'],
     access : 3,
     limit : 500,
     comment : '发布小区详情接口'
@@ -389,8 +389,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/community/list',
-    query : ['iProvince', 'iCity', 'iAreaName'],
-    queryType : ['num', 'num', 'num'],
+    query : ['iProvince', 'iCity'],
+    queryType : ['num', 'num'],
     access : 3,
     limit : 500,
     comment : '小区列表接口'
