@@ -86,6 +86,10 @@ spaceBiz.detail = function(params, cb){
 };
 
 spaceBiz.updateSpace = function(params, cb){
+    sqlPool.excute(10005, [params.szParkingNum, params.iParkingType, params.iParkingNature, params.iPhoneNum, params.iSpaceID], cb);
+};
+
+spaceBiz.masterUpdateSpace = function(params, cb){
     sqlPool.excute(10005, [params.szParkingNum, params.szParkingPic, params.iParkingType, params.iParkingNature, params.iPhoneNum, params.iSpaceID], cb);
 };
 

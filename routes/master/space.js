@@ -24,4 +24,11 @@ router.post('/list', function(req, res){
     });
 });
 
+router.post('/updatespace', function(req, res){
+    var param = url.parse(req.url, true).query;
+    spaceBiz.masterUpdateSpace(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
 module.exports = router;

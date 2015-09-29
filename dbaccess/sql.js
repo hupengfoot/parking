@@ -30,7 +30,7 @@ module.exports.sqls = {
     '10002': ' tbUserInfo set szUserName = ?, szRealName = ?, szMail = ?, szLiensePlate = ?, szAddress = ?, szModels = ?, szBankCard = ?, szBankAddress = ?, iHasComplete = ?, szAlipay = ?, szAlipayNickname = ? where iPhoneNum = ?', 
     '10003': ' tbUserInfo set szLiensePlate = ? where iPhoneNum = ?',
     '10004': ' tbParkingSpaceInfo set iDelete = 1 where iPhoneNum = ? and iSpaceID = ?',
-    '10005': ' tbParkingSpaceInfo set szParkingNum = ?, szParkingPic = ?, iParkingType = ?, iParkingNature = ?, tTime = now() where iPhoneNum = ? and iSpaceID = ?', 
+    '10005': ' tbParkingSpaceInfo set szParkingNum = ?, iParkingType = ?, iParkingNature = ?, tTime = now() where iPhoneNum = ? and iSpaceID = ?', 
     '10006': ' tbPendingInfo_! set iStatus = ? where iPendingID = ? and iStatus = 0',
     '10007': ' tbUserPendingInfo_! set iStatus = ? where iPendingID = ?',
     '10008': ' tbPendingInfo_! set iStatus = ? where iPendingID = ?',
@@ -48,6 +48,8 @@ module.exports.sqls = {
     '10020': ' tbUserPendingInfo_! set iStatus = ? where iPendingID = ?',
     '10021': ' tbUserInfo set iRentTime = iRentTime + ? where iPhoneNum = ?',
     '10022': ' tbUserInfo set iOrderTime = iOrderTime + ? where iPhoneNum = ?',
+    '10023':' tbParkingSpaceInfo set szParkingNum = ?, szParkingPic = ?, iParkingType = ?, iParkingNature = ? where iPhoneNum = ? and iSpaceID = ?',
+	
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime) values(?, now())',
     '20002': 'into tbUserPasswd (iPhoneNum, szPasswd) values(?, ?)',

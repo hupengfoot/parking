@@ -158,8 +158,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/space/updatespace',
-    query : ['iSpaceID', 'szParkingNum', 'szParkingPic', 'iParkingType', 'iParkingNature'],
-    queryType : ['num', 'string', 'string', 'num', 'num'],
+    query : ['iSpaceID', 'szParkingNum', 'iParkingType', 'iParkingNature'],
+    queryType : ['num', 'string', 'num', 'num'],
     access : 1,
     limit : 500,
     comment : '更新车位信息'
@@ -173,7 +173,7 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '查询用户车位信息'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iSpaceID:'xxx', iPhoneNum:'xxx', iCommunityID:'xxxx', szParkingNum:'xxxxx', iParkingType:'xxx', iParkingNature:'xxx', iHasApprove:'xxx', iDelete:'xxx', tTime:'xxx'}]
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iSpaceID:'xxx', iPhoneNum:'xxx', iCommunityID:'xxxx', szParkingNum:'xxxxx', szParkingPic:'xxx', iParkingType:'xxx', iParkingNature:'xxx', iHasApprove:'xxx', iDelete:'xxx', tTime:'xxx'}]
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -191,6 +191,16 @@ module.exports.global_query_define = [
     access : 3,
     limit : 500,
     comment : '认证车位信息'
+    //成功 {'errCode':0, 'msg':'success'}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+{
+    router : '/master/space/updatespace',
+    query : ['iSpaceID', 'szParkingPic', 'szParkingNum', 'iParkingType', 'iParkingNature'],
+    queryType : ['num', 'string', 'string', 'num', 'num'],
+    access : 3,
+    limit : 500,
+    comment : '管理员更新车位信息'
     //成功 {'errCode':0, 'msg':'success'}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
