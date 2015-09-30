@@ -1,6 +1,7 @@
 {
     "1":{
 	"price":"10",
+	"pricefunc":"_.perHourFunc",
 	"explain":"每小时10元"
     }
 }

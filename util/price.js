@@ -1,5 +1,7 @@
 'use strict';
 
+global.rootPath = __dirname + '/../';
+
 var path = require('path');
 var moment = require('moment');
 var util = require('util');
@@ -11,15 +13,11 @@ var _ = {};
 var str = '每%d小时%d元，每天收费上限%d元';
 
 price.calPrice = function(params){
-    if(params.tStart === undefined || params.tStart === null || params.tEnd === undefined || params.tEnd === null){
-	return null;
+    if(priceDefine[params.iChargesType] == undefined){
+	params.iChargesType = 1;
     }
-    var iTotal = (Date.parse(new Date(params.tEnd)) - Date.parse(new Date(params.tStart))) / 1000 / 60 / 60;
-    if(priceDefine[params.iChargesType] !== null && priceDefine[params.iChargesType] !== undefined){
-	return iTotal * priceDefine[params.iChargesType].price;
-    }else{
-	return iTotal * priceDefine[1].price;
-    }
+    var func = priceDefine[params.iChargesType].pricefunc + '(params)';
+    return eval(func);
 };
 
 price.check = function(iChargesType){
@@ -45,8 +43,24 @@ _.perHourFunc = function(params){
     if(params.tStart === undefined || params.tStart === null || params.tEnd === undefined || params.tEnd === null){
 	return null;
     }
-    
-
+    var tStart = moment(params.tStart);
+    var tEnd = moment(params.tEnd);
+    if(tStart.isAfter(tEnd) === true){
+	return null;
+    }
+    if(tStart.isSame(tEnd, 'day') === true){
+	var price = Math.ceil((tEnd.toArray()[3] - tStart.toArray()[3]) / params.iPer) * params.iPerPrice;
+	return price > params.iMaxPrice ? params.iMaxPrice : price;
+    }else{
+	var price = Math.floor((tEnd.valueOf() - tStart.valueOf()) / 1000 / 3600 / 24) * params.iMaxPrice;
+	console.error(price);
+	if(tEnd.toArray()[3] > 12){
+	    var makeup = Math.ceil((tEnd.toArray()[3] - 12) / params.iPer) * params.iPerPrice;
+	    makeup = makeup > params.iMaxPrice ? params.iMaxPrice : makeup;
+	    price = price + makeup;
+	}
+	return price;
+    }
 };
 
 module.exports = price;
