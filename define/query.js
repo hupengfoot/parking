@@ -279,7 +279,7 @@ module.exports.global_query_define = [
 },
 {
     router : '/user/pending/calprice',
-    query : ['iChargesType', 'tStart', 'tEnd'],
+    query : ['iCommunityID', 'tStart', 'tEnd'],
     queryType : ['num', 'date', 'date'],
     access : 1,
     limit : 500,

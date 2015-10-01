@@ -90,7 +90,7 @@ spaceBiz.updateSpace = function(params, cb){
 };
 
 spaceBiz.masterUpdateSpace = function(params, cb){
-    sqlPool.excute(10005, [params.szParkingNum, params.szParkingPic, params.iParkingType, params.iParkingNature, params.iPhoneNum, params.iSpaceID], cb);
+    sqlPool.excute(10023, [params.szParkingNum, params.szParkingPic, params.iParkingType, params.iParkingNature, params.iPhoneNum, params.iSpaceID], cb);
 };
 
 spaceBiz.updateSpaceStatus = function(params, cb){

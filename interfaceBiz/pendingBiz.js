@@ -12,7 +12,7 @@ var misc = require(path.join(global.rootPath, 'util/misc'));
 var spaceBiz = require(path.join(global.rootPath, 'interfaceBiz/spaceBiz'));
 var communityBiz = require(path.join(global.rootPath, 'interfaceBiz/communityBiz'));
 var mysql_define = require(path.join(global.rootPath, 'sql/mysql_define'));
-var price = require(path.join(global.rootPath, "config/price"));
+var price = require(path.join(global.rootPath, "util/price"));
 var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
 var eventDefine = require(path.join(global.rootPath, 'define/event'));
 
@@ -74,18 +74,29 @@ pendingBiz.init = function(){
 };
 
 pendingBiz.calPrice = function(params, cb){
-    if(params.tStart === undefined || params.tStart === null || params.tEnd === undefined || params.tEnd === null){
-	cb(msg.code.ERR_VALID_QUERY);
-	return;
-    }
-    var iTotal = (Date.parse(new Date(params.tEnd)) - Date.parse(new Date(params.tStart))) / 1000 / 60 / 60;
-    console.error(price[params.iChargesType]);
-    console.error(iTotal);
-    if(price[params.iChargesType] !== null && price[params.iChargesType] !== undefined){
-	cb(null, {'price':iTotal * price[params.iChargesType].price, 'tStart' : params.tStart, 'tEnd' : params.tEnd});
-    }else{
-	cb(null, {'price':iTotal * price[1].price, 'tStart':params.tStart, 'tEnd':params.tEnd});
-    }
+    async.waterfall([
+	function(callback){
+	    communityBiz.detail(params, function(err, rows, fields){
+		if(!err && rows.length > 0){
+		    callback(null, rows[0]);
+		}else{
+		    callback(msg.code.ERR_NOT_EXIST_COMMUNITY);
+		}
+	    });
+	},
+	function(communityInfo, callback){
+	    var obj = {};
+	    obj.iPer = communityInfo.iPer;
+	    obj.iPerPrice = communityInfo.iPerPrice;
+	    obj.iMaxPrice = communityInfo.iMaxPrice;
+	    obj.tStart = params.tStart;
+	    obj.tEnd = params.tEnd;
+	    var total = price.calPrice(obj);
+	    callback(null, total);
+	}
+    ], function(err, total){
+	cb(null, {'price':total, 'tStart':params.tStart, 'tEnd':params.tEnd});
+    });
 };
 
 pendingBiz.cancel = function(params, cb){
