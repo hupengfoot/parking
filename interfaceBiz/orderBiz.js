@@ -228,6 +228,7 @@ orderBiz.book = function(params, cb){
 	    pendingBiz.lockPendingStatus(params, function(err, rows, fields){
 		if(!err && rows.affectedRows > 0){
 		    callback(null, pendingInfo);
+		    pendingBiz.updateUserPendingStatus(pendingInfo, 1, function(){});
 		}else{
 		    callback(msg.code.ERR_BOOK_FAIL);
 		}
@@ -248,6 +249,9 @@ orderBiz.book = function(params, cb){
 	    params.iChargesType = communityInfo.iChargesType;
 	    params.iCommunityID = communityInfo.iCommunityID;
 	    params.iSpaceID = pendingInfo.iSpaceID;
+	    params.iPer = communityInfo.iPer;
+	    params.iPerPrice = communityInfo.iPerPrice;
+	    params.iMaxPrice = communityInfo.iMaxPrice;
 	    params.iPrice = price.calPrice(params);
 	    redis_mgr.incr2(redis_define.enum.INCREMENT, redis_define.orderID, function(err, reply){
 		if(err){
