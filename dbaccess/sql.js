@@ -6,7 +6,7 @@ module.exports.sqls = {
     '4': ' * from tbParkingSpaceInfo where iPhoneNum = ? and iDelete = 0',
     '5': ' * from tbParkingSpaceInfo where iPhoneNum = ? and iDelete = 0 and iSpaceID = ?',
     '6': ' * from tbCommunityInfo where iCommunityID = ?',
-    '7': ' * from tbCommunityInfo where iProvince = ? and iCity = ? and szCommunityName like "%!%"',
+    '7': ' * from tbCommunityInfo where iProvince = ? and iCity = ? and (szCommunityName like "%!%" or szAddressName like "%!%")',
     '8': ' * from tbUserPendingInfo_! where iPendingID > ? and iPhoneNum = ? ! limit !',
     '9': ' *from tbPendingInfo_! where iStatus = 0 and iPendingID > ? and iCommunityID = ? ! limit !',
     '10':' *from tbPendingInfo_! where iPendingID = ?', 

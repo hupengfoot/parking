@@ -40,8 +40,8 @@ community.publish = function(robot, cb){
     obj.szY = '10.187263';
     obj.iProvince = 1;
     obj.iCity = 1;
-    obj.szCommunityName = 'xxx';
-    obj.szAddressName = 'xxx';
+    obj.szCommunityName = '海上新村';
+    obj.szAddressName = '漕宝路20008号';
     obj.szPicUrl = 'xxxx';
     
     var dist_url = robot_util.makeUrl('/community/publish', 0);
@@ -85,7 +85,7 @@ community.list = function(robot, cb){
 
 community.search = function(robot, cb){
     var obj = {};
-    obj.szName = 'xx';
+    obj.szName = '漕宝路';
     obj.iProvince = 1;
     obj.iCity = 1;
     
@@ -103,9 +103,9 @@ var test_cases =
 [
     getRobot,
     login,
-    community.publish,
+    //community.publish,
     //community.get,
-    //community.search,
+    community.search,
     //community.list
 ];
 

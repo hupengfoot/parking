@@ -48,7 +48,7 @@ communityBiz.list = function(params, cb){
 };
 
 communityBiz.search = function(params, cb){
-    sqlPool.excute(7, [params.iProvince, params.iCity, params.szName], cb);
+    sqlPool.excute(7, [params.iProvince, params.iCity, params.szName, params.szName], cb);
 };
 
 communityBiz.detail = function(params, cb){
