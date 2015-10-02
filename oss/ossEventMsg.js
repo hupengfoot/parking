@@ -81,6 +81,9 @@ ossEventMsg.pendingHasPay = function(message){
 	    obj.iChargesType = communityInfo.iChargesType;
 	    obj.tStart = szArg.tStart;
 	    obj.tEnd = szArg.tEnd;
+	    obj.iPer = communityInfo.iPer;
+	    obj.iPerPrice = communityInfo.iPerPrice;
+	    obj.iMaxPrice = communityInfo .iMaxPrice;
 	    var iPrice = price.calPrice(obj);
 	    var szContent = util.format(bookMsg, szArg.iPendingID, szArg.iPhoneNum, iPrice, szArg.tStart, szArg.tEnd);
 	    _.publishMsg(message.iType, szContent, '', pendingInfo.iPhoneNum, function(err){

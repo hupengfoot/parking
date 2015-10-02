@@ -459,7 +459,7 @@ module.exports.global_query_define = [
     router : '/master/pending/list',
     query : ['iCommunityID', 'iPendingID', 'iNum', 'tStart', 'tEnd'],
     queryType : ['num', 'num', 'num', 'date', 'date'],
-    access : 1,
+    access : 3,
     limit : 500,
     comment : '管理员查询挂单接口'
     //成功 {'errCode':0, 'msg':'success', 'result':[{iPendingID:'xxx', iCommunityID:'xxx', iPhoneNum:'xxx', iSpaceID:'xxx', tStart:'xxx', tEnd:'xxx', iMiniRental:'xxx', iChargesType:'xxx', tPublishTime:'xxx', iStatus:'xxx'}]}
@@ -470,7 +470,7 @@ module.exports.global_query_define = [
     query : ['iPendingID', 'iStatus'],
     //iStatus 0 打开订单，3关闭订单
     queryType : ['num', 'num'],
-    access : 1,
+    access : 3,
     limit : 500,
     comment : '管理员打开关闭订单接口'
     //成功 {'errCode':0, 'msg':'success'}

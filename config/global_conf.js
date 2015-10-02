@@ -5,5 +5,7 @@ module.exports.global_config={
     aliyunApiVersion : '2013-10-15',
     aliyunBucketName : 'parking-test1',
     baiduMapGeoTableID : 119656,
-    baiduMapAk : 'tNlhkboHzkSA3ev2Gk46foWO'
+    baiduMapAk : 'tNlhkboHzkSA3ev2Gk46foWO',
+    iParamTypeCheck : 1,
+    payOverTime : 900,
 };

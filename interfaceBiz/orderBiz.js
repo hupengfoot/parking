@@ -19,7 +19,7 @@ var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
 var eventDefine = require(path.join(global.rootPath, 'define/event'));
 var msgCenter = require(path.join(global.rootPath, 'oss/send'));
 var user_msg_define = require(path.join(global.rootPath, "define/userMsg"));
-var global_config = require(path.join(global.rootPath, "config/global_conf"));
+var global_config = require(path.join(global.rootPath, "config/global_conf")).global_config;
 
 var orderBiz = {};
 var _ = {};
