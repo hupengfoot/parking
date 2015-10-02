@@ -105,6 +105,9 @@ login.updateinfo = function(robot, cb){
     obj.szModels = 'xxx';
     obj.szBankCard = 'xxx';
     obj.szBankAddress = 'xxx';
+    obj.szAlipay = 'xxx';
+    obj.szAlipayNickname = 'xxx';
+
 
     var dist_url = robot_util.makeUrl('/user/user/updateinfo', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -152,16 +155,45 @@ login.updateLiense = function(robot, cb){
     });
 };
 
+login.control = function(robot, cb){
+    var obj = {};
+    obj.iForbiddenPhoneNum = 13917658422;
+    obj.iStatus = 1;
+
+    var dist_url = robot_util.makeUrl('/master/user/control', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+login.admincontrol = function(robot, cb){
+    var obj = {};
+    obj.iForbiddenPhoneNum = 13917658422;
+    obj.iStatus = 1;
+
+    var dist_url = robot_util.makeUrl('/user/control', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
 
 var test_cases =
 [
     login.getRobot,
     //login.register,
-    login.login,
+    //login.login,
+    //login.control,
+    login.admincontrol,
     //login.modifypsw,
     //login.sms_register,
     //login.updatepsw,
-    login.updateinfo,
+    //login.updateinfo,
     //login.queryMyInfo,
     //login.queryLiensePlate,
     //login.updateLiense,

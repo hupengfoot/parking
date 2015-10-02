@@ -15,8 +15,8 @@ var L1 = function(robot, cb){
 
 var L2 = function(robot, cb){
     robot.obj.iSpaceID = 2;
-    robot.obj.tStart = '2015-09-24 08:00:00';
-    robot.obj.tEnd = '2015-09-24 22:00:00';
+    robot.obj.tStart = '2015-09-30 08:00:00';
+    robot.obj.tEnd = '2015-10-01 22:00:00';
     robot.obj.iMiniRental = 4;
     cb(null, robot);
 };

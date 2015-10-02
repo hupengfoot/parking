@@ -80,7 +80,7 @@ pending.query = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 5;
     obj.iPendingID = 0;
-    obj.tStart = '2015-11-12';
+    obj.tStart = '2014-11-12';
     obj.tEnd = '2015-11-13';
     obj.iNum = 10;
  
@@ -95,7 +95,7 @@ pending.query = function(robot, cb){
 
 pending.detail = function(robot, cb){
     var obj = {};
-    obj.iPendingID = 3145733;
+    obj.iPendingID = 25165829;
  
     var dist_url = robot_util.makeUrl('/user/pending/detail', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -108,9 +108,9 @@ pending.detail = function(robot, cb){
 
 pending.calprice = function(robot, cb){
     var obj = {};
-    obj.iChargesType = 497;
-    obj.tStart = '2015-09-09 xx';
-    obj.tEnd = '2015-09-09 9:11:11'
+    obj.iCommunityID = 1;
+    obj.tStart = '2015-09-09 08:00:00';
+    obj.tEnd = '2015-09-09 22:00:00'
  
     var dist_url = robot_util.makeUrl('/user/pending/calprice', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -169,26 +169,32 @@ pending.opt = function(robot, cb){
 var L1 = function(robot, cb){
     robot.obj = {};
     robot.obj.iSpaceID = 2;
-    robot.obj.tStart = '2015-09-19 08:00:00';
-    robot.obj.tEnd = '2015-09-19 14:00:00';
+    robot.obj.tStart = '2015-10-02 22:00:00';
+    robot.obj.tEnd = '2015-10-03 14:00:00';
     robot.obj.iMiniRental = 1;
+    cb(null, robot);
+};
+
+var L2 = function(robot, cb){
+    robot.obj = {};
+    robot.obj.iPendingID = 39845893;
     cb(null, robot);
 };
 
 var test_cases =
 [
     pending.login,
-    //L1,
-    //pending.publish,
+    L1,
+    pending.publish,
     //pending.querymine,
     //pending.query,
     //pending.detail,
     //pending.calprice,
     //pending.price_get,
-    //L1,
+    //L2,
     //pending.cancel,
-    pending.list,
-    pending.opt,
+    //pending.list,
+    //pending.opt,
 ];
 
 function test_main() {

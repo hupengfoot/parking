@@ -73,7 +73,6 @@ space.addspace = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 5;
     obj.szParkingNum = 'xxxxx';
-    obj.szParkingPic = 'xxxx';
     obj.iParkingType = 1;
     obj.iParkingNature = 1;
  
@@ -101,9 +100,8 @@ space.deletespace = function(robot, cb){
 
 space.updatespace = function(robot, cb){
     var obj = {};
-    obj.iSpaceID = 0;
+    obj.iSpaceID = 3;
     obj.szParkingNum = 'adasd';
-    obj.szParkingPic = 'asdasd';
     obj.iParkingType = 1;
     obj.iParkingNature = 1;
 
@@ -115,6 +113,25 @@ space.updatespace = function(robot, cb){
         });
     });
 };
+
+space.masterupdatespace = function(robot, cb){
+    var obj = {};
+    obj.iSpaceID = 0;
+    obj.szParkingNum = 'adasd';
+    obj.szParkingPic = 'asdasd';
+    obj.iParkingType = 1;
+    obj.iParkingNature = 1;
+
+    var dist_url = robot_util.makeUrl('/master/space/updatespace', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+
 
 space.approve = function(robot, cb){
     var obj = {};
@@ -139,15 +156,16 @@ var test_cases =
 [
     login,
     //space.addspace,
+    //space.masterupdatespace,
     //space.approve,
     //space.queryspace,
-    //space.updatespace,
+    space.updatespace,
     //space.queryspace,
     //space.deletespace,
     //space.queryspace,
     //L1,
     //space.detail,
-    space.list
+    //space.list
 ];
 
 function test_main() {

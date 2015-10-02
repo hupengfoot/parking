@@ -117,10 +117,10 @@ var test_cases =
     goods.publish,
     L2,
     goods.detail,
-    L3,
-    goods.set,
-    L4,
-    goods.detail
+    //L3,
+    //goods.set,
+    //L4,
+    //goods.detail
 ];
 
 function test_main() {

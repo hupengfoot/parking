@@ -40,8 +40,8 @@ community.publish = function(robot, cb){
     obj.szY = '10.187263';
     obj.iProvince = 1;
     obj.iCity = 1;
-    obj.iAreaName = 1;
     obj.szCommunityName = 'xxx';
+    obj.szAddressName = 'xxx';
     obj.szPicUrl = 'xxxx';
     
     var dist_url = robot_util.makeUrl('/community/publish', 0);
@@ -72,7 +72,6 @@ community.list = function(robot, cb){
     var obj = {};
     obj.iProvince = 1;
     obj.iCity = 1;
-    obj.iAreaName = 1;
     
     var dist_url = robot_util.makeUrl('/community/list', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -104,10 +103,10 @@ var test_cases =
 [
     getRobot,
     login,
-    //community.publish,
+    community.publish,
     //community.get,
     //community.search,
-    community.list
+    //community.list
 ];
 
 function test_main() {

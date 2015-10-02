@@ -69,7 +69,7 @@ var test_cases =
 [
     exchange.login,
     L1,
-    exchange.exchange,
+    //exchange.exchange,
     L2,
     exchange.query,
 ];

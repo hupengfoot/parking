@@ -61,13 +61,13 @@ _.accessRightCheck = function(queryObj, user){
 	case 1:
 	    return true;
 	case 2:
-	    if(parseInt(user.iRoleType) > 0){
+	    if(parseInt(user.iRoleType) > 1){
 		return true;
 	    }else{
 		return false;
 	    }
 	case 3:
-	    if(parseInt(user.iRoleType) > 1){
+	    if(parseInt(user.iRoleType) > 2){
 		return true;
 	    }else{
 		return false;
