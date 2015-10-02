@@ -32,23 +32,24 @@ var login = function(obj, cb){
 
 community.publish = function(robot, cb){
     var obj = {};
-    obj.iChargesType = 1;
-    obj.iPer = 1;
-    obj.iPerPrice = 10;
-    obj.iMaxPrice = 10;
-    obj.szX = '10.1236123';
-    obj.szY = '10.187263';
-    obj.iProvince = 1;
-    obj.iCity = 1;
-    obj.szCommunityName = '海上新村';
-    obj.szAddressName = '漕宝路20008号';
-    obj.szPicUrl = 'xxxx';
+    obj.iChargesType = robot.obj.iChargesType;
+    obj.iPer = robot.obj.iPer;
+    obj.iPerPrice = robot.obj.iPerPrice;
+    obj.iMaxPrice = robot.obj.iMaxPrice;
+    obj.szX = robot.obj.szX;
+    obj.szY = robot.obj.szY;
+    obj.iProvince = robot.obj.iProvince;
+    obj.iCity = robot.obj.iCity;
+    obj.szCommunityName = robot.obj.szCommunityName;
+    obj.szAddressName = robot.obj.szAddressName;
+    obj.szPicUrl = robot.obj.szPicUrl;
     
     var dist_url = robot_util.makeUrl('/community/publish', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
 	console.error(res.cookies);
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
+	    robot.result = result;
 	    cb(null, robot);
         });
     });

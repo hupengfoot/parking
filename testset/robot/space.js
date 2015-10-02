@@ -71,15 +71,16 @@ space.list = function(robot, cb){
 
 space.addspace = function(robot, cb){
     var obj = {};
-    obj.iCommunityID = 5;
-    obj.szParkingNum = 'xxxxx';
-    obj.iParkingType = 1;
-    obj.iParkingNature = 1;
+    obj.iCommunityID = robot.obj.iCommunityID;
+    obj.szParkingNum = robot.obj.szParkingNum;
+    obj.iParkingType = robot.obj.iParkingType;
+    obj.iParkingNature = robot.obj.iParkingNature;
  
     var dist_url = robot_util.makeUrl('/user/space/addspace', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
+	    robot.result = result;
 	    cb(null, robot);
         });
     });
@@ -131,16 +132,15 @@ space.masterupdatespace = function(robot, cb){
     });
 };
 
-
-
 space.approve = function(robot, cb){
     var obj = {};
-    obj.iSpaceID = 2;
+    obj.iSpaceID = robot.obj.iSpaceID;
 
     var dist_url = robot_util.makeUrl('/master/space/approve', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
+	    robot.result = result;
 	    cb(null, robot);
         });
     });

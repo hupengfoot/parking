@@ -3,8 +3,8 @@
 var async = require('async');
 var robot_util = require('./robot_util');
 var login = require('./login');
-var pending = require('./pending');
-var order = require('./order');
+var community = require('./community');
+var space = require('./space');
 
 var L1 = function(robot, cb){
     robot.obj = {};
@@ -14,40 +14,35 @@ var L1 = function(robot, cb){
 };
 
 var L2 = function(robot, cb){
-    robot.obj.iSpaceID = 9;
-    robot.obj.tStart = '2015-10-03 22:00:00';
-    robot.obj.tEnd = '2015-10-04 10:00:00';
-    robot.obj.iMiniRental = 4;
+    robot.obj.iChargesType = 0;
+    robot.obj.iPer = 1;
+    robot.obj.iPerPrice = 2;
+    robot.obj.iMaxPrice = 10;
+    robot.obj.szX = '10.1236123';
+    robot.obj.szY = '10.187263';
+    robot.obj.iProvince = 2;
+    robot.obj.iCity = 0;
+    robot.obj.szCommunityName = '海上新村';
+    robot.obj.szAddressName = '漕宝路20008号';
+    robot.obj.szPicUrl = 'xxxx';
     cb(null, robot);
 };
 
 var L3 = function(robot, cb){
-    robot.obj.iPhoneNum = '14017658422';
-    robot.obj.szPasswd = robot_util.encodePasswd('000000');
-    robot.obj.iPendingID = robot.result.iPendingID;
+    robot.obj.iCommunityID = robot.result.insertId;
+    robot.obj.szParkingNum = 'A-123123';
+    robot.obj.iParkingType = 1;
+    robot.obj.iParkingNature = 1;
     cb(null, robot);
 };
 
 var L4 = function(robot, cb){
-    robot.obj.tStart = '2015-10-03 22:00:00';
-    robot.obj.tEnd = '2015-10-04 09:00:00';
-    robot.obj.szLiensePlate = '沪Axxxxxxx';
+    robot.obj.iSpaceID = robot.result.insertId;
     cb(null, robot);
 };
 
 var L5 = function(robot, cb){
-    robot.obj.iOrderID = robot.result.iOrderID;
-    cb(null, robot);
-};
-
-var L6 = function(robot, cb){
-    robot.obj.iPassStatus = 0;
-    robot.obj.szCode = robot.result.szCode;
-    cb(null, robot);
-};
-
-var L7 = function(robot, cb){
-    robot.obj.iPassStatus = 1;
+    console.error('车位' + robot.obj.iSpaceID + '已认证');
     cb(null, robot);
 };
 
@@ -57,17 +52,12 @@ var test_cases =
     L1,
     login.login,
     L2,
-    pending.publish,
+    community.publish,
     L3,
-    login.login,
+    space.addspace,
     L4,
-    order.book,
+    space.approve,
     L5,
-    order.pay,
-    L6,
-    order.check,
-    L7,
-    order.check
 ];
 
 function test_main() {

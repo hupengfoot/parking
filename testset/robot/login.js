@@ -13,8 +13,8 @@ login.getRobot = function(cb){
 
 login.login = function(robot, cb){
     var obj = {};
-    obj.iPhoneNum = '13917658422';
-    obj.szPasswd = robot_util.encodePasswd('000000');
+    obj.iPhoneNum = robot.obj.iPhoneNum;
+    obj.szPasswd = robot.obj.szPasswd;
  
     var dist_url = robot_util.makeUrl('/login', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){

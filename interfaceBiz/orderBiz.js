@@ -19,6 +19,7 @@ var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
 var eventDefine = require(path.join(global.rootPath, 'define/event'));
 var msgCenter = require(path.join(global.rootPath, 'oss/send'));
 var user_msg_define = require(path.join(global.rootPath, "define/userMsg"));
+var global_config = require(path.join(global.rootPath, "config/global_conf"));
 
 var orderBiz = {};
 var _ = {};
@@ -213,9 +214,8 @@ orderBiz.book = function(params, cb){
 	    });
 	},
 	function(pendingInfo, callback){
-	    //判断抢单条件是否满足
+	    //判断抢单时间条件是否满足
 	    _.checkOrderCondition(params, pendingInfo, function(err, pass){
-		console.error(pass);
 		if(pass === true){
 		    callback(null, pendingInfo);
 		}else{
@@ -274,7 +274,7 @@ orderBiz.book = function(params, cb){
 			    eventMgr.emit(eventDefine.enumType.BOOK_SUCCESS, obj);
 
 			    //注册支付超时事件 支付超时事件设置为15分钟
-			    redis_mgr.addTimer(15 * 60, obj, payOverTimeHandle);
+			    redis_mgr.addTimer(global_config.payOverTime, obj, payOverTimeHandle);
 			}else{
 			    callback(err1);
 			}
