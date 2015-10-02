@@ -133,19 +133,23 @@ exchangeBiz.query = function(params, cb){
 		callback(err, rows);
 	    });
 	},
-	function(pendingInfos, callback){
-	    var goodsArray = pendingInfos.map(function(one){
+	function(goodList, callback){
+	    if(goodList.length <= 0){
+		callback(null, goodList, []);
+		return;
+	    }
+	    var goodsArray = goodList.map(function(one){
 		return one.iGoodsID;
 	    });
 	    goodsBiz.getBatchInfo(goodsArray, function(err, rows, fields){
-		callback(err, pendingInfos, rows);
+		callback(err, goodList, rows);
 	    });
 	}
-    ], function(err, pendingInfos, goodsInfos){
+    ], function(err, goodList, goodsInfos){
 	if(err){
 	    cb(err);
 	}else{
-	    cb(null, {'exchange':pendingInfos, 'goods':goodsInfos});
+	    cb(null, {'exchange':goodList, 'goods':goodsInfos});
 	}
     });
 };
