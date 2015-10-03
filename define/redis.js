@@ -31,11 +31,11 @@ var redis_type = [
     },{
 	iType : redis_type_enum.ORDER,//存放订单验证码
 	szPre : "ORDER",
-	TIMEOUT : 864000
+	TIMEOUT : 86400
     },{
 	iType : redis_type_enum.HAS_PENDING_TODAY,//存放今日是否挂单标记
 	szPre : "HAS_PENDING_TODAY",
-	TIMEOUT : 864000
+	TIMEOUT : 86400
     },{
 	iType : redis_type_enum.MISC,//存放今日是否挂单标记
 	szPre : "MISC"
