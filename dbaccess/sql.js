@@ -52,6 +52,7 @@ module.exports.sqls = {
     '10024': ' tbUserInfo set iScore = IF(iScore > - (!), iScore + (!), 0) where iPhoneNum = ?',
     '10025': 'tbUserInfo set iCredit = iCredit + ? where iPhoneNum = ?', 
     '10026': ' tbUserInfo set iForbidden = ? where iPhoneNum = ?',
+    '10027': 'tbUserInfo set tLastLoginTime = now() where iPhoneNum = ?',
 	
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime, iRoleType) values(?, now(), 1)',

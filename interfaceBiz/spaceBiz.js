@@ -9,6 +9,8 @@ var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 var eventMgr = require(path.join(global.rootPath, "util/eventMgr"));
 var eventDefine = require(path.join(global.rootPath, 'define/event'));
 var communityBiz = require(path.join(global.rootPath, 'interfaceBiz/communityBiz'));
+var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
+var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 
 var spaceBiz = {};
 var _ = {};
@@ -17,6 +19,14 @@ var spaceStatusEnum = {
     'NOT_PENDING':0,
     'HAS_PENDING':1
 };
+
+
+var bookSuccessTimeHandle = redis_mgr.regTimer(redis_define.timer.BOOK_SUCCESS, function(obj){
+    var param = {};
+    param.iStatus = 0;
+    param.iSpaceID = obj.iSpaceID;
+    spaceBiz.updateSpaceStatus(param, function(){});
+});
 
 spaceBiz.init = function(){
     eventMgr.register(eventDefine.enumType.BOOK_SUCCESS, function(obj){
@@ -28,10 +38,9 @@ spaceBiz.init = function(){
     eventMgr.register(eventDefine.enumType.PENDING_OVER_TIME,function(obj){
 	_.pendingOverTimeOperate(obj);
     });
-    eventMgr.register(eventDefine.enumType.ORDER_FINISH,function(obj){
-	_.orderFinishOverTimeOperate(obj);
+    eventMgr.register(eventDefine.enumType.PAY_SUCCESS,function(obj){
+	_.paySuccessOperate(obj);
     });
-
 };
 
 spaceBiz.approve = function(params, cb){
@@ -122,11 +131,9 @@ _.pendingOverTimeOperate = function(obj){
     spaceBiz.updateSpaceStatus(param, function(){});
 };
 
-_.orderFinishOverTimeOperate = function(obj){
-    var param = {};
-    param.iStatus = 0;
-    param.iSpaceID = obj.iSpaceID;
-    spaceBiz.updateSpaceStatus(param, function(){});
+_.paySuccessOperate = function(obj){
+    //注册该单结束超时事件
+    redis_mgr.addTimer(obj.TIMEOUT, obj, bookSuccessTimeHandle);
 };
 
 module.exports = spaceBiz;

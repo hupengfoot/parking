@@ -98,6 +98,7 @@ _.login = function(params, cb){
 	}else{
 	    cb(err, result);
 	}
+	userBiz.updateLastLoginTime(params, function(){});
     });
 };
 

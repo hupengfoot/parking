@@ -115,6 +115,7 @@ orderBiz.pay = function(params, cb){
 		    
 		    var obj = {};
 		    obj.iPendingID = orderInfo.iPendingID;
+		    obj.iSpaceID = orderInfo.iSpaceID;
 		    obj.iPhoneNum = params.iPhoneNum;
 		    obj.tOrderStart = orderInfo.tStart;
 		    obj.tOrderEnd = orderInfo.tEnd;

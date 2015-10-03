@@ -40,6 +40,10 @@ userBiz.queryLiensePlate = function(params, cb){
     sqlPool.excute(3, [params.iPhoneNum], cb);
 };
 
+userBiz.updateLastLoginTime = function(params, cb){
+    sqlPool.excute(10027, [params.iPhoneNum], cb);
+};
+
 userBiz.updateInfo = function(params, cb){
     var iHasComplete = 0;
     if(params.szMail !== null && params.szMail !== undefined && params.szRealName !== null && params.szRealName !== undefined && params.szBankCard !== null && params.szBankCard !== undefined && params.szBankAddress !== null && params.szBankAddress !== undefined){

@@ -65,9 +65,6 @@ pendingBiz.init = function(){
     eventMgr.register(eventDefine.enumType.PAY_SUCCESS, function(obj){
 	_.paySuccessOperate(obj);
     });
-    eventMgr.register(eventDefine.enumType.ORDER_FINISH,function(obj){
-	_.orderFinishOperate(obj);
-    });
     eventMgr.register(eventDefine.enumType.PENDING_OVER_TIME,function(obj){
 	_.updatePendingStatus(obj, pendingStatusEnum.HAS_CLOSE);
     });
@@ -405,12 +402,8 @@ _.payOverTimeOperate = function(obj){
 
 _.paySuccessOperate = function(obj){
     _.updatePendingStatus(obj, 2);
-    //注册该单结束超时时间
+    //注册该单结束超时事件
     redis_mgr.addTimer(obj.TIMEOUT, obj, bookSuccessTimeHandle);
-};
-
-_.orderFinishOperate = function(obj){
-    _.updatePendingStatus(obj, 3);
 };
 
 _.getPendingListDetail = function(params, pendingArray, cb){

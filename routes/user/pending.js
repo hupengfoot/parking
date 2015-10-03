@@ -12,8 +12,12 @@ var msg = require(path.join(global.rootPath,'define/msg')).global_msg_define;
 
 router.post('/publish', function(req, res){
     var param = url.parse(req.url, true).query;
-    if(moment(param.tStart).hour() > 22 || moment(param.tEnd).hour() < 8 || moment(param.tStart).unix() < moment(new Date()).unix()){
+    if(moment(param.tStart).hour() > 22 || moment(param.tEnd).hour() < 8){
 	msg.wrapper(msg.code.ERR_NOT_ALLOW_TIME, null, res);
+	return;
+    }
+    if(moment(param.tStart).unix() < moment(new Date()).unix()){
+	msg.wrapper(msg.code.ERR_NOT_ALLOW_START_TIME, null, res);
 	return;
     }
     pendingBiz.publish(param, function(err, rows, fields){
