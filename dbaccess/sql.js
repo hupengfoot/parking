@@ -54,6 +54,7 @@ module.exports.sqls = {
     '10026': ' tbUserInfo set iForbidden = ? where iPhoneNum = ?',
     '10027': 'tbUserInfo set tLastLoginTime = now() where iPhoneNum = ?',
     '10028': 'tbCommunityInfo set iChargesType = ?, iPer = ?, iPerPrice = ?, iMaxPrice = ?, szX = ?, szY = ?, iProvince = ?, iCity = ?, szCommunityName = ?, szAddressName = ?, szPicUrl = ?, tTime = now() where iCommunityID = ?',
+    '10029': 'tbUserInfo set iMoney = iMoney + ? where iPhoneNum = ?',
 	
     //下标20000-30000的用于insert语句
     '20001': 'into tbUserInfo (iPhoneNum, tRegisterTime, iRoleType) values(?, now(), 1)',

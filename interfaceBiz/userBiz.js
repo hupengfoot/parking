@@ -116,6 +116,10 @@ userBiz.updateOrderTime = function(params, cb){
     sqlPool.excute(10022, [params.iOrderTime, params.iPhoneNum], cb);
 };
 
+userBiz.updateMoney = function(params, cb){
+    sqlPool.excute(10029, [params.iPrice, params.iPhoneNum], cb);
+};
+
 userBiz.control = function(params, cb){
     async.waterfall([
 	function(callback){
@@ -185,22 +189,30 @@ _.paySuccessOperate = function(params){
 	    obj2.iPhoneNum = pendingInfo.iPhoneNum;
 	    obj2.iRentTime = (Date.parse(params.tEnd) - Date.parse(params.tStart)) / 1000 / 60 / 60;
 	    userBiz.updateRentTime(obj2, function(){
-		callback(null);
+		callback(null, pendingInfo);
 	    });
 	},
-	function(callback){
+	function(pendingInfo, callback){
 	    var obj3 = {};
-	    obj3.iPhoneNum = params.iPhoneNum;
-	    obj3.iScore = 10;
-	    userBiz.updateScore(obj3, function(){
+	    obj3.iPhoneNum = pendingInfo.iPhoneNum;
+	    obj3.iPrice = params.iPrice;
+	    userBiz.updateMoney(obj3, function(){
 		callback(null);
 	    });
 	},
 	function(callback){
 	    var obj4 = {};
 	    obj4.iPhoneNum = params.iPhoneNum;
-	    obj4.iOrderTime = (Date.parse(params.tEnd) - Date.parse(params.tStart)) / 1000 / 60 / 60;
-	    userBiz.updateOrderTime(obj4, function(){
+	    obj4.iScore = 10;
+	    userBiz.updateScore(obj4, function(){
+		callback(null);
+	    });
+	},
+	function(callback){
+	    var obj5 = {};
+	    obj5.iPhoneNum = params.iPhoneNum;
+	    obj5.iOrderTime = (Date.parse(params.tEnd) - Date.parse(params.tStart)) / 1000 / 60 / 60;
+	    userBiz.updateOrderTime(obj5, function(){
 		callback(null);
 	    });
 	}

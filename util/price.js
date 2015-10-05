@@ -50,8 +50,7 @@ _.perHourFunc = function(params){
 	var price = Math.ceil((tEnd.toArray()[3] - tStart.toArray()[3]) / params.iPer) * params.iPerPrice;
 	return price > params.iMaxPrice ? params.iMaxPrice : price;
     }else{
-	var price = Math.floor((tEnd.valueOf() - tStart.valueOf()) / 1000 / 3600 / 24) * params.iMaxPrice;
-	console.error(price);
+	var price = Math.ceil((tEnd.valueOf() - tStart.valueOf()) / 1000 / 3600 / 24) * params.iMaxPrice;
 	if(tEnd.toArray()[3] > 12){
 	    var makeup = Math.ceil((tEnd.toArray()[3] - 12) / params.iPer) * params.iPerPrice;
 	    makeup = makeup > params.iMaxPrice ? params.iMaxPrice : makeup;

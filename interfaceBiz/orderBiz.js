@@ -120,6 +120,7 @@ orderBiz.pay = function(params, cb){
 		    obj.tOrderStart = orderInfo.tStart;
 		    obj.tOrderEnd = orderInfo.tEnd;
 		    obj.TIMEOUT = (Date.parse(orderInfo.tEnd) - Date.parse(new Date())) /1000;
+		    obj.iPrice = orderInfo.iPrice;
 		    eventMgr.emit(eventDefine.enumType.PAY_SUCCESS, obj);
 		    orderBiz.updateUserOrderPay(params, 1, function(){});
 		    //向挂单用户发送订单成功消息

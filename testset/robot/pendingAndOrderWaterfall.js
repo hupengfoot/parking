@@ -15,8 +15,8 @@ var L1 = function(robot, cb){
 
 var L2 = function(robot, cb){
     robot.obj.iSpaceID = 9;
-    robot.obj.tStart = '2015-10-03 22:00:00';
-    robot.obj.tEnd = '2015-10-04 10:00:00';
+    robot.obj.tStart = '2015-10-05 22:00:00';
+    robot.obj.tEnd = '2015-10-06 10:00:00';
     robot.obj.iMiniRental = 4;
     cb(null, robot);
 };
@@ -29,8 +29,8 @@ var L3 = function(robot, cb){
 };
 
 var L4 = function(robot, cb){
-    robot.obj.tStart = '2015-10-03 22:00:00';
-    robot.obj.tEnd = '2015-10-04 09:00:00';
+    robot.obj.tStart = '2015-10-05 22:00:00';
+    robot.obj.tEnd = '2015-10-06 09:00:00';
     robot.obj.szLiensePlate = '沪Axxxxxxx';
     cb(null, robot);
 };
