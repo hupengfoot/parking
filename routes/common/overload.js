@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var url = require('url');
 var redis_mgr = require(path.join(global.rootPath, "redis/redis_mgr.js"));
+var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 var msg = require(path.join(global.rootPath, "define/msg")).global_msg_define;
 var queryCenter = require(path.join(global.rootPath, "routes/common/common"));
 
@@ -25,7 +26,7 @@ router.use(function(req, res, next){
     }else{
         iCount[szKey]++;
         if(iCount[szKey] > 10){
-            redis_mgr.incrby(redis_type_enum.ACCESS_QUERY, szKey, iCount[szKey], function(err, redis_value){
+            redis_mgr.incrby(redis_define.enum.ACCESS_QUERY, szKey, iCount[szKey], function(err, redis_value){
                 preCountArray[szKey] = redis_value;
                 if(err){
                     preCountArray[szKey] = queryObj.limit + 1;

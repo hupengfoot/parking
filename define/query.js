@@ -416,6 +416,15 @@ module.exports.global_query_define = [
     comment : '小区列表接口'
 },
 {
+    router : '/community/update',
+    query : ['iCommunityID', 'iChargesType', 'iPer', 'iPerPrice', 'iMaxPrice', 'szX', 'szY', 'iProvince', 'iCity', 'szCommunityName', 'szAddressName', 'szPicUrl'],
+    queryType : ['num', 'num', 'num', 'num', 'num', 'string', 'string', 'num', 'num', 'string', 'string', 'string'],
+    access : 3,
+    limit : 500,
+    comment : '小区更新接口'
+},
+
+{
     router : '/user/exchange/exchange',
     query : ['iGoodsID', 'iNum'],
     queryType : ['num', 'num'],

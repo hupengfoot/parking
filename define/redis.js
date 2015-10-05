@@ -12,6 +12,7 @@ redis_type_enum.INCREMENT = 4;//存放自增键
 redis_type_enum.ORDER = 5;//存放订单验证码
 redis_type_enum.HAS_PENDING_TODAY = 6;//今日是否挂单标记
 redis_type_enum.MISC = 7;//今日是否挂单标记
+redis_type_enum.ACCESS_QUERY = 8;//接口访问计数
 
 var redis_type = [
     {
@@ -39,6 +40,9 @@ var redis_type = [
     },{
 	iType : redis_type_enum.MISC,//存放今日是否挂单标记
 	szPre : "MISC"
+    },{
+	iType : redis_type_enum.ACCESS_QUERY,
+	szPre : "ACCESS_QUERY"
     }
 ];
 

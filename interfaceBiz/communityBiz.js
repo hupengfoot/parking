@@ -11,6 +11,11 @@ var price = require(path.join(global.rootPath, 'util/price'));
 
 var communityBiz = {};
 
+communityBiz.update = function(params, cb){
+    var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.szCommunityName, params.szAddressName, params.szPicUrl, params.iCommunityID];
+    sqlPool.excute(10028, insertParams, cb);
+};
+
 communityBiz.publish = function(params, cb){
     var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.szCommunityName, params.szAddressName, params.szPicUrl];
     sqlPool.excute(20004, insertParams, function(err, rows, fields){

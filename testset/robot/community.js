@@ -92,7 +92,6 @@ community.search = function(robot, cb){
     
     var dist_url = robot_util.makeUrl('/community/search', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
-	console.error(res.cookies);
         robot_util.checkRes(body, function(err, result){
 	    console.error(result);
 	    cb(null, robot);
@@ -100,13 +99,39 @@ community.search = function(robot, cb){
     });
 };
 
+community.update = function(robot, cb){
+    var obj = {};
+    obj.iCommunityID = 1;
+    obj.iChargesType = 1;
+    obj.iPer = 1;
+    obj.iPerPrice = 2;
+    obj.iMaxPrice= 30;
+    obj.szX = '7364934.12376123';
+    obj.szY = '126312.1297636';
+    obj.iProvince = 1;
+    obj.iCity = 1;
+    obj.szCommunityName = 'sdhasd';
+    obj.szAddressName = 'asjkdg';
+    obj.szPicUrl = 'sddasd';
+    
+    var dist_url = robot_util.makeUrl('/community/update', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
+
 var test_cases =
 [
     getRobot,
     login,
     //community.publish,
-    //community.get,
-    community.search,
+    community.update,
+    community.get,
+    //community.search,
     //community.list
 ];
 

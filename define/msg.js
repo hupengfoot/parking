@@ -37,6 +37,7 @@ msg.code.ERR_NOT_ALLOW_TIME = -31;
 msg.code.ERR_NOT_ALLOW_GROB_OWN_PENDING = -32;
 msg.code.ERR_NOT_EXIST_COMMUNITY = -33;
 msg.code.ERR_NOT_ALLOW_START_TIME = -34;
+msg.code.ERR_FRESH_QUERY = -35;
 
 msg.define[msg.code.ERR_SUCCESS] = 'success';
 msg.define[msg.code.ERR_DB_ERR] = '服务器内部错误，请联系客服';
@@ -73,6 +74,7 @@ msg.define[msg.code.ERR_NOT_ALLOW_TIME] = "抢挂单开始时间不得晚于22�
 msg.define[msg.code.ERR_NOT_ALLOW_GROB_OWN_PENDING] = "不允许抢自己的挂单";
 msg.define[msg.code.ERR_NOT_EXIST_COMMUNITY] = "不存在的小区";
 msg.define[msg.code.ERR_NOT_ALLOW_START_TIME] = "挂单开始时间小于当前时间";
+msg.define[msg.code.ERR_FRESH_QUERY] = "访问过频，请稍后再试";
 
 msg.wrapper = function(err,result,res){
     if(err){

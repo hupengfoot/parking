@@ -1,7 +1,5 @@
 'use strict';
 
-global.rootPath = __dirname + '/../';
-
 var path = require('path');
 var moment = require('moment');
 var util = require('util');
