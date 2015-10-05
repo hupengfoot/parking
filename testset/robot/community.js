@@ -73,6 +73,8 @@ community.list = function(robot, cb){
     var obj = {};
     obj.iProvince = 1;
     obj.iCity = 1;
+    obj.iCommunityID = 7;
+    obj.iNum = 10;
     
     var dist_url = robot_util.makeUrl('/community/list', 0);
     robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
@@ -129,10 +131,10 @@ var test_cases =
     getRobot,
     login,
     //community.publish,
-    community.update,
-    community.get,
+    //community.update,
+    //community.get,
     //community.search,
-    //community.list
+    community.list
 ];
 
 function test_main() {

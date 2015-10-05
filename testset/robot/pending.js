@@ -80,8 +80,8 @@ pending.query = function(robot, cb){
     var obj = {};
     obj.iCommunityID = 5;
     obj.iPendingID = 0;
-    obj.tStart = '2014-11-12';
-    obj.tEnd = '2015-11-13';
+    obj.tStart = '';
+    obj.tEnd = '';
     obj.iNum = 10;
  
     var dist_url = robot_util.makeUrl('/user/pending/query', 0);
@@ -185,9 +185,9 @@ var test_cases =
 [
     pending.login,
     L1,
-    pending.publish,
+    //pending.publish,
     //pending.querymine,
-    //pending.query,
+    pending.query,
     //pending.detail,
     //pending.calprice,
     //pending.price_get,

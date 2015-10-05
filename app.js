@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 //各种模块初始化
-redis_mgr.init(7776);
+redis_mgr.init(global.port);
 queryCenter.init();
 aliyunBiz.init();
 spaceBiz.init();

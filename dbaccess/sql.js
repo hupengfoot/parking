@@ -22,7 +22,7 @@ module.exports.sqls = {
     '20':'* from tbMessageBox_! as b left join tbMessageInfo_! as m on b.iMessageID = m.iMessageID where b.iPhoneNum = ? and b.iMessageID > ? ! order by b.iMessageID desc limit !',
     '21': ' * from tbGoodsInfo where iGoodsID in(!)  and iDelete = 0',
     '22':' * from tbAnnounceInfo where iAnnounceID > ? ! limit !',
-    '23':' * from tbCommunityInfo where iProvince = ? and iCity = ?',
+    '23':' * from tbCommunityInfo where iProvince = ? and iCity = ? ! limit !',
     '24':'* from tbParkingSpaceInfo where iCommunityID = ? and iDelete = 0',
     '25':'* from tbPendingInfo_! where iCommunityID = ? and iPendingID > ? ! limit !',
     //下标10000-20000的用于update语句

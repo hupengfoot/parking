@@ -47,7 +47,9 @@ communityBiz.get = function(params, cb){
 };
 
 communityBiz.list = function(params, cb){
-    sqlPool.excute(23, [params.iProvince, params.iCity], function(err, rows, fields){
+    var szWhere = '';
+    szWhere = szWhere + ' and iCommunityID > ' + params.iCommunityID;
+    sqlPool.excute(23, [params.iProvince, params.iCity, szWhere, params.iNum], function(err, rows, fields){
 	cb(err, rows);
     });
 };

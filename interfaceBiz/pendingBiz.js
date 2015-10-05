@@ -302,12 +302,7 @@ pendingBiz.list = function(params, cb){
 	function(callback){
 	    var tableNum = params.iCommunityID % pendingCnt;
 	    var szWhere = '';
-	    if(params.tStart !== null && params.tStart !== undefined && params.tStart.length > 0){
-		szWhere = szWhere + " and unix_timestamp(tStart) >= unix_timestamp('" + params.tStart + "')" ;
-	    }
-	    if(params.tEnd !== null && params.tEnd !== undefined && params.tEnd.length > 0){
-		szWhere = szWhere + " and unix_timestamp(tStart) <= unix_timestamp('" + params.tEnd + "')";
-	    }
+	    szWhere = szWhere + misc.getTimeLimit(params);
 	    sqlPool.excute(25, [tableNum, params.iCommunityID, params.iPendingID, szWhere, params.iNum], function(err, rows, fields){
 		if(err){
 		    callback(err);

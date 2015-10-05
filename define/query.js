@@ -409,8 +409,8 @@ module.exports.global_query_define = [
 },
 {
     router : '/community/list',
-    query : ['iProvince', 'iCity'],
-    queryType : ['num', 'num'],
+    query : ['iProvince', 'iCity', 'iCommunityID', 'iNum'],
+    queryType : ['num', 'num', 'num', 'num'],
     access : 3,
     limit : 500,
     comment : '小区列表接口'
