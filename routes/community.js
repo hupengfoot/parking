@@ -26,6 +26,7 @@ router.post('/publish', function(req, res){
 
 router.post('/search', function(req, res){
     var param = url.parse(req.url, true).query;
+    console.error('search community name is ' + param.szName);
     communityBiz.search(param, function(err, rows, fields){
 	msg.wrapper(err, rows, res);
     });
