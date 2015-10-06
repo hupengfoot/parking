@@ -133,8 +133,8 @@ var test_cases =
     //community.publish,
     //community.update,
     //community.get,
-    //community.search,
-    community.list
+    community.search,
+    //community.list
 ];
 
 function test_main() {

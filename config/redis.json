@@ -2,8 +2,8 @@
     "iRedisName":1,
     "szRedisIP":"127.0.0.1",
     "szRedisPort":6379,
-    "szPwd":"",
-    "szSlaveIP":"10.206.37.14",
-    "szSlavePort":6479,
+    "szPwd":"HelloKitty@Tencent",
+    "szSlaveIP":"127.0.0.1",
+    "szSlavePort":6379,
     "szSlavePwd":"HelloKitty@Tencent"
 }]
