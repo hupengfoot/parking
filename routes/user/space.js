@@ -33,8 +33,31 @@ router.post('/addspace', function(req, res){
 
 router.post('/deletespace', function(req, res){
     var param = url.parse(req.url, true).query;
-    spaceBiz.deleteSpace(param, function(err, rows, fields){
-	msg.wrapper(err, rows, res);
+    async.waterfall([
+	function(callback){
+	    spaceBiz.detail(param, function(err, rows, fields){
+		if(err){
+		    callback(err);
+		}else{
+		    if(rows.length > 0){
+			if(rows[0].iStatus > 0){
+			    callback(msg.code.ERR_HAS_PENDING_SPACE);
+			}else{
+			    callback(null);
+			}
+		    }else{
+			callback(msg.code.ERR_NOT_YOUR_SPACE);
+		    }
+		}
+	    });
+	},
+	function(callback){
+	    spaceBiz.deleteSpace(param, function(err, rows, fields){
+		callback(err, rows);
+	    });
+	}
+    ], function(err, results){
+	msg.wrapper(err, results, res);
     });
 });
 
