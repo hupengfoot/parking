@@ -906,4 +906,15 @@ redis_mgr.llen = function(iType, key, cb){
     inst.llen(szKey, cb);
 };
 
+redis_mgr.lrange = function(iType, key, start, stop, cb){
+    if(_.check(key)){
+        console.error("redis lrange recv null key:%s", key);
+        assert(false);
+        return;
+    }
+    var szKey = _.get_name(iType, key);
+    var inst = _.getRedis(redis_define.enum.CONFIG);
+    inst.lrange(szKey, start, stop, cb);
+};
+
 module.exports = redis_mgr;

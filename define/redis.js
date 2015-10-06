@@ -13,6 +13,8 @@ redis_type_enum.ORDER = 5;//存放订单验证码
 redis_type_enum.HAS_PENDING_TODAY = 6;//今日是否挂单标记
 redis_type_enum.MISC = 7;//今日是否挂单标记
 redis_type_enum.ACCESS_QUERY = 8;//接口访问计数
+redis_type_enum.CONFIG=47; //存放需要动态设置的KEY
+redis_type_enum.USER_SEARCHED=48; //存放用户搜索过的小区
 
 var redis_type = [
     {
@@ -43,6 +45,12 @@ var redis_type = [
     },{
 	iType : redis_type_enum.ACCESS_QUERY,
 	szPre : "ACCESS_QUERY"
+    },{
+	iType : redis_type_enum.CONFIG,
+	szPre : "CONFIG"
+    },{
+	iType : redis_type_enum.USER_SEARCHED,
+	szPre : "USER_SEARCHED"
     }
 ];
 

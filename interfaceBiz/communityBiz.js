@@ -6,6 +6,7 @@ var util = require('util');
 var sqlPool = require(path.join(global.rootPath, 'dbaccess/dbparking'));
 var msg = require(path.join(global.rootPath, "define/msg")).global_msg_define;
 var redis_mgr = require(path.join(global.rootPath, 'redis/redis_mgr'));
+var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 var baiduMap = require(path.join(global.rootPath, 'util/baiduMap'));
 var price = require(path.join(global.rootPath, 'util/price'));
 
@@ -15,6 +16,28 @@ communityBiz.update = function(params, cb){
     var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.szCommunityName, params.szAddressName, params.szPicUrl, params.iCommunityID];
     sqlPool.excute(10028, insertParams, cb);
 };
+
+communityBiz.suggest = function(params, cb){
+    async.waterfall([
+	function(callback){
+	    redis_mgr.lrange(redis_define.enum.USER_SEARCHED, params.iPhoneNum, 0, -1, function(err, info){
+		callback(err, info);
+	    });
+	},
+	function(communityArray, callback){
+	    if(communityArray.length <= 0){
+		callback(null, []);
+	    }else{
+		communityBiz.getBatchInfo(communityArray, function(err, rows, fields){
+		    callback(err, rows);
+		});
+	    }
+	}
+    ], function(err, results){
+	cb(err, results);
+    });
+};
+
 
 communityBiz.publish = function(params, cb){
     var insertParams = [params.iChargesType, params.iPer, params.iPerPrice, params.iMaxPrice, params.szX, params.szY, params.iProvince, params.iCity, params.szCommunityName, params.szAddressName, params.szPicUrl];

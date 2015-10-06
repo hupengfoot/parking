@@ -17,6 +17,13 @@ router.post('/update', function(req, res){
     });
 });
 
+router.post('/suggest', function(req, res){
+    var param = url.parse(req.url, true).query;
+    communityBiz.suggest(param, function(err, rows, fields){
+	msg.wrapper(err, rows, res);
+    });
+});
+
 router.post('/publish', function(req, res){
     var param = url.parse(req.url, true).query;
     communityBiz.publish(param, function(err, rows, fields){

@@ -153,6 +153,7 @@ pendingBiz.query = function(params, cb){
 	}
     ], function(err, results){
 	cb(err, results);
+	misc.changeOffenSearch(params.iCommunityID, params.iPhoneNum);
     });
 };
 

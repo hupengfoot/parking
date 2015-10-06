@@ -5,15 +5,19 @@
         "script"      : "bin/www",
         "max_restarts": 3,
 	"max_memory_restart" : "300M",
-        "out_file"    : "./logs/www.log",
-        "error_file"  : "./logs/www.error"
+	"log_date_format"  : "YYYY-MM-DD HH:mm:SS",
+	"log_file"   : "logs/www0.log",
+        "out_file"    : "./logs/www0.out",
+        "error_file"  : "./logs/www0.error"
     },{
         "name":"upload0",
         "args":["3002"],
         "script"      : "bin/upload",
         "max_restarts": 3,
 	"max_memory_restart" : "300M",
-        "out_file"    : "./logs/upload.log",
-        "error_file"  : "./logs/upload.error"
+	"log_date_format"  : "YYYY-MM-DD HH:mm:SS",
+	"log_file"   : "logs/upload0.log",
+        "out_file"    : "./logs/upload0.www",
+        "error_file"  : "./logs/upload0.error"
     }]
 }

@@ -69,6 +69,19 @@ community.get = function(robot, cb){
     });
 };
 
+community.suggest = function(robot, cb){
+    var obj = {};
+    
+    var dist_url = robot_util.makeUrl('/community/suggest', 0);
+    robot_util.postWithKey(robot, dist_url, obj, function(err, res, body){
+	console.error(res.cookies);
+        robot_util.checkRes(body, function(err, result){
+	    console.error(result);
+	    cb(null, robot);
+        });
+    });
+};
+
 community.list = function(robot, cb){
     var obj = {};
     obj.iProvince = 1;
@@ -133,7 +146,8 @@ var test_cases =
     //community.publish,
     //community.update,
     //community.get,
-    community.search,
+    //community.search,
+    community.suggest,
     //community.list
 ];
 

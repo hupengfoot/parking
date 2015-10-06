@@ -408,6 +408,17 @@ module.exports.global_query_define = [
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
+    router : '/community/suggest',
+    query : [],
+    queryType : [],
+    access : 1,
+    limit : 500,
+    comment : '小区提示接口'
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szCommunityName:'xxxx'}]}
+    //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
+},
+
+{
     router : '/community/list',
     query : ['iProvince', 'iCity', 'iCommunityID', 'iNum'],
     queryType : ['num', 'num', 'num', 'num'],

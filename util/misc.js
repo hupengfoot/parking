@@ -1,5 +1,13 @@
 'use strict'
 
+var path = require('path');
+var util = require('util');
+var async = require('async');
+
+var redis_mgr = require(path.join(global.rootPath,'redis/redis_mgr'));
+var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
+
+
 var misc = {};
 
 misc.getiPhoneNumTail = function(iPhoneNum){
@@ -71,6 +79,28 @@ misc.checkParaParam = function checkParams(str){
     } else {
        return null; 
     }
+};
+
+misc.changeOffenSearch = function(iCommunityID, iPhoneNum){
+    async.waterfall([
+	function(callback){
+	    redis_mgr.rpush2(redis_define.enum.USER_SEARCHED, iPhoneNum, iCommunityID, function(err, info){
+		callback(null);
+	    });
+	},
+	function(callback){
+	    redis_mgr.llen(redis_define.enum.USER_SEARCHED, iPhoneNum, function(err, info){
+		if(!err && info > 5){ //最多存储5个常搜小区
+		    redis_mgr.lpop2(redis_define.enum.USER_SEARCHED, iPhoneNum, function(){
+		    });
+		    callback(null);
+		}else{
+		    callback(null);
+		}
+	    });
+	}
+    ], function(err, results){
+    });
 };
 
 module.exports = misc;
