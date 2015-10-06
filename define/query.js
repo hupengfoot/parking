@@ -404,7 +404,7 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '搜索小区接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szCommunityName:'xxxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', iChargesType:'xx', iPer:'xx', iPerPrice:'xx', iMaxPrice:'xx', szX:'xx', szY:'xx', iProvince:'xx', iCity:'xx', szCommunityName:'xxxx', szAddressName:'xx', szPicUrl:'xx', tTime:'xx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 {
@@ -414,7 +414,7 @@ module.exports.global_query_define = [
     access : 1,
     limit : 500,
     comment : '小区提示接口'
-    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', szCommunityName:'xxxx'}]}
+    //成功 {'errCode':0, 'msg':'success', 'result':[{iCommunityID:'xxxx', iChargesType:'xx', iPer:'xx', iPerPrice:'xx', iMaxPrice:'xx', szX:'xx', szY:'xx', iProvince:'xx', iCity:'xx', szCommunityName:'xxxx', szAddressName:'xx', szPicUrl:'xx', tTime:'xx'}]}
     //失败 {'errCode':-1, 'msg':'服务器内部错误，请联系客服'}
 },
 
