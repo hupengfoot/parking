@@ -183,15 +183,22 @@ login.admincontrol = function(robot, cb){
     });
 };
 
+var L1 = function(robot, cb){
+    robot.obj = {};
+    robot.obj.iPhoneNum = '13917658422';
+    cb(null, robot);
+};
+
 var test_cases =
 [
     login.getRobot,
+    L1,
     //login.register,
     //login.login,
     //login.control,
-    login.admincontrol,
+    //login.admincontrol,
     //login.modifypsw,
-    //login.sms_register,
+    login.sms_register,
     //login.updatepsw,
     //login.updateinfo,
     //login.queryMyInfo,

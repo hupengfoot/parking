@@ -8,4 +8,7 @@ module.exports.global_config={
     baiduMapAk : 'tNlhkboHzkSA3ev2Gk46foWO',
     iParamTypeCheck : 1,
     payOverTime : 900,
+    smsUserName : 'hupengfoot',
+    smsPasswd : 'EF7E23F4FCAB51A85F87D09647724878',
+    smsurl : 'http://api.smsbao.com/sms', 
 };

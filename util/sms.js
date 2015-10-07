@@ -1,8 +1,12 @@
 var path = require("path");
+var async = require('async');
+var request = require('request');
+var util = require('util');
+
 var redis_mgr = require(path.join(global.rootPath, "redis/redis_mgr"));
 var redis_define = require(path.join(global.rootPath, 'define/redis')).redis_define;
 var msg = require(path.join(global.rootPath, "define/msg")).global_msg_define;
-var async = require('async');
+var global_config = require(path.join(global.rootPath, 'config/global_conf')).global_config;
 
 var smsRedisItem = {};
 smsRedisItem.tTime = 0;
@@ -10,10 +14,17 @@ smsRedisItem.value = "";
 
 var sms = {};
 var _ = {};
+var content = '您的验证码为%s，在3分钟内有效';
+var smsurl = 'http://api.smsbao.com/sms?u=hupengfoot&p=EF7E23F4FCAB51A85F87D09647724878&m=13917658422&c=这个接口好扯淡';
 
-//TODO
-_.send = function(iPhoneNum){
-    return 0;
+_.send = function(iPhoneNum, szCode){
+    var sendContent = util.format(content, szCode);
+    var smsurl = global_config.smsurl + '?u=' + global_config.smsUserName + '&p=' + global_config.smsPasswd + '&m=' + iPhoneNum + '&c=' + sendContent;
+    request({url: smsurl}, function (err, res, body) {
+        if (!err && res.statusCode == 200) {
+	   console.log(body); // 打印google首页
+        }
+    });
 };
 
 sms.getsmsnum = function(){
@@ -47,8 +58,7 @@ sms.send = function(iPhoneNum, cb){
             smsRedisItem.tTime = Date.now();
             smsRedisItem.value = num;
             redis_mgr.set2(redis_define.enum.PHONE, iPhoneNum, smsRedisItem);
-	    var str = 'xxxxx'//TODO
-            var iRet = _.send(iPhoneNum);
+            var iRet = _.send(iPhoneNum, num);
             cb(iErr, {szCode : smsRedisItem.value});
         }else{
             cb(iErr);
